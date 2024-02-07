@@ -20,11 +20,11 @@
 - weather from destination
 - Hotel from destination
 
-## Technologies
+## - Technologies
 
 - React
 - Firebase
-- Typescript
+- [Typescript](https://typescript.org)
 - Javascript
 - HTML
 - CSS
