@@ -1,94 +1,45 @@
-import React from 'react'
-
-import { ListBox, ListBoxItem, ProgressBar, Text } from "react-aria-components";
-import { useAsyncList } from "react-stately";
-import CheckCircleIcon from "@spectrum-icons/workflow/CheckmarkCircle";
-
-type Item = {
-  user: { name: string };
-  urls: { regular: string };
-  alt_description: string;
-};
+import React, { useEffect, useState } from "react";
 
 function ImageGridExample() {
-  let list = useAsyncList<Item, number>({
-    async load({ signal, cursor }) {
-      let page = cursor || 1;
-      let res = await fetch(
-        `https://api.unsplash.com/photos?page=${page}&per_page=25&client_id=AJuU-FPh11hn7RuumUllp4ppT8kgiLS7LtOHp_sp4nc`,
-        { signal }
-      );
-      let items = await res.json();
-      return { items, cursor: page + 1 };
-    },
-  });
+  const [cities, setCities] = useState([]);
 
-  let renderEmptyState = () => {
-    if (list.isLoading) {
-      return <ProgressCircle />;
-    }
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "https://www.ryanair.com/api/views/locate/searchWidget/routes/en/airport/BER"
+        );
+        const data = await response.json();
+        const cityNames = data.map((item, index) => ({
+          id: item.arrivalAirport.iataCode,
+          name: item.arrivalAirport.city.name,
+          imageUrl: `https://picsum.photos/200/200?random=${index}`, // random
+        }));
+        setCities(cityNames);
+      } catch (error) {
+        console.error("error", error);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
-    <div className="bg-gradient-to-r from-sky-500 to-teal-500 p-2 sm:p-8 rounded-lg flex justify-center">
-      <ListBox
-        aria-label="Images"
-        items={list.items}
-        selectionMode="multiple"
-        layout="grid"
-        renderEmptyState={renderEmptyState}
-        className="overflow-auto outline-none bg-white rounded-lg shadow p-2 h-[350px] w-full max-w-[372px] grid grid-cols-3 gap-3 empty:flex"
-      >
-        {(item) => (
-          <ListBoxItem
-            textValue={item.user.name}
-            className="relative rounded outline-none group cursor-default"
-          >
+    <div>
+      <h2>Cities you can reach from BER</h2>
+      <div style={{ display: "flex", flexWrap: "wrap" }}>
+        {cities.map((city) => (
+          <div key={city.id} style={{ margin: 10, textAlign: "center" }}>
             <img
-              src={item.urls.regular}
-              alt={item.alt_description}
-              className="h-[80px] w-full object-cover rounded group-selected:ring-2 group-focus-visible:ring-4 group-selected:group-focus-visible:ring-4 ring-offset-2 ring-sky-600"
+              src={city.imageUrl}
+              alt={city.name}
+              style={{ width: 200, height: 200, borderRadius: "10px" }}
             />
-            <Text
-              slot="label"
-              className="text-[11px] text-gray-700 font-semibold overflow-hidden text-ellipsis whitespace-nowrap max-w-full block mt-1"
-            >
-              {item.user.name}
-            </Text>
-            <div className="absolute top-2 left-2 text-sky-800 rounded-full leading-[0] bg-white border border-white border-solid hidden group-selected:block">
-              <CheckCircleIcon size="S" />
-            </div>
-          </ListBoxItem>
-        )}
-      </ListBox>
+            <h3>{city.name}</h3>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
 
-function ProgressCircle() {
-  return (
-    <ProgressBar
-      aria-label="Loading…"
-      isIndeterminate
-      className="flex items-center justify-center w-full"
-    >
-      <svg
-        className="animate-spin h-5 w-5 text-sky-800"
-        fill="none"
-        viewBox="0 0 24 24"
-      >
-        <circle
-          className="opacity-25 stroke-current stroke-[4px]"
-          cx="12"
-          cy="12"
-          r="10"
-        />
-        <path
-          className="opacity-75"
-          fill="currentColor"
-          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-        ></path>
-      </svg>
-    </ProgressBar>
-  );
-}
+export default ImageGridExample;
