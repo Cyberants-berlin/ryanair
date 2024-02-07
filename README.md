@@ -3,19 +3,19 @@
  ## - Home Screen with:
   - Table
   - Navbar
-  - login & register Buttons
+  - Login & Register Buttons
   - Function to come to the detail screen at the destination cell
-- Register/login Page with
+## - Register/Login Page with
   - Login button
   - Register buttton
-  - email textfield
-  - password textfield
-- Detail Screen with
+  - Email textfield
+  - Password textfield
+## - Detail Screen with:
   - Picture from destination
   - weather from destination
   - Hotel from destination
 
-## Technologies
+## Technologies:
   - React
   - Firebase
   - Typescript
@@ -23,3 +23,10 @@
   - HTML
   - CSS
   - Vite
+
+## - Wokers & their Roles
+  - Svenja Dunger(Web-Developer,Mastres of CSS, Mastres of JavaScript & Typescript)
+  - Samet Sanar(Web-Developer,Master of JavaScript & Typescript)
+  - René Kuhn(Project Manager, Git Master Protector of the main Branch)
+
+## - 
