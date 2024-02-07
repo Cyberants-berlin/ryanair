@@ -1,6 +1,6 @@
 # Find cheap Getaways from Berlin
 
-- Home Screen with
+ ## - Home Screen with:
   - Table
   - Navbar
   - login & register Buttons
@@ -15,7 +15,7 @@
   - weather from destination
   - Hotel from destination
 
-- Technologies
+## Technologies
   - React
   - Firebase
   - Typescript
