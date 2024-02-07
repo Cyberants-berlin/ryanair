@@ -3,9 +3,9 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: rgba(255, 255, 255, 0.199);
+  color: rgb(7, 1, 1);
+  color-scheme: ;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
