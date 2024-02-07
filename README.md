@@ -35,5 +35,3 @@
 - Svenja Dunger(Web-Developer,Mastres of CSS, Mastres of JavaScript & Typescript)
 - Samet Sanar(Web-Developer,Master of JavaScript & Typescript)
 - René Kuhn(Project Manager, Git Master Protector of the main Branch)
-
-## -
