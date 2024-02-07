@@ -1,1 +1,1 @@
-# Find Cheap Getaways from Berlin
+# Find cheap Getaways from Berlin
