@@ -61,7 +61,7 @@ interface Country {
   currency: string;
   defaultAirportCode: string;
   schengen: boolean;
-
+}
 
 interface Coordinates {
   latitude: number;
