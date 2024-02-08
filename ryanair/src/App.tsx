@@ -2,7 +2,8 @@
 // import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 // import Table from "./components/Table";
-import ImageGridExample from "./components/Cards";
+import DestinationCitiesCard from "./components/Cards";
+
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
       </nav>
 
       <div className="{inter.className}">
-        <ImageGridExample />
+        <DestinationCitiesCard />
       </div>
 
     </>
