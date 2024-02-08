@@ -30,8 +30,8 @@
 - CSS
 - Vite
 
-## - Wokers & their Roles
+## - Workers & their Roles
 
-- Svenja Dunger(Web-Developer,Mastres of CSS, Mastres of JavaScript & Typescript)
-- Samet Sanar(Web-Developer,Master of JavaScript & Typescript)
+- Svenja Dunger (Web-Developer,Master of CSS, Master of JavaScript & Typescript)
+- Samet Sanar (Web-Developer,Master of JavaScript & Typescript)
 - René Kuhn(Project Manager, Git Master Protector of the main Branch)
