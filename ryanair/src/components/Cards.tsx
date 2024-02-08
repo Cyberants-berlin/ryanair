@@ -117,6 +117,7 @@ const DestinationCitiesCard: React.FC = () => {
         </Card>
 
       ))}
+      {error && <p>Error: {error}</p>}
     </div>
   );
 };
