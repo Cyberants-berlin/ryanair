@@ -1,4 +1,13 @@
 import React, { useEffect, useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
+
 
 interface Airport {
   arrivalAirport: {
@@ -46,18 +55,23 @@ const ImageGridExample: React.FC = () => {
   return (
     <div>
       <h2>Cities you can reach from BER</h2>
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
+      <div className="grid grid-cols-3 gap-8">
         {cities.map((city: City) => (
-          <div key={city.id} style={{ margin: 10, textAlign: "center" }}>
-            <img
-              src={city.imageUrl}
-              alt={city.name}
-              style={{ width: 200, height: 200, borderRadius: "10px" }}
-            />
-            <h3>{city.name}</h3>
-          </div>
+
+          <Card key={city.id} className="flex flex-col justify-between">
+          <CardHeader className="flex-row gap-4 items-center">
+            
+              <div>
+                <CardTitle>{city.name}</CardTitle>
+                <CardDescription>Country
+                </CardDescription>
+              </div>
+
+            </CardHeader>
+            <CardContent>city information</CardContent>
+            <CardFooter><button>View city</button></CardFooter>
+          </Card>
         ))}
-        {error && <p style={{ color: "red" }}>{error}</p>}
       </div>
     </div>
   );
