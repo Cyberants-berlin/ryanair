@@ -8,8 +8,8 @@ import DestinationCitiesCard from "./components/Cards";
 function App() {
   return (
     <>
-      <nav>
-        <h1>Ryanair API</h1>
+      <nav className=" py-7">
+        <h1 className="text-9xl text-center subpixel-antialiased font-bold leading-10 my-4 px-4">Ryanair API</h1>
       </nav>
 
       <div className="{inter.className}">
