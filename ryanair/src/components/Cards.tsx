@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+
 import {
   Card,
   CardContent,
@@ -11,6 +12,12 @@ import {
 import app from './firebaseConfig';
 import { getFirestore } from "firebase/firestore";
 import { collection, getDocs } from 'firebase/firestore';
+
+
+
+
+
+// Firestore data converter to parse the documents into strongly typed objects
 
 
 
@@ -54,7 +61,7 @@ interface Country {
   currency: string;
   defaultAirportCode: string;
   schengen: boolean;
-}
+
 
 interface Coordinates {
   latitude: number;
@@ -76,6 +83,8 @@ const DestinationCitiesCard: React.FC = () => {
         querySnapshot.forEach((doc) => {
           const data = doc.data() as RouteDocument; // Cast to RouteDocument
           citiesData.push(data.arrivalAirport);
+
+    
         });
         setCities(citiesData);
       } catch (error) {
