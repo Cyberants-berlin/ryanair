@@ -32,7 +32,7 @@ const ImageGridExample: React.FC = () => {
         const cityNames: City[] = data.map((item: Airport, index: number) => ({
           id: item.arrivalAirport.iataCode || `city-${index}`,
           name: item.arrivalAirport.city.name,
-          imageUrl: `https://picsum.photos/200/200?random=${index}`,
+          imageUrl: `https://picsum.photos/200/200?random=${index}`, //random
         }));
         setCities(cityNames);
       } catch (error) {

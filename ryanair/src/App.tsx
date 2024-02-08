@@ -5,6 +5,7 @@ import Table from "./components/Table";
 import ImageGridExample from "./components/Cards";
 
 function App() {
+  console.log("app runnning");
   return (
     <>
       <h1>Ryanair API</h1>
