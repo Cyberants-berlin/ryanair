@@ -69,6 +69,9 @@ interface Coordinates {
 }
 
 
+await new Promise((resolve) => setTimeout(resolve,3000))
+
+
 
 const DestinationCitiesCard: React.FC = () => {
   const [cities, setCities] = useState<ArrivalAirport[]>([]);
