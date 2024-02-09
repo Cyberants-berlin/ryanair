@@ -1,6 +1,8 @@
 import React from 'react'
 import { Card, CardContent, CardHeader, CardFooter } from ".ui/card";
 import { Skeleton } from './ui/skeleton';
+import SkeletonCard from './components/.SkeletonCard'; 
+
 
 export default function SkeletonCard() {
   return (
