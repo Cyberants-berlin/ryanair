@@ -19,13 +19,13 @@ import app from "./firebaseConfig";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 
 
-interface RouteDocument {
-  arrivalAirport: ArrivalAirport;
-  recent: boolean;
-  seasonal: boolean;
-  operator: string;
-  tags: string[];
-}
+// interface RouteDocument {
+//   arrivalAirport: ArrivalAirport;
+//   recent: boolean;
+//   seasonal: boolean;
+//   operator: string;
+//   tags: string[];
+// }
 
 interface ArrivalAirport {
   code: string;
