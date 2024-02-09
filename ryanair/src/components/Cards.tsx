@@ -112,16 +112,20 @@ const DestinationCitiesCard: React.FC = () => {
             </div>
           </CardHeader>
           <CardContent>
-            <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.wegwijsnaarparijs.nl%2Fwp-content%2Fuploads%2F2014%2F01%2Farc_de_triomphe_parijs_bezienswaardigheden.jpg&f=1&nofb=1&ipt=fce4b8dacfa6161b2b6f16989530578b859fc77b5366d683ca6bf5e306a7479f&ipo=images" />
+            <img
+              src={`https://source.unsplash.com/random/800x600?${city.city.name}`}
+              alt="City Image"
+            />
             <p>
               A beautiful city in {city.region.name}. In the {city.timeZone}{" "}
               Timezone.
             </p>
           </CardContent>
+
           <CardFooter className="flex justify-between">
             <Button variant="secondary">Visit {city.city.name}</Button>
 
-            {city.country.schengen && <Badge variant ="secondary">🇪🇺</Badge>}
+            {city.country.schengen && <Badge variant="secondary">🇪🇺</Badge>}
           </CardFooter>
         </Card>
       ))}
