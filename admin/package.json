@@ -1,0 +1,7 @@
+{
+    "type": "module",
+    "dependencies": {
+        "@2bad/ryanair": "^7.0.0",
+        "ts-node": "^10.9.2"
+    }
+}

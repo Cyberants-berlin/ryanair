@@ -1,0 +1,95 @@
+[
+  {
+    "departure": {
+      "day": "2024-04-03",
+      "arrivalDate": "2024-04-03T08:35:00",
+      "departureDate": "2024-04-03T07:20:00",
+      "price": {
+        "value": 18.19,
+        "valueMainUnit": "18",
+        "valueFractionalUnit": "19",
+        "currencyCode": "EUR",
+        "currencySymbol": "€"
+      },
+      "soldOut": false,
+      "unavailable": false
+    },
+    "return": {
+      "day": "2024-04-09",
+      "arrivalDate": "2024-04-09T16:05:00",
+      "departureDate": "2024-04-09T14:45:00",
+      "price": {
+        "value": 18.19,
+        "valueMainUnit": "18",
+        "valueFractionalUnit": "19",
+        "currencyCode": "EUR",
+        "currencySymbol": "€"
+      },
+      "soldOut": false,
+      "unavailable": false
+    },
+    "price": 36.38
+  },
+  {
+    "departure": {
+      "day": "2024-04-03",
+      "arrivalDate": "2024-04-03T08:35:00",
+      "departureDate": "2024-04-03T07:20:00",
+      "price": {
+        "value": 18.19,
+        "valueMainUnit": "18",
+        "valueFractionalUnit": "19",
+        "currencyCode": "EUR",
+        "currencySymbol": "€"
+      },
+      "soldOut": false,
+      "unavailable": false
+    },
+    "return": {
+      "day": "2024-04-13",
+      "arrivalDate": "2024-04-13T23:30:00",
+      "departureDate": "2024-04-13T22:10:00",
+      "price": {
+        "value": 18.19,
+        "valueMainUnit": "18",
+        "valueFractionalUnit": "19",
+        "currencyCode": "EUR",
+        "currencySymbol": "€"
+      },
+      "soldOut": false,
+      "unavailable": false
+    },
+    "price": 36.38
+  },
+  {
+    "departure": {
+      "day": "2024-04-03",
+      "arrivalDate": "2024-04-03T08:35:00",
+      "departureDate": "2024-04-03T07:20:00",
+      "price": {
+        "value": 18.19,
+        "valueMainUnit": "18",
+        "valueFractionalUnit": "19",
+        "currencyCode": "EUR",
+        "currencySymbol": "€"
+      },
+      "soldOut": false,
+      "unavailable": false
+    },
+    "return": {
+      "day": "2024-04-16",
+      "arrivalDate": "2024-04-16T22:40:00",
+      "departureDate": "2024-04-16T21:20:00",
+      "price": {
+        "value": 18.19,
+        "valueMainUnit": "18",
+        "valueFractionalUnit": "19",
+        "currencyCode": "EUR",
+        "currencySymbol": "€"
+      },
+      "soldOut": false,
+      "unavailable": false
+    },
+    "price": 36.38
+  }
+]

@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+      "module": "ESNext",
+      "target": "ESNext",
+      "moduleResolution": "node",
+      "baseUrl": ".", // This should be the directory containing your 'node_modules' folder
+      "paths": {
+        "@2bad/ryanair": ["/node_modules/@2bad/"] // Replace 'path/to/your/module' with the actual path
+      },
+      // other options as needed
+    }
+  }
