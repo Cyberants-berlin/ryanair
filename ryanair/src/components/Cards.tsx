@@ -71,7 +71,7 @@ const DestinationCitiesCard: React.FC = () => {
                 </p>
               </CardContent>
               <CardFooter className="flex justify-between">
-                <Button variant="secondary">Visit {city.city.name}</Button>
+                <Button>Visit {city.city.name}</Button>
                 {city.country.schengen && <Badge variant="secondary">🇪🇺</Badge>}
               </CardFooter>
             </Card>
