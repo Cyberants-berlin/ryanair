@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import SkeletonCard from "./SkeletonCard";
+import SkeletonCard from "./SkeletonCard"; // Stellen Sie sicher, dass der Importpfad korrekt ist
 
 import {
   Card,
@@ -16,7 +16,43 @@ import { Button } from "./ui/button";
 import app from "./firebaseConfig";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 
-// Your interfaces...
+interface ArrivalAirport {
+  code: string;
+  name: string;
+  seoName: string;
+  aliases: string[];
+  base: boolean;
+  city: City;
+  region: Region;
+  country: Country;
+  coordinates: Coordinates;
+  timeZone: string;
+}
+
+interface City {
+  name: string;
+  code: string;
+  macCode?: string; // Optional
+}
+
+interface Region {
+  name: string;
+  code: string;
+}
+
+interface Country {
+  code: string;
+  iso3code: string;
+  name: string;
+  currency: string;
+  defaultAirportCode: string;
+  schengen: boolean;
+}
+
+interface Coordinates {
+  latitude: number;
+  longitude: number;
+}
 
 const DestinationCitiesCard: React.FC = () => {
   const [cities, setCities] = useState<ArrivalAirport[]>([]);
@@ -41,6 +77,16 @@ const DestinationCitiesCard: React.FC = () => {
     };
     fetchData();
   }, []);
+
+  if (isLoading) {
+    return (
+      <div className="grid grid-cols-4 gap-10 px-10">
+        {Array.from({ length: 4 }, (_, index) => (
+          <SkeletonCard key={index} />
+        ))}
+      </div>
+    );
+  }
 
   if (error) {
     return <div>Error: {error}</div>;
