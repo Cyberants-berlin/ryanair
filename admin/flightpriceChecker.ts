@@ -44,7 +44,7 @@ for (let i =0 ;i< to.length;i++){
     // save allFaresforDestination to allFlights
     allFlights[to[i]] = allFaresforDestination
     console.log("Finished destination", to[i])
-    writeFileSync('flightFares.json', JSON.stringify(allFlights, null, 2))
+    
 }
 // write allFlights to file
 writeFileSync('flightFares.json', JSON.stringify(allFlights, null, 2))
