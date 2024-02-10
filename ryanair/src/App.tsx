@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import DestinationCitiesCard from "./components/Cards";
 import Navbar from "./components/Navbar";
 import DetailComponent from "./components/Detail";
-import Login from "./components/Login";
+import Registration from "./components/Registration";
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
         <Routes>
           <Route path="/" element={<DestinationCitiesCard />} />
           <Route path="/detail/:city" element={<DetailComponent />} /> 
-          <Route path="/login" element={<Login/>} />
+          <Route path="/register" element={<Registration/>} />
           <Route path="*" element={<h1>Not Found</h1>} />
         </Routes>
       </Router>
