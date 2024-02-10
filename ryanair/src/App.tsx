@@ -12,7 +12,7 @@ interface MainLayoutProps {
 }
 
 // Update MainLayout to use the MainLayoutProps type
-const MainLayout: React.FC<MainLayoutProps> = ({ children }) => (
+const MainLayout: React.FC<MainLayoutProps> = () => (
   <>
     <Navbar />
     <Outlet /> 
