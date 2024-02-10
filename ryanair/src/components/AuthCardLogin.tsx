@@ -3,8 +3,7 @@ import { Button } from "./ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "./ui/card";
 import { Icons } from "./ui/icons";
 import { Input } from "./ui/input";
-import { getAuth,signInWithEmailAndPassword,GithubAuthProvider,GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import {Auth} from "./firebaseConfig";
+import { getAuth,signInWithEmailAndPassword,GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { SetStateAction, useState } from "react";
 
 
