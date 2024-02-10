@@ -4,7 +4,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Icons } from "./ui/icons";
 import { Input } from "./ui/input";
 
-export default function AuthCard(){
+export default function AuthCardRegister(){
     return (
         <Card>
       <CardHeader className="space-y-1">
@@ -49,3 +49,6 @@ export default function AuthCard(){
     </Card>
     )
 }
+
+
+
