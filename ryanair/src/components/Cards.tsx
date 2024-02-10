@@ -129,7 +129,7 @@ const DestinationCitiesCard: React.FC = () => {
               </Link> */}
               <Button asChild>
                 
-                <Link to={`/${city.city.name.toLocaleLowerCase()}`}>
+                <Link to={`/detail/${city.city.name.toLocaleLowerCase()}`}>
                   Visit {city.city.name}</Link>
                  </Button>
 
