@@ -3,11 +3,21 @@ import { Button } from "./ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "./ui/card";
 import { Icons } from "./ui/icons";
 import { Input } from "./ui/input";
-
-
+import { getAuth,signInWithEmailAndPassword,GithubAuthProvider,GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import {Auth} from "./firebaseConfig";
 
 
 export default function AuthCardLogin(){
+  const auth = getAuth();
+
+  const signInWithGoogle = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      await signInWithPopup(auth, provider);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
       <Card>
     <CardHeader className="space-y-1">
@@ -18,11 +28,11 @@ export default function AuthCardLogin(){
     </CardHeader>
     <CardContent className="grid gap-4">
       <div className="grid grid-cols-2 gap-6">
-        <Button variant="outline">
+        <Button variant="outline" >
           <Icons.gitHub  />
           Github
         </Button>
-        <Button variant="outline">
+        <Button variant="outline" onClick={signInWithGoogle}>
           <Icons.google  />
           Google
         </Button>
@@ -47,7 +57,7 @@ export default function AuthCardLogin(){
       </div>
     </CardContent>
     <CardFooter>
-      <Button className="w-full">Create account</Button>
+      <Button className="w-full">Login to your Account</Button>
     </CardFooter>
   </Card>
   )

@@ -20,7 +20,9 @@ export function Login(){
           Registration
         </Link>
         <div className="relative hidden h-full flex-col bg-muted p-10 text-white lg:flex dark:border-r">
-          <div className="absolute inset-0 bg-zinc-900" />
+          <div className="absolute inset-0 bg-red-500">
+            <img src="https://images.unsplash.com/photo-1545132147-d037e6c54cfd?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Unsplash Image" />
+          </div>
           <div className="relative z-20 flex items-center text-lg font-medium">
             <svg
               xmlns="http://www.w3.org/2000/svg"
