@@ -5,6 +5,7 @@ import { Icons } from "./ui/icons";
 import { Input } from "./ui/input";
 import { getAuth,signInWithEmailAndPassword,GithubAuthProvider,GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import {Auth} from "./firebaseConfig";
+import { SetStateAction, useState } from "react";
 
 
 export default function AuthCardLogin(){
@@ -18,6 +19,26 @@ export default function AuthCardLogin(){
       console.error(error);
     }
   };
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleEmailChange = (event: { target: { value: SetStateAction<string>; }; }) => {
+    setEmail(event.target.value);
+  };
+
+  const handlePasswordChange = (event: { target: { value: SetStateAction<string>; }; }) => {
+    setPassword(event.target.value);
+  };
+
+  const signInWithEmail = async () => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
       <Card>
     <CardHeader className="space-y-1">
@@ -49,15 +70,15 @@ export default function AuthCardLogin(){
       </div>
       <div className="grid gap-2">
         <Label htmlFor="email">Email</Label>
-        <Input id="email" type="email" placeholder="m@example.com" />
+        <Input id="email" type="email" onChange={handleEmailChange} placeholder="m@example.com" />
       </div>
       <div className="grid gap-2">
         <Label htmlFor="password">Password</Label>
-        <Input id="password" type="password" />
+        <Input id="password" onChange={handlePasswordChange} type="password" />
       </div>
     </CardContent>
     <CardFooter>
-      <Button className="w-full">Login to your Account</Button>
+      <Button onClick={signInWithEmail} className="w-full">Login to your Account</Button>
     </CardFooter>
   </Card>
   )
