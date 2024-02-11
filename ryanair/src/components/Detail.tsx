@@ -127,7 +127,7 @@ export default function DetailComponent() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
-              Overall Flight Costs
+            Departure Flight Costs 
             </CardTitle>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -143,7 +143,7 @@ export default function DetailComponent() {
             </svg>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{capitalizedWord}</div>
+            <div className="text-2xl font-bold"> </div>
             <p className="text-xs text-muted-foreground">
               +20.1% from last month
             </p>
@@ -240,7 +240,7 @@ export default function DetailComponent() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
-              Overall Flight Costs
+            Arrival Flight Costs
             </CardTitle>
             <svg
               xmlns="http://www.w3.org/2000/svg"
