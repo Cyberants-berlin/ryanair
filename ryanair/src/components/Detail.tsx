@@ -5,6 +5,10 @@ import { Card, CardHeader, CardTitle, CardContent} from './ui/card';
 
 export default function DetailComponent() {
   const { city } = useParams();
+  const firstletter = city?.charAt(0)
+  const firstLetterCap = firstletter?.toUpperCase()
+  const remainingletters = city?.slice(1)
+  const capitalizedWord = firstLetterCap + remainingletters
   return (
     <>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -27,7 +31,7 @@ export default function DetailComponent() {
             </svg>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{city?.toUpperCase()}</div>
+            <div className="text-2xl font-bold">{capitalizedWord}</div>
             <p className="text-xs text-muted-foreground">
               +20.1% from last month
             </p>
