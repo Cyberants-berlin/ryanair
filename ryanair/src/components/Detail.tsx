@@ -27,7 +27,7 @@ export default function DetailComponent() {
             </svg>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{city}</div>
+            <div className="text-2xl font-bold">{city?.toUpperCase()}</div>
             <p className="text-xs text-muted-foreground">
               +20.1% from last month
             </p>
