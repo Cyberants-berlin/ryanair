@@ -30,6 +30,7 @@ function App() {
         {/* Nest routes under MainLayout */}
         <Route element={<MainLayout children={undefined} />}>
           <Route index element={<DestinationCitiesCard />} />
+          //placeholder for a specific city (city)
           <Route path="/detail/:city" element={<DetailComponent />} />
           <Route path="*" element={<h1>Not Found</h1>} />
         </Route>
