@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { Card, CardHeader, CardTitle, CardContent, CardDescription } from './ui/card';
+import { Card, CardHeader, CardTitle, CardContent} from './ui/card';
 
 
 
@@ -27,7 +27,7 @@ export default function DetailComponent() {
             </svg>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">$45,231.89</div>
+            <div className="text-2xl font-bold">{city}</div>
             <p className="text-xs text-muted-foreground">
               +20.1% from last month
             </p>
@@ -116,23 +116,6 @@ export default function DetailComponent() {
       </div>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
         <Card className="col-span-4">
-          <CardHeader>
-            <CardTitle>Overview</CardTitle>
-          </CardHeader>
-          <CardContent className="pl-2">
-
-          </CardContent>
-        </Card>
-        <Card className="col-span-3">
-          <CardHeader>
-            <CardTitle>Recent Sales</CardTitle>
-            <CardDescription>
-              You made 265 sales this month.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-
-          </CardContent>
         </Card>
       </div>
 
