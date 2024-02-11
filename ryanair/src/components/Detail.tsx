@@ -11,7 +11,7 @@ export default function DetailComponent() {
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">
-                      Total Revenue
+                      Overall Flight Costs
                     </CardTitle>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -36,7 +36,7 @@ export default function DetailComponent() {
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">
-                      Subscriptions
+                     Population
                     </CardTitle>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -87,7 +87,7 @@ export default function DetailComponent() {
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">
-                      Active Now
+                     Liked by Travelers
                     </CardTitle>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
