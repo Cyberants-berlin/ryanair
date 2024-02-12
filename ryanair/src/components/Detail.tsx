@@ -6,13 +6,14 @@ export default function DetailComponent() {
   const firstletter = city?.charAt(0);
   const firstLetterCap = firstletter?.toUpperCase();
   const remainingletters = city?.slice(1);
-  const capitalizedWord = (firstLetterCap as string) + (remainingletters as string);
+  const capitalizedWord =
+    (firstLetterCap as string) + (remainingletters as string);
   return (
     <>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
+            <CardTitle className="text-la font-large">
               Overall Flight Costs
             </CardTitle>
             <svg
@@ -29,7 +30,7 @@ export default function DetailComponent() {
             </svg>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{capitalizedWord}</div>
+            <div className="text-2xl font-medium">{capitalizedWord}</div>
             <p className="text-xs text-muted-foreground">
               +20.1% from last month
             </p>
