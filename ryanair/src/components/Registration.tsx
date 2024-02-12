@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
+
 import { cn } from "../lib/utils";
 import AuthCardRegister from "./AuthCardRegister";
+
 import { buttonVariants } from "./ui/button";
+import "./login.css";
 
 export default function Registration() {
   return (
@@ -9,8 +12,10 @@ export default function Registration() {
       <Link
         to="/login"
         className={cn(
-          buttonVariants({ variant: "ghost" }),
-          "absolute right-4 top-4 md:right-8 md:top-8"
+          buttonVariants({
+            variant: "ghost",
+          }),
+          "absolute  right-4  top-4  md:right-8  md:top-8"
         )}
       >
         Login
@@ -41,6 +46,7 @@ export default function Registration() {
         </div>
         <div className="relative z-20 mt-auto">
           <blockquote className="space-y-2">
+            {" "}
             <p className="text-lg">
               &ldquo;Using Ryanair, travelers can explore Europe's beauty with
               unbeatable savings, making dream vacations a reality without
@@ -51,27 +57,34 @@ export default function Registration() {
         </div>
       </div>
       <div className="lg:p-8">
-        <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
-          <AuthCardRegister />
-          <p className="px-8 text-center text-sm text-muted-foreground">
-            By clicking continue, you agree to our{" "}
+        {" "}
+        <div className="mx-auto  flex  w-full  flex-col  justify-center  space-y-6  sm:w-[350px]">
+          {" "}
+          <AuthCardRegister />{" "}
+          <p className="px-8  text-center  text-sm  text-muted-foreground">
+            {" "}
+            By clicking continue, you agree to our {"  "}
             <Link
               to="/terms"
-              className="underline underline-offset-4 hover:text-primary"
+              className="underline  underline-offset-4  hover:text-primary"
             >
-              Terms of Service
+              {" "}
+              Terms of Service{" "}
             </Link>{" "}
-            and{" "}
+            {"  "}
+            and {"  "}
             <Link
-              to="/privacy"
-              className="underline underline-offset-4 hover:text-primary"
+              to="/pivacy"
+              className="underline  underline-offset-4  hover:text-primary"
             >
-              Privacy Policy
-            </Link>
-            .
-          </p>
-        </div>
-      </div>
+              {" "}
+              Privacy Policy{" "}
+            </Link>{" "}
+            .{" "}
+          </p>{" "}
+          <a href="/">Back to home </a>{" "}
+        </div>{" "}
+      </div>{" "}
     </div>
   );
 }

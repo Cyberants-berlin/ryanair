@@ -1,6 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Label } from "@radix-ui/react-label";
 import { Button } from "./ui/button";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "./ui/card";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from "./ui/card";
 import { Icons } from "./ui/icons";
 import { Input } from "./ui/input";
 import {
@@ -12,16 +20,16 @@ import {
 } from "firebase/auth";
 import { useState } from "react";
 
-export default function AuthCardRegister(){
+export default function AuthCardRegister() {
   const auth = getAuth();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleEmailChange = (event: { target: { value: any; }; }) => {
+  const handleEmailChange = (event: { target: { value:any } }) => {
     setEmail(event.target.value);
   };
 
-  const handlePasswordChange = (event: { target: { value: any; }; }) => {
+  const handlePasswordChange = (event: { target: { value:any } }) => {
     setPassword(event.target.value);
   };
 
@@ -104,6 +112,3 @@ export default function AuthCardRegister(){
       </Card>
     );
 }
-
-
-

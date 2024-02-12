@@ -15,11 +15,14 @@ import {
   CardFooter,
 } from "./ui/card";
 import { Button } from "./ui/button";
-import { Input } from "./ui/input";
 import { Label } from "@radix-ui/react-label";
 import { Icons } from "./ui/icons";
+import { Input } from "./ui/input";
+import { getAuth,signInWithEmailAndPassword,GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { SetStateAction, useState } from "react";
 
-export default function AuthCardLogin() {
+
+export default function AuthCardLogin(){
   const auth = getAuth();
 
   const signInWithGoogle = async () => {
@@ -43,6 +46,9 @@ export default function AuthCardLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const handleEmailChange = (event: {
+    target: { value: SetStateAction<string> };
+  }) => {
   const handleEmailChange = (event: {
     target: { value: SetStateAction<string> };
   }) => {
