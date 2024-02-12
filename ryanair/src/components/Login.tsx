@@ -16,7 +16,7 @@ export function Login() {
         Registration
       </Link>
       <div className="relative hidden h-full flex-col bg-muted p-10 text-black lg:flex dark:border-r">
-        <div className="absolute inset-0 bg-red-500">
+        <div className="absolute inset-0 bg-white">
           <img
             src="https://images.unsplash.com/photo-1563580853122-1ea105e0e92a?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             alt="Unsplash Image"
