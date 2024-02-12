@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import SkeletonCard from "./SkeletonCard"; //   Stellen   Sie   sicher,   dass   der   Importpfad   korrekt   ist
+import SkeletonCard from "./SkeletonCard"; //  Stellen  Sie  sicher,  dass  der  Importpfad  korrekt  ist
 import ErrorBoundary from "./ErrorBoundary";
 
 import {
@@ -34,7 +34,7 @@ interface ArrivalAirport {
 interface City {
   name: string;
   code: string;
-  macCode?: string; //   Optional
+  macCode?: string; //  Optional
 }
 
 interface Region {
@@ -71,8 +71,8 @@ const DestinationCitiesCard: React.FC = () => {
         );
         setCities(citiesData);
       } catch (error) {
-        console.error("Error   fetching   data:", error);
-        setError("Failed   to   fetch   data");
+        console.error("Error  fetching  data:", error);
+        setError("Failed  to  fetch  data");
       } finally {
         setIsLoading(false);
       }
@@ -82,7 +82,7 @@ const DestinationCitiesCard: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="grid   grid-cols-4   gap-10   px-10">
+      <div className="grid  grid-cols-4  gap-10  px-10">
         {Array.from({ length: 4 }, (_, index) => (
           <SkeletonCard key={index} />
         ))}
@@ -96,14 +96,14 @@ const DestinationCitiesCard: React.FC = () => {
 
   return (
     <ErrorBoundary>
-      <div className="grid   grid-cols-4   gap-10   px-3">
+      <div className="grid  grid-cols-4  gap-10  px-3">
         {isLoading
           ? Array(4)
               .fill(null)
               .map((_, index) => <SkeletonCard key={index} />)
           : cities.map((city, index) => (
-              <Card key={index} className="flex   flex-col   justify-between">
-                <CardHeader className="flex-row   gap-4   items-center">
+              <Card key={index} className="flex  flex-col  justify-between">
+                <CardHeader className="flex-row  gap-4  items-center">
                   <div>
                     <CardTitle>{city.city.name}</CardTitle>
                     <CardDescription>{city.country.name}</CardDescription>
@@ -115,14 +115,14 @@ const DestinationCitiesCard: React.FC = () => {
                     alt={city.city.name}
                   />
                   <p>
-                    A beautiful city in {city.region.name}. In the{"   "}
+                    A beautiful city in {city.region.name}. In the{"  "}
                     {city.timeZone} Timezone.
                   </p>
                 </CardContent>
-                <CardFooter className="flex   justify-between">
-                  {/*   <Link   to={`/${city.city.name}`}>
-                                                {city.city.name}
-                                          </Link>   */}
+                <CardFooter className="flex  justify-between">
+                  {/*  <Link  to={`/${city.city.name}`}>
+                                {city.city.name}
+                            </Link>  */}
                   <Button asChild>
                     <Link to={`/detail/${city.city.name.toLocaleLowerCase()}`}>
                       Visit {city.city.name}
