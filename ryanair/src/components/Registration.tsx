@@ -19,7 +19,7 @@ export default function Registration() {
         <div className="absolute inset-0 bg-zinc-900" />
         <div className="relative z-20 flex items-center text-lg font-medium">
           <Link to="/">
-            <svg
+            <svg 
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="none"
