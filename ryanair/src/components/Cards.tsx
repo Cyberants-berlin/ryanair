@@ -98,7 +98,7 @@ const DestinationCitiesCard: React.FC = () => {
 
   return (
     <ErrorBoundary>
-    <div className="grid grid-cols-4 gap-10 px-10">
+    <div className="grid grid-cols-4 gap-10 px-3">
       {isLoading
         ? Array(4)
           .fill(null)
