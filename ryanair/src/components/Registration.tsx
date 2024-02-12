@@ -78,6 +78,7 @@ export default function Registration() {
             </Link>
             .
           </p>
+          <a href="/">Back to home </a>
         </div>
       </div>
     </div>
