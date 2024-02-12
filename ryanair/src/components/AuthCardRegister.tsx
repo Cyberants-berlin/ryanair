@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Label } from "@radix-ui/react-label";
 import { Button } from "./ui/button";
 import {
@@ -23,11 +24,11 @@ export default function AuthCardRegister() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleEmailChange = (event: { target: { value: any } }) => {
+  const handleEmailChange = (event: { target: { value:any } }) => {
     setEmail(event.target.value);
   };
 
-  const handlePasswordChange = (event: { target: { value: any } }) => {
+  const handlePasswordChange = (event: { target: { value:any } }) => {
     setPassword(event.target.value);
   };
 

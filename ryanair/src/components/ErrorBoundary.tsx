@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 
 interface State {
@@ -5,10 +7,10 @@ interface State {
 }
 
 class ErrorBoundary extends React.Component<
-  React.PropsWithChildren<{}>,
+  React.PropsWithChildren<unknown>,
   State
 > {
-  constructor(props: React.PropsWithChildren<{}>) {
+  constructor(props: React.PropsWithChildren<unknown>) {
     super(props);
     this.state = { hasError: false };
   }
