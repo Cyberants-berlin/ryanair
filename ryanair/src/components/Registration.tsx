@@ -5,7 +5,7 @@ import { buttonVariants } from "./ui/button";
 
 export default function Registration() {
   return (
-    <div className="container relative hidden h-[800px] flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
+    <div className="container relative hidden h-[650px] flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
       <Link
         to="/login"
         className={cn(
@@ -16,12 +16,14 @@ export default function Registration() {
         Login
       </Link>
       <div className="relative hidden h-full flex-col bg-muted p-10 text-black lg:flex dark:border-r">
-        <div className="absolute inset-0 bg-white">
-          <img
-            src="https://images.unsplash.com/photo-1563580853122-1ea105e0e92a?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            alt="Unsplash Image"
-          />
-        </div>
+        {/* Anpassung hier: Verwenden Sie das Bild als Hintergrundbild und passen Sie die Größe an */}
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage:
+              "url('https://images.unsplash.com/photo-1563580853122-1ea105e0e92a?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
+          }}
+        ></div>
         <div className="relative z-20 flex items-center text-lg font-medium">
           <svg
             xmlns="http://www.w3.org/2000/svg"
