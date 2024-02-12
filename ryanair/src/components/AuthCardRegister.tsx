@@ -3,7 +3,13 @@ import { Button } from "./ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "./ui/card";
 import { Icons } from "./ui/icons";
 import { Input } from "./ui/input";
-import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, signInWithPopup } from "firebase/auth";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  GithubAuthProvider,
+} from "firebase/auth";
 import { useState } from "react";
 
 export default function AuthCardRegister(){
