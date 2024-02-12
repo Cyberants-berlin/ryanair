@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import SkeletonCard from "./SkeletonCard"; // Stellen Sie sicher, dass der Importpfad korrekt ist
+import SkeletonCard from "./SkeletonCard"; 
 import ErrorBoundary from './ErrorBoundary';
 
 
