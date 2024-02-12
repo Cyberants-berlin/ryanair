@@ -31,9 +31,6 @@ export default function DetailComponent() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-medium">{capitalizedWord}</div>
-            <p className="text-xs text-muted-foreground">
-              +20.1% from last month
-            </p>
           </CardContent>
         </Card>
         <Card>
