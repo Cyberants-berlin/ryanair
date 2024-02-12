@@ -22,7 +22,7 @@ export default function Registration(){
         <div className="relative hidden h-full flex-col bg-muted p-10 text-white lg:flex dark:border-r">
           <div className="absolute inset-0 bg-red-500">
             <img
-              src="https://images.unsplash.com/photo-1545132147-d037e6c54cfd?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              src="https://images.unsplash.com/photo-1563580853122-1ea105e0e92a?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               alt="Unsplash Image"
             />
           </div>
