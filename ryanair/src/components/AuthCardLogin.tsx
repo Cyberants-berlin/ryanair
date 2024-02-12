@@ -18,8 +18,6 @@ import { Button } from "./ui/button";
 import { Label } from "@radix-ui/react-label";
 import { Icons } from "./ui/icons";
 import { Input } from "./ui/input";
-import { getAuth,signInWithEmailAndPassword,GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { SetStateAction, useState } from "react";
 
 
 export default function AuthCardLogin(){
@@ -123,4 +121,5 @@ export default function AuthCardLogin(){
       </CardFooter>
     </Card>
   );
-}
+  }
+  
