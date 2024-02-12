@@ -27,7 +27,7 @@ export function Login(){
             />
           </div>
           <div className="relative z-20 flex items-center text-lg font-medium">
-            <Link to="/" >
+            <Link to="/">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
