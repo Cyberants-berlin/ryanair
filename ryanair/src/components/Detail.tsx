@@ -35,7 +35,7 @@ export default function DetailComponent() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Population</CardTitle>
+            <CardTitle className="text-la font-large">Population</CardTitle>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -52,30 +52,24 @@ export default function DetailComponent() {
             </svg>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">+2350</div>
-            <p className="text-xs text-muted-foreground">
-              +180.1% from last month
-            </p>
+            <div className="text-2xl font-medium">+2350</div>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Weather</CardTitle>
+            <CardTitle className="text-la font-large">Weather</CardTitle>
             <img
               src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgdmlld0JveD0iMCAwIDUxMiA1MTIiIHN0eWxlPSJjb2xvcjojMDAwMDAwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGNsYXNzPSJoLWZ1bGwgdy1mdWxsIj48cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgcng9IjAiIGZpbGw9InRyYW5zcGFyZW50IiBzdHJva2U9InRyYW5zcGFyZW50IiBzdHJva2Utd2lkdGg9IjAiIHN0cm9rZS1vcGFjaXR5PSIwJSIgcGFpbnQtb3JkZXI9InN0cm9rZSI+PC9yZWN0Pjxzdmcgd2lkdGg9IjUwcHgiIGhlaWdodD0iNTBweCIgdmlld0JveD0iMCAwIDMyIDMyIiBmaWxsPSIjMDAwMDAwIiB4PSIyMzEiIHk9IjIzMSIgcm9sZT0iaW1nIiBzdHlsZT0iZGlzcGxheTppbmxpbmUtYmxvY2s7dmVydGljYWwtYWxpZ246bWlkZGxlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxnIGZpbGw9ImJsYWNrIj48cGF0aCBmaWxsPSJjdXJyZW50Q29sb3IiIGQ9Ik00LjYxIDE2Ljg4YzAtMS4xNS4zNi0yLjE3IDEuMDgtMy4wN2MuNzItLjkgMS42My0xLjQ4IDIuNzQtMS43M2MuMzEtMS4zNyAxLjAyLTIuNDkgMi4xMS0zLjM3czIuMzUtMS4zMiAzLjc2LTEuMzJjMS4zOCAwIDIuNjEuNDMgMy42OSAxLjI4czEuNzggMS45NSAyLjEgMy4yOWguMzNjLjkgMCAxLjczLjIyIDIuNDkuNjVzMS4zNyAxLjAzIDEuODEgMS43OWMuNDQuNzYuNjcgMS41OC42NyAyLjQ4YTQuOTQgNC45NCAwIDAgMS0yLjM2IDQuMjVjLS43My40NS0xLjU0LjY5LTIuNDEuNzJIOS40MWMtMS4zNC0uMDYtMi40Ny0uNTctMy40LTEuNTNjLS45My0uOTUtMS40LTIuMS0xLjQtMy40NHptMS43MSAwYzAgLjg3LjMgMS42Mi45IDIuMjZzMS4zMy45OCAyLjE5IDEuMDNIMjAuNmMuODYtLjA0IDEuNTktLjM5IDIuMTktMS4wM2MuNjEtLjY0LjkxLTEuNC45MS0yLjI2YzAtLjg4LS4zMy0xLjYzLS45OC0yLjI3Yy0uNjUtLjY0LTEuNDItLjk2LTIuMzItLjk2aC0xLjZjLS4xMSAwLS4xNy0uMDYtLjE3LS4xOGwtLjA3LS41N2MtLjExLTEuMDgtLjU4LTEuOTktMS40LTIuNzJjLS44Mi0uNzMtMS43Ny0xLjEtMi44Ni0xLjFjLTEuMDkgMC0yLjA1LjM3LTIuODUgMS4xYy0uODEuNzMtMS4yNyAxLjY0LTEuMzcgMi43MmwtLjA4LjU3YzAgLjEyLS4wNy4xOC0uMi4xOGgtLjUzYy0uODQuMS0xLjU0LjQ2LTIuMSAxLjA3cy0uODUgMS4zMy0uODUgMi4xNnoiPjwvcGF0aD48L2c+PC9zdmc+PC9zdmc+"
               alt="cloud"
             ></img>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">+12,234</div>
-            <p className="text-xs text-muted-foreground">
-              +19% from last month
-            </p>
+            <div className="text-2xl font-medium">+12,234</div>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
+            <CardTitle className="text-la font-large">
               Liked by Travelers
             </CardTitle>
             <svg
@@ -92,10 +86,7 @@ export default function DetailComponent() {
             </svg>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">+573</div>
-            <p className="text-xs text-muted-foreground">
-              +201 since last hour
-            </p>
+            <div className="text-2xl font-medium">+573</div>
           </CardContent>
         </Card>
       </div>
@@ -105,7 +96,7 @@ export default function DetailComponent() {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
+            <CardTitle className="text-la font-large">
               Departure Flight Costs
             </CardTitle>
             <svg
@@ -122,18 +113,14 @@ export default function DetailComponent() {
             </svg>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
-              {" "}
-              The Price for Departure Flights is{" "}
+            <div className="text-2xl font-medium">
+              The Price for Departure Flights is 100€
             </div>
-            <p className="text-xs text-muted-foreground">
-              +20.1% from last month
-            </p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Population</CardTitle>
+            <CardTitle className="text-la font-large">Population</CardTitle>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -150,15 +137,12 @@ export default function DetailComponent() {
             </svg>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">+2350</div>
-            <p className="text-xs text-muted-foreground">
-              +180.1% from last month
-            </p>
+            <div className="text-2xl font-medium">+2350</div>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Weather</CardTitle>
+            <CardTitle className="text-la font-large">Weather</CardTitle>
             {/* <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -178,15 +162,12 @@ export default function DetailComponent() {
             </svg> */}
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">+12,234</div>
-            <p className="text-xs text-muted-foreground">
-              +19% from last month
-            </p>
+            <div className="text-2xl font-medium">+12,234</div>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
+            <CardTitle className="text-la font-large">
               Liked by Travelers
             </CardTitle>
             <svg
@@ -203,10 +184,7 @@ export default function DetailComponent() {
             </svg>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">+573</div>
-            <p className="text-xs text-muted-foreground">
-              +201 since last hour
-            </p>
+            <div className="text-2xl font-medium">+573</div>
           </CardContent>
         </Card>
       </div>
@@ -217,7 +195,7 @@ export default function DetailComponent() {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
+            <CardTitle className="text-la font-large">
               Arrival Flight Costs
             </CardTitle>
             <svg
@@ -234,17 +212,14 @@ export default function DetailComponent() {
             </svg>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
-              The Price for Arrival Flights is{" "}
+            <div className="text-2xl font-medium">
+              The Price for Arrival Flights is 100€
             </div>
-            <p className="text-xs text-muted-foreground">
-              +20.1% from last month
-            </p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Population</CardTitle>
+            <CardTitle className="text-la font-large">Population</CardTitle>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -261,15 +236,12 @@ export default function DetailComponent() {
             </svg>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">+2350</div>
-            <p className="text-xs text-muted-foreground">
-              +180.1% from last month
-            </p>
+            <div className="text-2xl font-medium">+2350</div>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Weather</CardTitle>
+            <CardTitle className="text-la font-large">Weather</CardTitle>
             {/* <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -289,15 +261,12 @@ export default function DetailComponent() {
             </svg> */}
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">+12,234</div>
-            <p className="text-xs text-muted-foreground">
-              +19% from last month
-            </p>
+            <div className="text-2xl font-medium">+12,234</div>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
+            <CardTitle className="text-la font-large">
               Liked by Travelers
             </CardTitle>
             <svg
@@ -314,10 +283,7 @@ export default function DetailComponent() {
             </svg>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">+573</div>
-            <p className="text-xs text-muted-foreground">
-              +201 since last hour
-            </p>
+            <div className="text-2xl font-medium">+573</div>
           </CardContent>
         </Card>
       </div>
