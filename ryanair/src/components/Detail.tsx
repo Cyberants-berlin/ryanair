@@ -6,7 +6,7 @@ export default function DetailComponent() {
   const firstletter = city?.charAt(0);
   const firstLetterCap = firstletter?.toUpperCase();
   const remainingletters = city?.slice(1);
-  const capitalizedWord = firstLetterCap + remainingletters;
+  const capitalizedWord = (firstLetterCap as string) + (remainingletters as string);
   return (
     <>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
