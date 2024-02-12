@@ -1,4 +1,4 @@
-// import React from "react";
+//   import   React   from   "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -16,7 +16,7 @@ interface MainLayoutProps {
   children: ReactNode;
 }
 
-// Update MainLayout to use the MainLayoutProps type
+//   Update   MainLayout   to   use   the   MainLayoutProps   type
 const MainLayout: React.FC<MainLayoutProps> = () => (
   <>
     <Navbar />
@@ -31,7 +31,7 @@ function App() {
         <Route path="/register" element={<Registration />} />
         <Route path="/login" element={<Login />} />
 
-        {/* Nest routes under MainLayout */}
+        {/*   Nest   routes   under   MainLayout   */}
         <Route element={<MainLayout children={undefined} />}>
           <Route index element={<DestinationCitiesCard />} />
           <Route path="/detail/:city" element={<DetailComponent />} />
