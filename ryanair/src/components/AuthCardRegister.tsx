@@ -5,10 +5,10 @@ import { Icons } from "./ui/icons";
 import { Input } from "./ui/input";
 import {
   getAuth,
-  signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
   GithubAuthProvider,
+  createUserWithEmailAndPassword,
 } from "firebase/auth";
 import { useState } from "react";
 
