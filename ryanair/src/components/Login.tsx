@@ -17,7 +17,7 @@ export function Login() {
         Registration
       </Link>
       <div className="relative hidden h-full flex-col bg-muted p-10 text-black lg:flex dark:border-r">
-        {/* Anpassung hier: Verwenden Sie das Bild als Hintergrundbild und passen Sie die Größe an */}
+        
         <div
           className="absolute inset-0 bg-white bg-cover bg-center"
           style={{
