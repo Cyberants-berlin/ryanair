@@ -120,16 +120,28 @@ export default function DetailComponent() {
               Departure Flight Costs
             </CardTitle>
             <svg
+              fill="#000000"
+              width="20px"
+              height="20px"
+              viewBox="0 0 24.00 24.00"
               xmlns="http://www.w3.org/2000/svg"
-              viewBox="0  0  24  24"
-              fill="none"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              className="h-4  w-4  text-muted-foreground"
+              stroke="#000000"
+              transform="matrix(1, 0, 0, 1, 0, 0)rotate(0)"
+              stroke-width="0.00024000000000000003"
             >
-              <path d="M12  2v20M17  5H9.5a3.5  3.5  0  0  0  0  7h5a3.5  3.5  0  0  1  0  7H6" />
+              <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+              <g
+                id="SVGRepo_tracerCarrier"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke="#CCCCCC"
+                stroke-width="0.192"
+              />
+
+              <g id="SVGRepo_iconCarrier">
+                <path d="M3 18h18v2H3zm18.509-9.473a1.61 1.61 0 0 0-2.036-1.019L15 9 7 6 5 7l6 4-4 2-4-2-1 1 4 4 14.547-5.455a1.611 1.611 0 0 0 .962-2.018z" />
+              </g>
             </svg>
           </CardHeader>
           <CardContent>
@@ -163,23 +175,7 @@ export default function DetailComponent() {
         <Card>
           <CardHeader className="flex  flex-row  items-center  justify-between  space-y-0  pb-2">
             <CardTitle className="text-la  font-large">Weather</CardTitle>
-            {/*  <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0  0  24  24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            className="h-4  w-4  text-muted-foreground"
-                        >
-                            <style  type="text/css">
-                                .st0  opacity:0.2;fill:none;stroke:#000000;stroke-width:5.000000e-02;stroke-miterlimit:10;
-                                .st1  fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;
-                            </style>
-                            <rect  width="20"  height="14"  x="2"  y="5"  rx="2"  />
-                            <path  d="M15,16.6V5c0-0.8-0.3-1.6-0.9-2.1C13.6,2.3,12.8,2,12,2c-1.7,0-3,1.3-3,3v11.6c-0.1,0.1-0.2,0.2-0.3,0.4      C8.2,17.5,8,18.2,8,19c0,1.7,1.1,3,2.5,3h3c0.7,0,1.4-0.4,1.8-1c0.4-0.5,0.7-1.3,0.7-2C16,18,15.6,17.2,15,16.6z  M12,4      c0.3,0,0.5,0.1,0.7,0.3C12.9,4.5,13,4.7,13,5v11h-2v-1c0.6,0,1-0.4,1-1s-0.4-1-1-1v-2c0.6,0,1-0.4,1-1s-0.4-1-1-1V7      c0.6,0,1-0.4,1-1s-0.4-1-1-1C11,4.4,11.4,4,12,4z  M13.8,19.8c0,0-0.1,0.2-0.3,0.2h-3c-0.2,0-0.5-0.4-0.5-1c0-0.3,0.1-0.6,0.3-0.8      c0,0,0.1-0.2,0.3-0.2h3c0.2,0,0.5,0.4,0.5,1C14,19.3,13.9,19.6,13.8,19.8z"  />
-                        </svg>  */}
+          
           </CardHeader>
           <CardContent>
             <div className="text-2xl  font-medium">+12,234</div>
@@ -219,16 +215,23 @@ export default function DetailComponent() {
               Arrival Flight Costs
             </CardTitle>
             <svg
+              fill="#000000"
+              width="20px"
+              height="20px"
+              viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
-              viewBox="0  0  24  24"
-              fill="none"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              className="h-4  w-4  text-muted-foreground"
             >
-              <path d="M12  2v20M17  5H9.5a3.5  3.5  0  0  0  0  7h5a3.5  3.5  0  0  1  0  7H6" />
+              <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+              <g
+                id="SVGRepo_tracerCarrier"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+
+              <g id="SVGRepo_iconCarrier">
+                <path d="M18.842 15.296a1.61 1.61 0 0 0 1.892-1.189v-.001a1.609 1.609 0 0 0-1.177-1.949l-4.576-1.133L9.825 4.21l-2.224-.225 2.931 6.589-4.449-.449-2.312-3.829-1.38.31 1.24 5.52 15.211 3.17zM3 18h18v2H3z" />
+              </g>
             </svg>
           </CardHeader>
           <CardContent>
