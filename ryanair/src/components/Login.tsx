@@ -87,7 +87,6 @@ export function Login() {
             </Link>
             .
           </p>
-          <a href="/">Back to home </a>
         </div>
       </div>
     </div>
