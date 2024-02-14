@@ -87,18 +87,22 @@ export const FlightCard = ({ flightDetail }: { flightDetail: FlightDetails }) =>
 
 
 
-export default function DetailComponent() {
-  const { city } = useParams();
-  // get the flight details for the city
-  const [flightDetails, setFlightDetails] = useState<FlightDetails[]>([]);
-  
-  useEffect(() => {
-    if (city) { // Checks if 'city' is not undefined and not an empty string
-      getFlightDetailsByCity(city).then((data) => {
-        setFlightDetails(data);
-      });
-    }
-  }, [city]);
+
+  export default function DetailComponent() {
+    const { city } = useParams();
+    const [flightDetails, setFlightDetails] = useState<FlightDetails[]>([]);
+    
+    useEffect(() => {
+      if (city) {
+        getFlightDetailsByCity(city)
+          .then((data) => {
+            setFlightDetails(data);
+          })
+          .catch(error => {
+            console.error("Failed to fetch flight details:", error);
+          });
+      }
+    }, [city]);
 
 
   // log the flight details  
@@ -115,6 +119,18 @@ export default function DetailComponent() {
     (firstLetterCap as string) + (remainingletters as string);
   return (
     <>
+
+<div>
+      {flightDetails.length > 0 ? (
+        <div className="flight-cards-container">
+          {flightCards}
+        </div>
+      ) : (
+        <p>No flights found for {capitalizedWord}.</p>
+        
+      )}
+      
+    </div>
       <div className="grid  gap-4  md:grid-cols-2  lg:grid-cols-4">
         <Card>
           <CardHeader className="flex  flex-row  items-center  justify-between  space-y-0  pb-2">
