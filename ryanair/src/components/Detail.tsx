@@ -1,5 +1,110 @@
 import { useParams } from "react-router-dom";
-import { Card, CardHeader, CardTitle, CardContent } from "./ui/card";
+import { Card, CardHeader, CardDescription,CardTitle, CardContent, CardFooter } from "./ui/card";
+import { useEffect, useState } from "react";
+
+
+
+interface FlightDetails {
+  departure: FlightSegment;
+  return: FlightSegment;
+  cityCode:string;
+  price: number;
+}
+
+interface FlightSegment {
+  day: string; // Format: "YYYY-MM-DD"
+  arrivalDate: string; // Format: "YYYY-MM-DDTHH:mm:ss"
+  departureDate: string; // Format: "YYYY-MM-DDTHH:mm:ss"
+  price: PriceDetails;
+  soldOut: boolean;
+  unavailable: boolean;
+}
+
+interface PriceDetails {
+  value: number;
+  valueMainUnit: string;
+  valueFractionalUnit: string;
+  currencyCode: string; // ISO 4217 currency codes
+  currencySymbol: string;
+}
+
+
+
+async function getFlightDetailsByCity(city: string): Promise<FlightDetails[]> {
+  const flightsCollection = db.collection('allFlights');
+  const querySnapshot = await flightsCollection
+    .where('arrivalAirport.seoName', '==', city)
+    .limit(1)
+    .get();
+
+  if (querySnapshot.empty) {
+    console.log('No matching documents.');
+    return [];
+  }
+
+  const flightDetailsArray: FlightDetails[] = [];
+
+  for (const doc of querySnapshot.docs) {
+    // Assuming there's only one matching document since you're using limit(1)
+    const flightDetailsCollection = doc.ref.collection('flightDetails');
+    const flightDetailsSnapshot = await flightDetailsCollection.get();
+
+    flightDetailsSnapshot.forEach((detailDoc: { data: () => FlightDetails; }) => {
+      const flightDetail: FlightDetails = detailDoc.data() as FlightDetails;
+      flightDetailsArray.push(flightDetail);
+    });
+  }
+
+  return flightDetailsArray;
+}
+
+
+
+const Flights = () => {
+  const { city } = useParams();
+  const [flightDetails, setFlightDetails] = useState<FlightDetails[]>([]);
+
+  useEffect(() => {
+    const fetchFlightDetails = async () => {
+      if (city) {
+        const fetchedFlightDetails = await getFlightDetailsByCity(city);
+        setFlightDetails(fetchedFlightDetails);
+      }
+    };
+
+    fetchFlightDetails();
+  }, [city]);
+
+  return (
+    <div>
+      {flightDetails.map((flightDetail, index) => (
+        <FlightCard key={index} FlightDetails={flightDetail} />
+      ))}
+    </div>
+  );
+};
+
+
+const FlightCard = ({ flightDetail }: { flightDetail: FlightDetails }) => (
+  <Card>
+    <CardHeader>
+      <CardTitle>{`Flight from ${flightDetail.cityCode.split('-')[0]} to ${flightDetail.cityCode.split('-')[1]}`}</CardTitle>
+      <CardDescription>{`Total Price: ${flightDetail.price} ${flightDetail.departure.price.currencySymbol}`}</CardDescription>
+    </CardHeader>
+    <CardContent>
+      <p>{`Departure: ${flightDetail.departure.day} at ${flightDetail.departure.departureDate}`}</p>
+      <p>{`Return: ${flightDetail.return.day} at ${flightDetail.return.departureDate}`}</p>
+    </CardContent>
+    <CardFooter>
+      <p>Book now!</p>
+    </CardFooter>
+  </Card>
+);
+
+export function FlightCard;
+
+
+
 
 export default function DetailComponent() {
   const { city } = useParams();
