@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 import React from "react";
 import {
@@ -14,6 +15,7 @@ import { Login } from "./components/Login";
 import { ReactNode } from "react";
 import { AuthProvider } from "./components/AuthContext";
 import { DataProvider } from "./components/ui/DataContext"; 
+import { Chatroom } from "./components/Chatroom";
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -31,15 +33,17 @@ function App() {
     <AuthProvider>
       <DataProvider>
         {" "}
-        
         <Router>
           <Routes>
             <Route path="/register" element={<Registration />} />
             <Route path="/login" element={<Login />} />
-            
-            <Route element={<MainLayout />}>
+            <Route path="/chatroom" element={<Chatroom />} />
+
+            <Route element={<MainLayout children={undefined} />}>
               <Route index element={<DestinationCitiesCard />} />
               <Route path="/detail/:city" element={<DetailComponent />} />
+              <Route path="/chatroom" element={<Chatroom />} />{" "}
+              
               <Route path="*" element={<h1>Not Found</h1>} />
             </Route>
           </Routes>

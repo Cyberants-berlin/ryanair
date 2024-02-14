@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import {
   getAuth,
   GoogleAuthProvider,
@@ -28,8 +28,10 @@ export default function AuthCardRegister() {
   const [error, setError] = useState(""); 
   const navigate = useNavigate(); 
 
-  const handleEmailChange = (event) => setEmail(event.target.value);
-  const handlePasswordChange = (event) => setPassword(event.target.value);
+  const handleEmailChange = (event: { target: { value: SetStateAction<string>; }; }) => setEmail(event.target.value);
+  const handlePasswordChange = (event: {
+    target: { value: SetStateAction<string> };
+  }) => setPassword(event.target.value);
 
   const signUpWithEmail = async () => {
     try {

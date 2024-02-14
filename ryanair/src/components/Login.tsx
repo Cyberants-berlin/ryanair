@@ -13,11 +13,12 @@ export function Login() {
   const { data } = useContext(DataContext); 
   const navigate = useNavigate();
 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username] = useState("");
+  const [password] = useState("");
 
   // Login-Handler
-  const handleLogin = async (e) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const handleLogin = async (e: { preventDefault: () => void; }) => {
     e.preventDefault(); 
     login(username, password); 
     navigate("/");
@@ -30,7 +31,7 @@ export function Login() {
         <h2>Welcome, {user.name}!</h2>{" "}
         
         {data &&
-          data.map((item) => (
+          data.map((item: { id: React.Key | null | undefined; name: string | number | boolean | React.ReactElement<unknown, string | React.JSXElementConstructor<unknown>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; }) => (
             <div key={item.id}>{item.name}</div> 
           ))}
       </div>
