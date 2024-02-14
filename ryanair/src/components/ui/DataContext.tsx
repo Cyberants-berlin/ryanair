@@ -29,7 +29,7 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
       const jsonData = await response.json();
       setData(jsonData);
     } catch (error) {
-      console.error("Fehler beim Abrufen der Daten:", error);
+      console.error("Error", error);
     }
   };
 
