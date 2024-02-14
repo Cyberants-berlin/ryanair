@@ -10,7 +10,12 @@ import { DataContext } from "./ui/DataContext";
 
 export function Login() {
   const { user, login } = useAuth(); 
-  const { data } = useContext(DataContext); 
+  const context = useContext(DataContext);
+  if (!context) {
+    // Handle the case where context is undefined
+  }
+  const  data  = context;
+  
   const navigate = useNavigate();
 
   const [username] = useState("");

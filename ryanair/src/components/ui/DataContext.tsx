@@ -1,4 +1,4 @@
-import React, {
+import {
   createContext,
   useState,
   useEffect,
@@ -12,6 +12,7 @@ type DataType = {
 };
 
 type DataContextType = {
+  [x: string]: any;
   data: DataType[];
   fetchData: () => void;
 };

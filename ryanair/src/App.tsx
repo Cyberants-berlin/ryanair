@@ -21,7 +21,7 @@ interface MainLayoutProps {
   children: ReactNode;
 }
 
-const MainLayout: React.FC<MainLayoutProps> = ({ children }) => (
+const MainLayout: React.FC<MainLayoutProps> = () => (
   <>
     <Navbar />
     <Outlet />
