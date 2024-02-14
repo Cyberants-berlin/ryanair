@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { Card, CardHeader, CardDescription, CardTitle, CardContent, CardFooter } from "./ui/card";
 import { useEffect, useState } from "react";
 import app from "./firebaseConfig";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
+import { getFirestore, collection, getDocs, query, where, limit } from "firebase/firestore";
 
 
 interface FlightDetails {
@@ -29,38 +29,38 @@ interface PriceDetails {
   currencySymbol: string;
 }
 
-
-
 async function getFlightDetailsByCity(city: string): Promise<FlightDetails[]> {
   const db = getFirestore(app);
-  const flightsCollection = db.collection('allFlights');
-  const querySnapshot = await flightsCollection
-    .where('arrivalAirport.seoName', '==', city)
-    .limit(1)
-    .get();
+  const flightsCollectionRef = collection(db, 'allFlights');
+
+  const queryConstraint = query(flightsCollectionRef, where('arrivalAirport.seoName', '==', city), limit(1));
+  const querySnapshot = await getDocs(queryConstraint);
+
 
   if (querySnapshot.empty) {
     console.log('No matching documents.');
     return [];
   }
 
-  const flightDetailsArray: FlightDetails[] = [];
+  let flightDetailsArray: FlightDetails[] = [];
+  
+  for (const flightDoc of querySnapshot.docs) {
 
-  for (const doc of querySnapshot.docs) {
-    // Assuming there's only one matching document since you're using limit(1)
-    const flightDetailsCollection = doc.ref.collection('flightDetails');
-    const flightDetailsSnapshot = await flightDetailsCollection.get();
+    console.log(flightDoc.data)
+    const flightDetailsCollectionRef = collection(flightDoc.ref, 'flightDetails');
+    const flightDetailsSnapshot = await getDocs(flightDetailsCollectionRef);
 
-    flightDetailsSnapshot.forEach((detailDoc: { data: () => FlightDetails; }) => {
-      const flightDetail: FlightDetails = detailDoc.data() as FlightDetails;
-      flightDetailsArray.push(flightDetail);
-      console.log("Flight Details:");
-      console.log(flightDetail);
-    });
+    // Assuming each flightDoc only contains a single flightDetails document, or you want to aggregate them all
+    const details = flightDetailsSnapshot.docs.map(doc => doc.data() as FlightDetails);
+    flightDetailsArray = flightDetailsArray.concat(details);
   }
-
+  console.log("Fucking React");
+  console.log(flightDetailsArray);
   return flightDetailsArray;
 }
+
+
+
 
 
 
@@ -87,16 +87,19 @@ export const FlightCard = ({ flightDetail }: { flightDetail: FlightDetails }) =>
 
 
 
-
 export default function DetailComponent() {
   const { city } = useParams();
   // get the flight details for the city
   const [flightDetails, setFlightDetails] = useState<FlightDetails[]>([]);
+  
   useEffect(() => {
-    getFlightDetailsByCity(city).then((data) => {
-      setFlightDetails(data);
-    });
+    if (city) { // Checks if 'city' is not undefined and not an empty string
+      getFlightDetailsByCity(city).then((data) => {
+        setFlightDetails(data);
+      });
+    }
   }, [city]);
+
 
   // log the flight details  
   console.log(flightDetails);
