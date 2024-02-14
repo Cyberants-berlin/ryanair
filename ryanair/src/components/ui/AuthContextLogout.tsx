@@ -1,7 +1,7 @@
-import { useAuth } from "./components/AuthContext"; 
+// import { useAuth } from "../../components/AuthContext"; 
 
-const LogoutButton = () => {
-  const { logout } = useAuth();
+// // const LogoutButton = () => {
+// //   const { logout } = useAuth();
 
-  return <button onClick={logout}>Logout</button>;
-};
+//   return <button onClick={logout}>Logout</button>;
+// };
