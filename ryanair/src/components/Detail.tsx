@@ -29,35 +29,35 @@ interface PriceDetails {
   currencySymbol: string;
 }
 
+
 async function getFlightDetailsByCity(city: string): Promise<FlightDetails[]> {
-  const db = getFirestore(app);
-  const flightsCollectionRef = collection(db, 'allFlights');
-
-  const queryConstraint = query(flightsCollectionRef, where('arrivalAirport.seoName', '==', city), limit(1));
-  const querySnapshot = await getDocs(queryConstraint);
-
-
-  if (querySnapshot.empty) {
-    console.log('No matching documents.');
-    return [];
-  }
-
-  let flightDetailsArray: FlightDetails[] = [];
+    const db = getFirestore(app);
+    const flightsCollectionRef = collection(db, 'allFlights');
   
-  for (const flightDoc of querySnapshot.docs) {
-
-    console.log(flightDoc.data)
-    const flightDetailsCollectionRef = collection(flightDoc.ref, 'flightDetails');
-    const flightDetailsSnapshot = await getDocs(flightDetailsCollectionRef);
-
-    // Assuming each flightDoc only contains a single flightDetails document, or you want to aggregate them all
-    const details = flightDetailsSnapshot.docs.map(doc => doc.data() as FlightDetails);
-    flightDetailsArray = flightDetailsArray.concat(details);
+    const queryConstraint = query(flightsCollectionRef, where('arrivalAirport.seoName', '==', city), limit(1));
+    const querySnapshot = await getDocs(queryConstraint);
+  
+  
+    if (querySnapshot.empty) {
+      console.log('No matching documents.');
+      return [];
+    }
+  
+    let flightDetailsArray: FlightDetails[] = [];
+    
+    for (const flightDoc of querySnapshot.docs) {
+  
+      const flightDetailsCollectionRef = collection(flightDoc.ref, 'flightDetails');
+      const flightDetailsSnapshot = await getDocs(flightDetailsCollectionRef);
+  
+      // Assuming each flightDoc only contains a single flightDetails document, or you want to aggregate them all
+      const details = flightDetailsSnapshot.docs.map(doc => doc.data() as FlightDetails);
+      flightDetailsArray = flightDetailsArray.concat(details);
+    }
+   
+    
+    return flightDetailsArray;
   }
-  console.log("Fucking React");
-  console.log(flightDetailsArray);
-  return flightDetailsArray;
-}
 
 
 
