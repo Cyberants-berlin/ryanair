@@ -114,6 +114,17 @@ export default function Navbar() {
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
+        <NavigationMenuItem>
+          {" "}
+          {/* Neuer Chatroom-Link */}
+          <Link to="/chatroom">
+            {" "}
+            {/* Verwendung von Link für clientseitige Navigation */}
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              Chatroom
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
   );
