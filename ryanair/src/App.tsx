@@ -14,7 +14,7 @@ import Registration from "./components/Registration";
 import { Login } from "./components/Login";
 import { ReactNode } from "react";
 import { AuthProvider } from "./components/AuthContext";
-import { DataProvider } from "./components/ui/DataContext"; 
+import { DataProvider } from "./components/ui/DataContext";
 import { Chatroom } from "./components/Chatroom";
 
 interface MainLayoutProps {
@@ -43,7 +43,6 @@ function App() {
               <Route index element={<DestinationCitiesCard />} />
               <Route path="/detail/:city" element={<DetailComponent />} />
               <Route path="/chatroom" element={<Chatroom />} />{" "}
-              
               <Route path="*" element={<h1>Not Found</h1>} />
             </Route>
           </Routes>
