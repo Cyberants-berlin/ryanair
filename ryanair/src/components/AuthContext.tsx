@@ -1,7 +1,12 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
 
+interface User {
+  name: string;
+  username: string;
+}
+
 interface AuthContextType {
-  user: unknown; 
+  user: User | null;
   login: (username: string, password: string) => void;
   logout: () => void;
 }
@@ -9,7 +14,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<unknown>(null);
+  const [user, setUser] = useState<User | null>(null);
 
   const login = (username: string, password: string) => {
     const fakeUser = { name: "Demo User", username };

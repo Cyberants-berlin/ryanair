@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import React from "react";
 import {
   BrowserRouter as Router,
@@ -13,12 +13,13 @@ import Registration from "./components/Registration";
 import { Login } from "./components/Login";
 import { ReactNode } from "react";
 import { AuthProvider } from "./components/AuthContext";
+import { DataProvider } from "./components/ui/DataContext"; 
 
 interface MainLayoutProps {
   children: ReactNode;
 }
 
-const MainLayout: React.FC<MainLayoutProps> = ({children }) => (
+const MainLayout: React.FC<MainLayoutProps> = ({ children }) => (
   <>
     <Navbar />
     <Outlet />
@@ -28,18 +29,22 @@ const MainLayout: React.FC<MainLayoutProps> = ({children }) => (
 function App() {
   return (
     <AuthProvider>
-      <Router>
-        <Routes>
-          <Route path="/register" element={<Registration />} />
-          <Route path="/login" element={<Login />} />
-          {/* Nest routes under MainLayout */}
-          <Route element={<MainLayout children={undefined} />}>
-            <Route index element={<DestinationCitiesCard />} />
-            <Route path="/detail/:city" element={<DetailComponent />} />
-            <Route path="*" element={<h1>Not Found</h1>} />
-          </Route>
-        </Routes>
-      </Router>
+      <DataProvider>
+        {" "}
+        
+        <Router>
+          <Routes>
+            <Route path="/register" element={<Registration />} />
+            <Route path="/login" element={<Login />} />
+            
+            <Route element={<MainLayout />}>
+              <Route index element={<DestinationCitiesCard />} />
+              <Route path="/detail/:city" element={<DetailComponent />} />
+              <Route path="*" element={<h1>Not Found</h1>} />
+            </Route>
+          </Routes>
+        </Router>
+      </DataProvider>
     </AuthProvider>
   );
 }

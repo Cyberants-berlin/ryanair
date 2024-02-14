@@ -1,12 +1,42 @@
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { cn } from "../lib/utils";
 import AuthCardLogin from "./AuthCardLogin";
 import { buttonVariants } from "./ui/button";
 import "./login.css";
-
-
+import { useAuth } from "./AuthContext"; 
+import { useContext } from "react";
+import { DataContext } from "./ui/DataContext";
 
 export function Login() {
+  const { user, login } = useAuth(); 
+  const { data } = useContext(DataContext); 
+  const navigate = useNavigate();
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  // Login-Handler
+  const handleLogin = async (e) => {
+    e.preventDefault(); 
+    login(username, password); 
+    navigate("/");
+  };
+
+ 
+  if (user) {
+    return (
+      <div>
+        <h2>Welcome, {user.name}!</h2>{" "}
+        
+        {data &&
+          data.map((item) => (
+            <div key={item.id}>{item.name}</div> 
+          ))}
+      </div>
+    );
+  }
+
   return (
     <div className="container relative hidden h-[700px] flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
       <Link
@@ -19,7 +49,6 @@ export function Login() {
         Registration
       </Link>
       <div className="relative hidden h-full flex-col bg-muted p-10 text-black lg:flex dark:border-r">
-        
         <div
           className="absolute inset-0 bg-white bg-cover bg-center"
           style={{
