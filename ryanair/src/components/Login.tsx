@@ -4,6 +4,8 @@ import AuthCardLogin from "./AuthCardLogin";
 import { buttonVariants } from "./ui/button";
 import "./login.css";
 
+
+
 export function Login() {
   return (
     <div className="container relative hidden h-[700px] flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">

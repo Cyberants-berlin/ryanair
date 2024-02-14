@@ -1,4 +1,5 @@
-//  import  React  from  "react";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -11,13 +12,13 @@ import DetailComponent from "./components/Detail";
 import Registration from "./components/Registration";
 import { Login } from "./components/Login";
 import { ReactNode } from "react";
+import { AuthProvider } from "./components/AuthContext";
 
 interface MainLayoutProps {
   children: ReactNode;
 }
 
-//  Update  MainLayout  to  use  the  MainLayoutProps  type
-const MainLayout: React.FC<MainLayoutProps> = () => (
+const MainLayout: React.FC<MainLayoutProps> = ({children }) => (
   <>
     <Navbar />
     <Outlet />
@@ -26,20 +27,20 @@ const MainLayout: React.FC<MainLayoutProps> = () => (
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/register" element={<Registration />} />
-        <Route path="/login" element={<Login />} />
-
-        {/*  Nest  routes  under  MainLayout  */}
-        <Route element={<MainLayout children={undefined} />}>
-          <Route index element={<DestinationCitiesCard />} />
-          //placeholder for a specific city (city)
-          <Route path="/detail/:city" element={<DetailComponent />} />
-          <Route path="*" element={<h1>Not Found</h1>} />
-        </Route>
-      </Routes>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route path="/register" element={<Registration />} />
+          <Route path="/login" element={<Login />} />
+          {/* Nest routes under MainLayout */}
+          <Route element={<MainLayout children={undefined} />}>
+            <Route index element={<DestinationCitiesCard />} />
+            <Route path="/detail/:city" element={<DetailComponent />} />
+            <Route path="*" element={<h1>Not Found</h1>} />
+          </Route>
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 
