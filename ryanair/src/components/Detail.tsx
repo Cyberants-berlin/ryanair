@@ -1,13 +1,14 @@
 import { useParams } from "react-router-dom";
-import { Card, CardHeader, CardDescription,CardTitle, CardContent, CardFooter } from "./ui/card";
+import { Card, CardHeader, CardDescription, CardTitle, CardContent, CardFooter } from "./ui/card";
 import { useEffect, useState } from "react";
-
+import app from "./firebaseConfig";
+import { getFirestore, collection, getDocs } from "firebase/firestore";
 
 
 interface FlightDetails {
   departure: FlightSegment;
   return: FlightSegment;
-  cityCode:string;
+  cityCode: string;
   price: number;
 }
 
@@ -31,6 +32,7 @@ interface PriceDetails {
 
 
 async function getFlightDetailsByCity(city: string): Promise<FlightDetails[]> {
+  const db = getFirestore(app);
   const flightsCollection = db.collection('allFlights');
   const querySnapshot = await flightsCollection
     .where('arrivalAirport.seoName', '==', city)
@@ -52,6 +54,8 @@ async function getFlightDetailsByCity(city: string): Promise<FlightDetails[]> {
     flightDetailsSnapshot.forEach((detailDoc: { data: () => FlightDetails; }) => {
       const flightDetail: FlightDetails = detailDoc.data() as FlightDetails;
       flightDetailsArray.push(flightDetail);
+      console.log("Flight Details:");
+      console.log(flightDetail);
     });
   }
 
@@ -60,35 +64,14 @@ async function getFlightDetailsByCity(city: string): Promise<FlightDetails[]> {
 
 
 
-const Flights = () => {
-  const { city } = useParams();
-  const [flightDetails, setFlightDetails] = useState<FlightDetails[]>([]);
-
-  useEffect(() => {
-    const fetchFlightDetails = async () => {
-      if (city) {
-        const fetchedFlightDetails = await getFlightDetailsByCity(city);
-        setFlightDetails(fetchedFlightDetails);
-      }
-    };
-
-    fetchFlightDetails();
-  }, [city]);
-
-  return (
-    <div>
-      {flightDetails.map((flightDetail, index) => (
-        <FlightCard key={index} FlightDetails={flightDetail} />
-      ))}
-    </div>
-  );
-};
 
 
-const FlightCard = ({ flightDetail }: { flightDetail: FlightDetails }) => (
+
+
+export const FlightCard = ({ flightDetail }: { flightDetail: FlightDetails }) => (
   <Card>
     <CardHeader>
-      <CardTitle>{`Flight from ${flightDetail.cityCode.split('-')[0]} to ${flightDetail.cityCode.split('-')[1]}`}</CardTitle>
+      <CardTitle>{`Flight from {flightDetail.cityCode} to {flightDetail.cityCode`}</CardTitle>
       <CardDescription>{`Total Price: ${flightDetail.price} ${flightDetail.departure.price.currencySymbol}`}</CardDescription>
     </CardHeader>
     <CardContent>
@@ -101,13 +84,27 @@ const FlightCard = ({ flightDetail }: { flightDetail: FlightDetails }) => (
   </Card>
 );
 
-export function FlightCard;
 
 
 
 
 export default function DetailComponent() {
   const { city } = useParams();
+  // get the flight details for the city
+  const [flightDetails, setFlightDetails] = useState<FlightDetails[]>([]);
+  useEffect(() => {
+    getFlightDetailsByCity(city).then((data) => {
+      setFlightDetails(data);
+    });
+  }, [city]);
+
+  // log the flight details  
+  console.log(flightDetails);
+  // create cards for every flight 
+  const flightCards = flightDetails.map(flightDetail => {
+    return <FlightCard flightDetail={flightDetail} />;
+  });
+
   const firstletter = city?.charAt(0);
   const firstLetterCap = firstletter?.toUpperCase();
   const remainingletters = city?.slice(1);
@@ -640,6 +637,21 @@ export default function DetailComponent() {
       <div className="grid  gap-4  md:grid-cols-2  lg:grid-cols-7">
         <Card className="col-span-4"></Card>
       </div>
+
+      <div>
+
+
+        
+        <div>
+          <h1>Flights</h1>
+          {flightCards}
+        </div>
+    
+
+
+      </div>
     </>
+
+
   );
 }
