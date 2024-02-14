@@ -25,7 +25,9 @@ export const DataProvider = ({ children }: { children: ReactNode }) => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("URL");
+      const response = await fetch(
+        "https://www.ryanair.com/api/views/locate/5/airports/en/BER"
+      );
       const jsonData = await response.json();
       setData(jsonData);
     } catch (error) {
