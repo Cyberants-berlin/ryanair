@@ -1,10 +1,30 @@
-import { Link } from "react-router-dom";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { cn } from "../lib/utils";
-import AuthCardLogin from "./AuthCardLogin";
 import { buttonVariants } from "./ui/button";
 import "./login.css";
 
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../src/firebaseConfig"; 
+import AuthCardLogin from "./AuthCardLogin";
+
 export function Login() {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async (e: { preventDefault: () => void; }) => {
+    e.preventDefault();
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      navigate("/"); 
+    } catch (error) {
+      console.error(error);
+     
+    }
+  };
+
   return (
     <div className="container relative hidden h-[700px] flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
       <Link
@@ -17,7 +37,6 @@ export function Login() {
         Registration
       </Link>
       <div className="relative hidden h-full flex-col bg-muted p-10 text-black lg:flex dark:border-r">
-        
         <div
           className="absolute inset-0 bg-white bg-cover bg-center"
           style={{

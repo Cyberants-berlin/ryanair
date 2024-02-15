@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import React from "react";
 import {
   BrowserRouter as Router,
@@ -12,14 +10,10 @@ import Navbar from "./components/Navbar";
 import DetailComponent from "./components/Detail";
 import Registration from "./components/Registration";
 import { Login } from "./components/Login";
-import { ReactNode } from "react";
 import { Chatroom } from "./components/Chatroom";
+import { AuthProvider } from "./components/AuthContext"; 
 
-interface MainLayoutProps {
-  children: ReactNode;
-}
-
-const MainLayout: React.FC<MainLayoutProps> = () => (
+const MainLayout: React.FC = () => (
   <>
     <Navbar />
     <Outlet />
@@ -28,22 +22,20 @@ const MainLayout: React.FC<MainLayoutProps> = () => (
 
 function App() {
   return (
-
-        <Router>
-          <Routes>
-            <Route path="/register" element={<Registration />} />
-            <Route path="/login" element={<Login />} />
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route path="/register" element={<Registration />} />
+          <Route path="/login" element={<Login />} />
+          <Route element={<MainLayout />}>
+            <Route index element={<DestinationCitiesCard />} />
+            <Route path="/detail/:city" element={<DetailComponent />} />
             <Route path="/chatroom" element={<Chatroom />} />
-
-            <Route element={<MainLayout children={undefined} />}>
-              <Route index element={<DestinationCitiesCard />} />
-              <Route path="/detail/:city" element={<DetailComponent />} />
-              <Route path="/chatroom" element={<Chatroom />} />{" "}
-              <Route path="*" element={<h1>Not Found</h1>} />
-            </Route>
-          </Routes>
-        </Router>
-
+            <Route path="*" element={<h1>Not Found</h1>} />
+          </Route>
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 
