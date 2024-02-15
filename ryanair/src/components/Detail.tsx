@@ -663,7 +663,7 @@ export const FlightCard = ({ flightDetail }: { flightDetail: FlightDetails }) =>
         
         <div>
           <h1>Flights</h1>
-          {flightCards}
+   
         </div>
     
 
