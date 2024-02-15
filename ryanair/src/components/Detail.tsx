@@ -71,7 +71,7 @@ async function getFlightDetailsByCity(city: string): Promise<FlightDetails[]> {
 export const FlightCard = ({ flightDetail }: { flightDetail: FlightDetails }) => (
   <Card>
     <CardHeader>
-      <CardTitle>{`Flight from {flightDetail.cityCode} to {flightDetail.cityCode`}</CardTitle>
+      <CardTitle>{`Flight from BER to ${flightDetail.cityCode}`}</CardTitle>
       <CardDescription>{`Total Price: ${flightDetail.price} ${flightDetail.departure.price.currencySymbol}`}</CardDescription>
     </CardHeader>
     <CardContent>
