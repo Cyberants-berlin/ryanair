@@ -83,7 +83,6 @@ export const FlightCard = ({
   flightDetail: FlightDetails;
 }) => (
   <div>
-    <h1>Flights</h1>
     <Card>
       <CardHeader>
         <CardTitle>{`Flight from BER to ${flightDetail.cityCode}`}</CardTitle>
