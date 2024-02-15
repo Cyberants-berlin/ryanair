@@ -1,9 +1,22 @@
 import { useParams } from "react-router-dom";
-import { Card, CardHeader, CardDescription, CardTitle, CardContent, CardFooter } from "./ui/card";
+import {
+  Card,
+  CardHeader,
+  CardDescription,
+  CardTitle,
+  CardContent,
+  CardFooter,
+} from "./ui/card";
 import { useEffect, useState } from "react";
 import app from "./firebaseConfig";
-import { getFirestore, collection, getDocs, query, where, limit } from "firebase/firestore";
-
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  query,
+  where,
+  limit,
+} from "firebase/firestore";
 
 interface FlightDetails {
   departure: FlightSegment;
@@ -29,86 +42,84 @@ interface PriceDetails {
   currencySymbol: string;
 }
 
-
 async function getFlightDetailsByCity(city: string): Promise<FlightDetails[]> {
-    const db = getFirestore(app);
-    const flightsCollectionRef = collection(db, 'allFlights');
-  
-    const queryConstraint = query(flightsCollectionRef, where('arrivalAirport.seoName', '==', city), limit(1));
-    const querySnapshot = await getDocs(queryConstraint);
-  
-  
-    if (querySnapshot.empty) {
-      console.log('No matching documents.');
-      return [];
-    }
-  
-    let flightDetailsArray: FlightDetails[] = [];
-    
-    for (const flightDoc of querySnapshot.docs) {
-  
-      const flightDetailsCollectionRef = collection(flightDoc.ref, 'flightDetails');
-      const flightDetailsSnapshot = await getDocs(flightDetailsCollectionRef);
-  
-      // Assuming each flightDoc only contains a single flightDetails document, or you want to aggregate them all
-      const details = flightDetailsSnapshot.docs.map(doc => doc.data() as FlightDetails);
-      flightDetailsArray = flightDetailsArray.concat(details);
-    }
-   
-    
-    return flightDetailsArray;
+  const db = getFirestore(app);
+  const flightsCollectionRef = collection(db, "allFlights");
+
+  const queryConstraint = query(
+    flightsCollectionRef,
+    where("arrivalAirport.seoName", "==", city),
+    limit(1)
+  );
+  const querySnapshot = await getDocs(queryConstraint);
+
+  if (querySnapshot.empty) {
+    console.log("No matching documents.");
+    return [];
   }
 
+  let flightDetailsArray: FlightDetails[] = [];
 
+  for (const flightDoc of querySnapshot.docs) {
+    const flightDetailsCollectionRef = collection(
+      flightDoc.ref,
+      "flightDetails"
+    );
+    const flightDetailsSnapshot = await getDocs(flightDetailsCollectionRef);
 
+    // Assuming each flightDoc only contains a single flightDetails document, or you want to aggregate them all
+    const details = flightDetailsSnapshot.docs.map(
+      (doc) => doc.data() as FlightDetails
+    );
+    flightDetailsArray = flightDetailsArray.concat(details);
+  }
 
+  return flightDetailsArray;
+}
 
-
-
-
-
-
-export const FlightCard = ({ flightDetail }: { flightDetail: FlightDetails }) => (
-  <Card>
-    <CardHeader>
-      <CardTitle>{`Flight from BER to ${flightDetail.cityCode}`}</CardTitle>
-      <CardDescription>{`Total Price: ${flightDetail.price} ${flightDetail.departure.price.currencySymbol}`}</CardDescription>
-    </CardHeader>
-    <CardContent>
-      <p>{`Departure: ${flightDetail.departure.day} at ${flightDetail.departure.departureDate}`}</p>
-      <p>{`Return: ${flightDetail.return.day} at ${flightDetail.return.departureDate}`}</p>
-    </CardContent>
-    <CardFooter>
-      <p>Book now!</p>
-    </CardFooter>
-  </Card>
+export const FlightCard = ({
+  flightDetail,
+}: {
+  flightDetail: FlightDetails;
+}) => (
+  <div>
+    <h1>Flights</h1>
+    <Card>
+      <CardHeader>
+        <CardTitle>{`Flight from BER to ${flightDetail.cityCode}`}</CardTitle>
+        <CardDescription>{`Total Price: ${flightDetail.price} ${flightDetail.departure.price.currencySymbol}`}</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <p>{`Departure: ${flightDetail.departure.day} at ${flightDetail.departure.departureDate}`}</p>
+        <p>{`Return: ${flightDetail.return.day} at ${flightDetail.return.departureDate}`}</p>
+      </CardContent>
+      <CardFooter>
+        <p>Book now!</p>
+      </CardFooter>
+    </Card>
+  </div>
 );
 
+export default function DetailComponent() {
+  const { city } = useParams();
+  const [flightDetails, setFlightDetails] = useState<FlightDetails[]>([]);
 
+  useEffect(() => {
+    if (city) {
+      getFlightDetailsByCity(city)
+        .then((data) => {
+          setFlightDetails(data);
+        })
+        .catch((error) => {
+          console.error("Failed to fetch flight details:", error);
+        });
+    }
+  }, [city]);
 
-
-
-  export default function DetailComponent() {
-    const { city } = useParams();
-    const [flightDetails, setFlightDetails] = useState<FlightDetails[]>([]);
-    
-    useEffect(() => {
-      if (city) {
-        getFlightDetailsByCity(city)
-          .then((data) => {
-            setFlightDetails(data);
-          })
-          .catch(error => {
-            console.error("Failed to fetch flight details:", error);
-          });
-      }
-    }, [city]);
-
-
-  // log the flight details  
+  // log the flight details
   console.log(flightDetails);
-  // create cards for every flight 
-  const flightCards = flightDetails.map(flightDetail => {
+  // create cards for every flight
+  const flightCards = flightDetails.map((flightDetail) => {
     return <FlightCard flightDetail={flightDetail} />;
   });
 
@@ -119,18 +130,13 @@ export const FlightCard = ({ flightDetail }: { flightDetail: FlightDetails }) =>
     (firstLetterCap as string) + (remainingletters as string);
   return (
     <>
-
-<div>
-      {flightDetails.length > 0 ? (
-        <div className="flight-cards-container">
-          {flightCards}
-        </div>
-      ) : (
-        <p>No flights found for {capitalizedWord}.</p>
-        
-      )}
-      
-    </div>
+      <div>
+        {flightDetails.length > 0 ? (
+          <div className="flight-cards-container">{flightCards}</div>
+        ) : (
+          <p>No flights found for {capitalizedWord}.</p>
+        )}
+      </div>
       <div className="grid  gap-4  md:grid-cols-2  lg:grid-cols-4">
         <Card>
           <CardHeader className="flex  flex-row  items-center  justify-between  space-y-0  pb-2">
@@ -657,20 +663,7 @@ export const FlightCard = ({ flightDetail }: { flightDetail: FlightDetails }) =>
         <Card className="col-span-4"></Card>
       </div>
 
-      <div>
-
-
-        
-        <div>
-          <h1>Flights</h1>
-   
-        </div>
-    
-
-
-      </div>
+      <div></div>
     </>
-
-
   );
 }
