@@ -12,6 +12,7 @@ import Registration from "./components/Registration";
 import { Login } from "./components/Login";
 import { Chatroom } from "./components/Chatroom";
 import { AuthProvider } from "./components/AuthContext"; 
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const MainLayout: React.FC = () => (
   <>
@@ -21,6 +22,8 @@ const MainLayout: React.FC = () => (
 );
 
 function App() {
+  // const { currentUser } = useAuth(); 
+
   return (
     <AuthProvider>
       <Router>
@@ -30,8 +33,14 @@ function App() {
           <Route element={<MainLayout />}>
             <Route index element={<DestinationCitiesCard />} />
             <Route path="/detail/:city" element={<DetailComponent />} />
-            <Route path="/chatroom" element={<Chatroom />} />
-            <Route path="*" element={<h1>Not Found</h1>} />
+            <Route
+              path="/chatroom"
+              element={
+                <ProtectedRoute>
+                  <Chatroom />
+                </ProtectedRoute>
+              }
+            />
           </Route>
         </Routes>
       </Router>
