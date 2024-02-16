@@ -92,3 +92,8 @@ async function getFlightDetailsByCity(city: string): Promise<FlightDetails[]> {
     console.error("Failed to fetch flight details:", error);
   });
 
+
+  
+
+
+
