@@ -13,17 +13,18 @@ export function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+   const [error, setError] = useState("");
 
-  const handleLogin = async (e: { preventDefault: () => void; }) => {
-    e.preventDefault();
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      navigate("/chatroom"); 
-    } catch (error) {
-      console.error(error);
-     
-    }
-  };
+ const handleLogin = async (e: React.FormEvent) => {
+   e.preventDefault();
+   try {
+     await signInWithEmailAndPassword(auth, email, password);
+     navigate("/chatroom");
+     setError(""); 
+   } catch (error: any) {
+     setError(error.message); 
+   }
+ };
 
   return (
     <div className="container relative hidden h-[700px] flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
@@ -108,6 +109,9 @@ export function Login() {
           </p>
         </div>
       </div>
+      {error && (
+        <div className="text-red-500 text-center p-4 mx-auto">{error}</div>
+      )}
     </div>
   );
 }

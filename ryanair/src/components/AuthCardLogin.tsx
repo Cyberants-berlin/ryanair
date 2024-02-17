@@ -22,6 +22,9 @@ import { Input } from "./ui/input";
 
 export default function AuthCardLogin() {
   const auth = getAuth();
+   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+   const [error, setError] = useState("");
 
   const signInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
@@ -41,8 +44,7 @@ export default function AuthCardLogin() {
     }
   };
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+
 
 
     const handleEmailChange = (event: {
@@ -60,8 +62,9 @@ export default function AuthCardLogin() {
     const signInWithEmail = async () => {
       try {
         await signInWithEmailAndPassword(auth, email, password);
-      } catch (error) {
-        console.error(error);
+        setError('');
+      } catch (error: any) {
+        setError(error.message);
       }
     };
 
@@ -112,6 +115,9 @@ export default function AuthCardLogin() {
             />
           </div>
         </CardContent>
+        {error && (
+          <div className="text-red-500 text-center p-4 mx-auto">{error}</div>
+        )}
         <CardFooter>
           <Button onClick={signInWithEmail} className="w-full">
             Login to your Account
