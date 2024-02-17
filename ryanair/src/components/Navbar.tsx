@@ -132,7 +132,7 @@ export default function Navbar() {
         </NavigationMenuList>
       </NavigationMenu>
       <div className="text-sm font-bold text white bg-blue-600 p-2 rounded">
-        {currentUser ? `Logged in as ${currentUser.email}` : "Not logged in"}
+        {currentUser ? `Welcome back, ${currentUser.email}!` : "Not logged in"}
       </div>
     </nav>
   );
