@@ -59,14 +59,21 @@ export default function AuthCardLogin() {
       setPassword(event.target.value);
     };
 
-    const signInWithEmail = async () => {
-      try {
-        await signInWithEmailAndPassword(auth, email, password);
-        setError('');
-      } catch (error: any) {
-        setError(error.message);
-      }
-    };
+   const signInWithEmail = async () => {
+     try {
+       await signInWithEmailAndPassword(auth, email, password);
+       setError(""); 
+     } catch (error: any) {
+       if (
+         error.code === "auth/user-not-found" ||
+         error.code === "auth/wrong-password"
+       ) {
+         setError("Invalid email or password.");
+       } else {
+         setError("An unexpected error occurred. Please try again.");
+       }
+     }
+   };
 
     return (
       <Card>
