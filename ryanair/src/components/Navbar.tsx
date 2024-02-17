@@ -15,6 +15,8 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "../components/ui/navigation-menu";
+import { useAuth } from "../components/AuthContext";
+
 
 const components: { title: string; href: string; description: string }[] = [
   {
@@ -55,7 +57,9 @@ const components: { title: string; href: string; description: string }[] = [
 ];
 
 export default function Navbar() {
+  const { currentUser } = useAuth();
   return (
+    <nav>
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
@@ -127,6 +131,8 @@ export default function Navbar() {
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
+    { currentUser ? <p>Logged in as {currentUser.email}</p> : <p>Not logged in</p> }
+  </nav>
   );
 }
 
@@ -151,7 +157,7 @@ const ListItem = React.forwardRef<
           </p>
         </a>
       </NavigationMenuLink>
-    </li>
+      </li>
   );
 });
 ListItem.displayName = "ListItem";

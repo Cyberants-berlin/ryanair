@@ -18,7 +18,7 @@ export function Login() {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate("/"); 
+      navigate("/chatroom"); 
     } catch (error) {
       console.error(error);
      
