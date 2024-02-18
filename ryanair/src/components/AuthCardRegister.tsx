@@ -24,6 +24,7 @@ export default function AuthCardRegister() {
   const auth = getAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+   const [error, setError] = useState("");
 
   const handleEmailChange = (event: { target: { value:any } }) => {
     setEmail(event.target.value);
@@ -33,13 +34,30 @@ export default function AuthCardRegister() {
     setPassword(event.target.value);
   };
 
-  const signUpWithEmail = async () => {
-    try {
-      await createUserWithEmailAndPassword(auth, email, password);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+   const signUpWithEmail = async () => {
+     if (!email || !password) {
+       setError("Please fill in all fields.");
+       return;
+     }
+
+     try {
+       await createUserWithEmailAndPassword(auth, email, password);
+       
+     } catch (error: any) {
+       
+       if (error.code === "auth/email-already-in-use") {
+         setError("This email is already in use.");
+       } else if (error.code === "auth/weak-password") {
+         setError("The password is too weak.");
+       } else {
+         setError("An unexpected error occurred. Please try again.");
+       }
+     }
+   };
+
+
+
+     
   const signUpWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
     try {
@@ -103,6 +121,7 @@ export default function AuthCardRegister() {
               type="password"
             />
           </div>
+          {error && <div className="text-red-500">{error}</div>}
         </CardContent>
         <CardFooter>
           <Button className="w-full" onClick={signUpWithEmail}>

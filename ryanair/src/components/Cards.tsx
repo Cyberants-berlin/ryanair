@@ -67,7 +67,7 @@ const DestinationCitiesCard: React.FC = () => {
     const fetchData = async () => {
       const db = getFirestore(app);
       try {
-        const querySnapshot = await getDocs(collection(db, "routes"));
+        const querySnapshot = await getDocs(collection(db, "allFlights"));
         const citiesData: ArrivalAirport[] = querySnapshot.docs.map(
           (doc) => doc.data().arrivalAirport as ArrivalAirport
         );

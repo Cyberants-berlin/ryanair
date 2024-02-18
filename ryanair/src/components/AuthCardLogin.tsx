@@ -1,10 +1,12 @@
-import { SetStateAction, useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { SetStateAction, useEffect, useState } from "react";
 import {
   getAuth,
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
   GithubAuthProvider,
+  onAuthStateChanged,
 } from "firebase/auth";
 import {
   Card,
@@ -20,8 +22,31 @@ import { Icons } from "./ui/icons";
 import { Input } from "./ui/input";
 
 
+
+export function useAuthStatus  ()  {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [checkingStatus, setCheckingStatus] = useState(true);
+
+  useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setIsLoggedIn(!!user);
+      setCheckingStatus(false);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  return { isLoggedIn, checkingStatus };
+};
+
+
 export default function AuthCardLogin() {
+   
   const auth = getAuth();
+   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+   const [error, setError] = useState("");
 
   const signInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
@@ -41,8 +66,7 @@ export default function AuthCardLogin() {
     }
   };
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+
 
 
     const handleEmailChange = (event: {
@@ -57,13 +81,21 @@ export default function AuthCardLogin() {
       setPassword(event.target.value);
     };
 
-    const signInWithEmail = async () => {
-      try {
-        await signInWithEmailAndPassword(auth, email, password);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+   const signInWithEmail = async () => {
+     try {
+       await signInWithEmailAndPassword(auth, email, password);
+       setError(""); 
+     } catch (error: any) {
+       if (
+         error.code === "auth/user-not-found" ||
+         error.code === "auth/wrong-password"
+       ) {
+         setError("Invalid email or password.");
+       } else {
+         setError("An unexpected error occurred. Please try again.");
+       }
+     }
+   };
 
     return (
       <Card>
@@ -112,6 +144,9 @@ export default function AuthCardLogin() {
             />
           </div>
         </CardContent>
+        {error && (
+          <div className="text-red-500 text-center p-4 mx-auto">{error}</div>
+        )}
         <CardFooter>
           <Button onClick={signInWithEmail} className="w-full">
             Login to your Account
