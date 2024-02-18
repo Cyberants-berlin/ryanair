@@ -21,6 +21,7 @@ export function Login() {
      await signInWithEmailAndPassword(auth, email, password);
      navigate("/chatroom");
      setError(""); 
+   // eslint-disable-next-line @typescript-eslint/no-explicit-any
    } catch (error: any) {
      setError(error.message); 
    }
