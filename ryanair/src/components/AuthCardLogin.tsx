@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { SetStateAction, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import {
   getAuth,
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
   GithubAuthProvider,
+  onAuthStateChanged,
 } from "firebase/auth";
 import {
   Card,
@@ -21,7 +22,27 @@ import { Icons } from "./ui/icons";
 import { Input } from "./ui/input";
 
 
+
+export function useAuthStatus  ()  {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [checkingStatus, setCheckingStatus] = useState(true);
+
+  useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setIsLoggedIn(!!user);
+      setCheckingStatus(false);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  return { isLoggedIn, checkingStatus };
+};
+
+
 export default function AuthCardLogin() {
+   
   const auth = getAuth();
    const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
