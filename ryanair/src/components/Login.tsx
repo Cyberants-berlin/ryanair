@@ -11,8 +11,8 @@ import AuthCardLogin from "./AuthCardLogin";
 
 export function Login() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email] = useState("");
+  const [password] = useState("");
    const [error, setError] = useState("");
 
  const handleLogin = async (e: React.FormEvent) => {
@@ -115,4 +115,5 @@ export function Login() {
       )}
     </div>
   );
+  console.log(handleLogin)
 }

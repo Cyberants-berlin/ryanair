@@ -23,6 +23,7 @@ import { Input } from "./ui/input";
 
 
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useAuthStatus  ()  {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [checkingStatus, setCheckingStatus] = useState(true);
@@ -38,7 +39,7 @@ export function useAuthStatus  ()  {
   }, []);
 
   return { isLoggedIn, checkingStatus };
-};
+}
 
 
 export default function AuthCardLogin() {
