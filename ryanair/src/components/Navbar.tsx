@@ -16,7 +16,6 @@ import {
   navigationMenuTriggerStyle,
 } from "../components/ui/navigation-menu";
 import { useAuth } from "../components/AuthContext";
-import RyanairLogo from "../components/RyanairLogo";
 
 
 const components: { title: string; href: string; description: string }[] = [
@@ -63,17 +62,7 @@ export default function Navbar() {
     <nav>
       <NavigationMenu>
         <NavigationMenuList>
-          {/* Ryanair-Logo */}
-          <NavigationMenuItem>
-            <Link to="/" className="logo-link">
-              <img
-                src={RyanairLogo}
-                alt="Ryanair Logo"
-                className="ryanair-logo"
-              />
-            </Link>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
+       <NavigationMenuItem>
             <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid  gap-3  p-4  md:w-[400px]  lg:w-[500px]  lg:grid-cols-[.75fr_1fr]">
