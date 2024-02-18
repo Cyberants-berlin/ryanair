@@ -1,0 +1,11 @@
+.logo-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 15px; 
+}
+
+.ryanair-logo {
+  height: 50px; 
+  width: auto; 
+}
