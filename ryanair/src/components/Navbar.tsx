@@ -16,6 +16,7 @@ import {
   navigationMenuTriggerStyle,
 } from "../components/ui/navigation-menu";
 import { useAuth } from "../components/AuthContext";
+import { ModeToggle } from "./ModeToggle";
 
 
 const components: { title: string; href: string; description: string }[] = [
@@ -62,7 +63,7 @@ export default function Navbar() {
     <nav>
       <NavigationMenu>
         <NavigationMenuList>
-       <NavigationMenuItem>
+          <NavigationMenuItem>
             <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid  gap-3  p-4  md:w-[400px]  lg:w-[500px]  lg:grid-cols-[.75fr_1fr]">
@@ -119,20 +120,23 @@ export default function Navbar() {
             </Link>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            {" "}
             {/* Neuer Chatroom-Link */}
             <Link to="/chatroom">
-              {" "}
               {/* Verwendung von Link für clientseitige Navigation */}
               <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                 Chatroom
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
+          <NavigationMenuItem>
+            <ModeToggle />
+          </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
       <div className="text-sm font-bold text white bg-blue-600 p-2 rounded">
-        {currentUser ? `Welcome back, ${currentUser.displayName}!` : "Not logged in"}
+        {currentUser
+          ? `Welcome back, ${currentUser.displayName}!`
+          : "Not logged in"}
       </div>
     </nav>
   );
