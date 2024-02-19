@@ -42,7 +42,7 @@ async function cityChat(city: string) {
   const db = getFirestore(app);
   const cityChatRef = collection(db, "allFlights");
 
-  const queryChat = query(cityChatRef, where("city", "==", city), limit(1));
+  const queryChat = query(cityChatRef, where("city", "==", city));
   const querySnapshot = await getDocs(queryChat);
   if (querySnapshot.empty) {
     console.log("object does not exist");
@@ -106,6 +106,7 @@ export function Chatroom() {
         content: messageText,
         userId: userId,
         timestamp: Timestamp.now(),
+        city:city
       });
     } catch (error) {
       console.error("Error sending message to Firestore:", error);
