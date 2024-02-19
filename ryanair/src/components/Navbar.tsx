@@ -17,7 +17,7 @@ import {
 } from "../components/ui/navigation-menu";
 import { useAuth } from "../components/AuthContext";
 import { useToast } from "../components/ui/use-toast"; 
-import { useEffect } from "react";
+
 
 
 
@@ -32,14 +32,14 @@ const handleLogout = async () => {
     await logout();
     toast({
       title: "Logged Out",
-      description: "You've successfully logged out.",
-      status: "success",
+      description: "You've successfully logged out."
+      // status: "success",
     });
   } catch (error) {
     toast({
       title: "Error",
-      description: "Failed to log out.",
-      status: "error",
+      description: "Failed to log out."
+      // status: "error",
     });
   }
 };

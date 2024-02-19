@@ -27,9 +27,9 @@ function App() {
   useEffect(() => {
     if (isLoggedIn) {
       toast({
-        title: "Login in",
-        description: "You've successfully logged in.",
-        status: "success",
+        title: "Logged in",
+        description: "You've successfully logged in."
+        // status: "success",
       });
     }
   }, [isLoggedIn, toast]);
