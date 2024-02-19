@@ -16,7 +16,6 @@ import { AuthProvider } from "./components/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { useAuthStatus } from "./components/AuthCardLogin"; // Adjust the path as necessary
 import { ThemeProvider } from "./components/Theme";
-
 const MainLayout: React.FC = () => (
   <>
     <Navbar />
