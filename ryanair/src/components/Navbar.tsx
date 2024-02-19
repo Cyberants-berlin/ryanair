@@ -87,8 +87,9 @@ const handleLogout = async () => {
   return (
     <nav>
       <NavigationMenu>
+
         <NavigationMenuList>
-          <NavigationMenuItem>
+          
           <NavigationMenuItem>
             <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
             <NavigationMenuContent>
@@ -171,9 +172,6 @@ const handleLogout = async () => {
         </NavigationMenuList>
       </NavigationMenu>
       <div className="text-sm font-bold text white bg-blue-600 p-2 rounded">
-        {currentUser
-          ? `Welcome back, ${currentUser.displayName}!`
-          : "Not logged in"}
         {currentUser
           ? `Welcome back, ${currentUser.displayName}!`
           : "Not logged in"}
