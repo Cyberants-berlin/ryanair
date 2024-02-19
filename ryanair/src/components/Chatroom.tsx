@@ -24,7 +24,6 @@ import {
   orderBy, // Added for orderBy functionality
   Timestamp,
   addDoc,
-  limit,
 } from "firebase/firestore";
 import { useParams } from "react-router";
 
