@@ -4,11 +4,11 @@ import DestinationCitiesCard from "./components/Cards";
 import Navbar from "./components/Navbar";
 import DetailComponent from "./components/Detail";
 import Registration from "./components/Registration";
-import { Login } from "./components/Login"; // Make sure this is the default export
+import { Login } from "./components/Login";
 import { Chatroom } from "./components/Chatroom";
 import { AuthProvider } from "./components/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
-import { useAuthStatus } from "./components/AuthCardLogin"; // Adjust the path as necessary
+import { useAuthStatus } from "./components/AuthCardLogin"; 
 
 const MainLayout: React.FC = () => (
   <>
