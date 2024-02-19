@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // React and related hooks
 import * as React from "react";
 import { useAuth } from "./AuthContext";
@@ -15,15 +16,16 @@ import { cn } from "../lib/utils";
 
 // Firebase imports
 import app from "./firebaseConfig";
-import { 
-    getFirestore, 
-    collection, 
-    query, 
-    onSnapshot, 
-    orderBy, // Added for orderBy functionality
-    Timestamp,
-    addDoc
-} from 'firebase/firestore';
+import {
+  getFirestore,
+  collection,
+  query,
+  onSnapshot,
+  orderBy, // Added for orderBy functionality
+  Timestamp,
+  addDoc,
+} from "firebase/firestore";
+import { useParams } from "react-router";
 
 // Message interface
 interface Message {
@@ -31,12 +33,13 @@ interface Message {
   content: string;
   userId: string;
   timestamp: Timestamp | null;
+  city: string;
 }
-
 
 
 export function Chatroom() {
   const { currentUser } = useAuth();
+  const { city } = useParams();
 
   // State for messages
   const [messages, setMessages] = React.useState<Message[]>([]);
@@ -45,14 +48,23 @@ export function Chatroom() {
   const db = getFirestore(app);
 
   React.useEffect(() => {
-    // Query setup for messages collection, ordered by timestamp
-    const q = query(collection(db, "messages"), orderBy("timestamp"));
+    // Ensure city is not undefined or null
+    if (!city) {
+      console.error("City is undefined or null");
+      return;
+    }
 
+    // Query setup for messages collection, ordered by timestamp and filtered by city
+    const messagesRef = collection(db, "messages");
+
+    // Query setup for messages collection, ordered by timestamp and filtered by city
+    const q = query(messagesRef,  orderBy("timestamp"));
+    
     // Real-time listener for Firestore messages collection
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const fetchedMessages = snapshot.docs.map((doc) => ({
         id: doc.id,
-        ...doc.data()
+        ...doc.data(),
       })) as Message[];
       setMessages(fetchedMessages);
     });
@@ -61,30 +73,32 @@ export function Chatroom() {
     return () => {
       unsubscribe();
     };
-  }, [db]); // Dependency array includes db to re-run effect if db changes
+  }, [db, city]); 
 
-  const sendMessageToFirestore = async (messageText: string, userId: string | undefined) => {
+  const sendMessageToFirestore = async (
+    messageText: string,
+    userId: string | undefined
+  ) => {
     if (!userId) {
       console.error("User ID is undefined. Cannot send message.");
       return;
     }
-  
+
     try {
       const messagesRef = collection(db, "messages");
 
-      addDoc(messagesRef,{
+      addDoc(messagesRef, {
         content: messageText,
         userId: userId,
         timestamp: Timestamp.now(),
+        city:city
       });
     } catch (error) {
       console.error("Error sending message to Firestore:", error);
     }
   };
 
-
   const [input, setInput] = React.useState("");
-
 
   // Function to handle form submission
   const handleSubmit = (event: React.FormEvent) => {
@@ -95,8 +109,7 @@ export function Chatroom() {
     setInput(""); // Reset input after sending
   };
 
-
-   return (
+  return (
     <>
       <Card>
         <CardHeader className="flex flex-row items-center">
@@ -104,7 +117,9 @@ export function Chatroom() {
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            {messages.map((message) => (
+            {messages
+            .filter((message) => message.city === city)
+            .map((message) => (
               <div
                 key={message.id}
                 className={cn(
@@ -120,7 +135,10 @@ export function Chatroom() {
           </div>
         </CardContent>
         <CardFooter>
-          <form onSubmit={handleSubmit} className="flex w-full items-center space-x-2">
+          <form
+            onSubmit={handleSubmit}
+            className="flex w-full items-center space-x-2"
+          >
             <Input
               id="message"
               placeholder="Type your message..."
@@ -129,7 +147,11 @@ export function Chatroom() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
             />
-            <Button type="submit" size="icon" disabled={input.trim().length === 0}>
+            <Button
+              type="submit"
+              size="icon"
+              disabled={input.trim().length === 0}
+            >
               <Send className="h-4 w-4" />
               <span className="sr-only">Send</span>
             </Button>
