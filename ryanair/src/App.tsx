@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Outlet, Navigate } from "react-router-dom";
 import DestinationCitiesCard from "./components/Cards";
 import Navbar from "./components/Navbar";
@@ -10,6 +10,7 @@ import { AuthProvider } from "./components/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { useAuthStatus } from "./components/AuthCardLogin"; 
 import { Toaster } from "./components/ui/toaster";
+import { useToast } from "./components/ui/use-toast";
 
 const MainLayout: React.FC = () => (
   <>
@@ -20,10 +21,21 @@ const MainLayout: React.FC = () => (
 
 function App() {
   const { isLoggedIn, checkingStatus } = useAuthStatus();
+  const { toast } = useToast();
   console.log("isLoggedIn:", isLoggedIn, "checkingStatus:", checkingStatus);
 
+  useEffect(() => {
+    if (isLoggedIn) {
+      toast({
+        title: "Login in",
+        description: "You've successfully logged in.",
+        status: "success",
+      });
+    }
+  }, [isLoggedIn, toast]);
+
   if (checkingStatus) {
-    return <div>Loading...</div>; 
+    return <div>Loading...</div>;
   }
 
   return (
