@@ -1,8 +1,7 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   Card,
   CardHeader,
-  CardDescription,
   CardTitle,
   CardContent,
   CardFooter,
@@ -17,6 +16,7 @@ import {
   where,
   limit,
 } from "firebase/firestore";
+import { Button } from "./ui/button";
 
 interface FlightDetails {
   departure: FlightSegment;
@@ -77,24 +77,47 @@ async function getFlightDetailsByCity(city: string): Promise<FlightDetails[]> {
   return flightDetailsArray;
 }
 
-export const FlightCard = ({
-  flightDetail,
-}: {
-  flightDetail: FlightDetails;
-}) => (
+export const FlightCard = ({ flightDetail }: { flightDetail: FlightDetails }) => (
   <div>
-    <Card>
-      <CardHeader>
+    <Card className="grid  gap-4  md:grid-cols-2  lg:grid-cols-4">
+      <CardHeader className="flex  flex-row  items-center  justify-between  space-y-0  pb-2">
         <CardTitle>{`Flight from BER to ${flightDetail.cityCode}`}</CardTitle>
-        <CardDescription>{`Total Price: ${flightDetail.price} ${flightDetail.departure.price.currencySymbol}`}</CardDescription>
       </CardHeader>
-      <CardContent>
-        <p>{`Departure: ${flightDetail.departure.day} at ${flightDetail.departure.departureDate}`}</p>
-        <p>{`Return: ${flightDetail.return.day} at ${flightDetail.return.departureDate}`}</p>
+      <CardContent className="flex  flex-row  items-center  justify-between  space-y-0  pb-1 pt-18">
+        <svg
+          fill="blue"
+          width="80px"
+          height="80px"
+          viewBox="24 24"
+          xmlns="http://www.w3.org/2000/svg"
+          stroke="#000000"
+          transform="matrix(1, 0, 0, 1, 0, 0)rotate(0)"
+          strokeWidth="0.00024000000000000003"
+        >
+          <g id="SVGRepo_iconCarrier">
+            <path d="M3 18h18v2H3zm18.509-9.473a1.61 1.61 0 0 0-2.036-1.019L15 9 7 6 5 7l6 4-4 2-4-2-1 1 4 4 14.547-5.455a1.611 1.611 0 0 0 .962-2.018z" />
+          </g>
+        </svg>
+        <p>{`Departure: ${flightDetail.departure.departureDate}`}</p>
+        <svg
+          fill="gold"
+          width="80px"
+          height="80px"
+          viewBox="24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g id="SVGRepo_iconCarrier">
+            <path d="M18.842 15.296a1.61 1.61 0 0 0 1.892-1.189v-.001a1.609 1.609 0 0 0-1.177-1.949l-4.576-1.133L9.825 4.21l-2.224-.225 2.931 6.589-4.449-.449-2.312-3.829-1.38.31 1.24 5.52 15.211 3.17zM3 18h18v2H3z" />
+          </g>
+        </svg>
+        <p className=" flex  flex-row  items-center  justify-between pt-18 pb-2">{`Return:${flightDetail.return.departureDate}`}</p>
       </CardContent>
-      <CardFooter>
-        <p>Book now!</p>
+      <CardFooter className="flex  flex-row  items-center  justify-between pb-2">
+        <Button>
+          <Link to={"https://www.ryanair.com/de/de"}>Book Now</Link>
+        </Button>
       </CardFooter>
+      <p className=" flex  flex-row  items-center  justify-between  pt-18 pb-2 text-la  font-large">{`Total Price: ${flightDetail.price} ${flightDetail.departure.price.currencySymbol}`}</p>
     </Card>
   </div>
 );

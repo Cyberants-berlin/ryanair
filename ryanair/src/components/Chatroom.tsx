@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // React and related hooks
 import * as React from "react";
 import { useAuth } from "./AuthContext";
@@ -15,15 +16,19 @@ import { cn } from "../lib/utils";
 
 // Firebase imports
 import app from "./firebaseConfig";
-import { 
-    getFirestore, 
-    collection, 
-    query, 
-    onSnapshot, 
-    orderBy, // Added for orderBy functionality
-    Timestamp,
-    addDoc
-} from 'firebase/firestore';
+import {
+  getFirestore,
+  collection,
+  query,
+  onSnapshot,
+  orderBy, // Added for orderBy functionality
+  Timestamp,
+  addDoc,
+  where,
+  limit,
+  getDocs,
+} from "firebase/firestore";
+import { useParams } from "react-router";
 
 // Message interface
 interface Message {
@@ -31,12 +36,34 @@ interface Message {
   content: string;
   userId: string;
   timestamp: Timestamp | null;
+  city: string;
 }
+async function cityChat(city: string) {
+  const db = getFirestore(app);
+  const cityChatRef = collection(db, "allFlights");
 
+  const queryChat = query(cityChatRef, where("city", "==", city));
+  const querySnapshot = await getDocs(queryChat);
+  if (querySnapshot.empty) {
+    console.log("object does not exist");
+    return [];
+  }
 
+  let chatArray: FlightDetails[] = [];
+
+  for (const chatDoc of querySnapshot.docs) {
+    const cityChatCollectionRef = collection(chatDoc.ref, "flightDetails");
+    const chatSnapshot = await getDocs(cityChatCollectionRef);
+
+    const details = chatSnapshot.docs.map((doc) => doc.data() as FlightDetails);
+    chatArray = chatArray.concat(details);
+    return chatArray;
+  }
+}
 
 export function Chatroom() {
   const { currentUser } = useAuth();
+  const { city } = useParams();
 
   // State for messages
   const [messages, setMessages] = React.useState<Message[]>([]);
@@ -52,7 +79,7 @@ export function Chatroom() {
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const fetchedMessages = snapshot.docs.map((doc) => ({
         id: doc.id,
-        ...doc.data()
+        ...doc.data(),
       })) as Message[];
       setMessages(fetchedMessages);
     });
@@ -63,28 +90,30 @@ export function Chatroom() {
     };
   }, [db]); // Dependency array includes db to re-run effect if db changes
 
-  const sendMessageToFirestore = async (messageText: string, userId: string | undefined) => {
+  const sendMessageToFirestore = async (
+    messageText: string,
+    userId: string | undefined
+  ) => {
     if (!userId) {
       console.error("User ID is undefined. Cannot send message.");
       return;
     }
-  
+
     try {
       const messagesRef = collection(db, "messages");
 
-      addDoc(messagesRef,{
+      addDoc(messagesRef, {
         content: messageText,
         userId: userId,
         timestamp: Timestamp.now(),
+        city:city
       });
     } catch (error) {
       console.error("Error sending message to Firestore:", error);
     }
   };
 
-
   const [input, setInput] = React.useState("");
-
 
   // Function to handle form submission
   const handleSubmit = (event: React.FormEvent) => {
@@ -95,8 +124,7 @@ export function Chatroom() {
     setInput(""); // Reset input after sending
   };
 
-
-   return (
+  return (
     <>
       <Card>
         <CardHeader className="flex flex-row items-center">
@@ -120,7 +148,10 @@ export function Chatroom() {
           </div>
         </CardContent>
         <CardFooter>
-          <form onSubmit={handleSubmit} className="flex w-full items-center space-x-2">
+          <form
+            onSubmit={handleSubmit}
+            className="flex w-full items-center space-x-2"
+          >
             <Input
               id="message"
               placeholder="Type your message..."
@@ -129,7 +160,11 @@ export function Chatroom() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
             />
-            <Button type="submit" size="icon" disabled={input.trim().length === 0}>
+            <Button
+              type="submit"
+              size="icon"
+              disabled={input.trim().length === 0}
+            >
               <Send className="h-4 w-4" />
               <span className="sr-only">Send</span>
             </Button>

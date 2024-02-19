@@ -16,6 +16,7 @@ import {
   navigationMenuTriggerStyle,
 } from "../components/ui/navigation-menu";
 import { useAuth } from "../components/AuthContext";
+import { ModeToggle } from "./ModeToggle";
 import { useToast } from "../components/ui/use-toast"; 
 
 
@@ -88,6 +89,7 @@ const handleLogout = async () => {
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
+          <NavigationMenuItem>
             <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid  gap-3  p-4  md:w-[400px]  lg:w-[500px]  lg:grid-cols-[.75fr_1fr]">
@@ -155,6 +157,9 @@ const handleLogout = async () => {
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
+          <NavigationMenuItem>
+            <ModeToggle />
+          </NavigationMenuItem>
 
           <NavigationMenuItem>
             {currentUser && (
@@ -166,6 +171,9 @@ const handleLogout = async () => {
         </NavigationMenuList>
       </NavigationMenu>
       <div className="text-sm font-bold text white bg-blue-600 p-2 rounded">
+        {currentUser
+          ? `Welcome back, ${currentUser.displayName}!`
+          : "Not logged in"}
         {currentUser
           ? `Welcome back, ${currentUser.displayName}!`
           : "Not logged in"}
