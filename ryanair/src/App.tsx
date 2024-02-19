@@ -37,6 +37,7 @@ function App() {
           <Route element={<MainLayout />}>
             <Route index element={<DestinationCitiesCard />} />
             <Route path="/detail/:city" element={<DetailComponent />} />
+            <Route path="/chatroom:city" element={<Chatroom />} />"
             <Route path="/chatroom" element={<ProtectedRoute><Chatroom /></ProtectedRoute>} />
           </Route>
         </Routes>
