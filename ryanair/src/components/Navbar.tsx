@@ -88,7 +88,7 @@ const handleLogout = async () => {
     <nav>
       <NavigationMenu>
         <NavigationMenuList>
-          <NavigationMenuItem>
+          
           <NavigationMenuItem>
             <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
             <NavigationMenuContent>
