@@ -10,8 +10,6 @@ import { AuthProvider } from "./components/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { useAuthStatus } from "./components/AuthCardLogin"; // Adjust the path as necessary
 import { ThemeProvider } from "./components/Theme";
-import { Toaster } from "./components/ui/toaster";
-import { useToast } from "./components/ui/use-toast";
 const MainLayout: React.FC = () => (
   <>
     <Navbar />
@@ -39,47 +37,56 @@ function App() {
   }
 
   return (
-    <><ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <AuthProvider>
         <Router>
           <Routes>
             <Route path="/register" element={<Registration />} />
             <Route
               path="/login"
-              element={!isLoggedIn ? <Login /> : <Navigate to="/" replace />} />
+              element={!isLoggedIn ? <Login /> : <Navigate to="/" replace />}
+            />
             <Route element={<MainLayout />}>
               <Route index element={<DestinationCitiesCard />} />
               <Route path="/detail/:city" element={<DetailComponent />} />
               <Route path="/chatroom/:city" element={<Chatroom />} />"
               <Route
                 path="/chatroom"
-                element={<ProtectedRoute>
-                  <Chatroom />
-                </ProtectedRoute>} />
+                element={
+                  <ProtectedRoute>
+                    <Chatroom />
+                  </ProtectedRoute>
+                }
+              />
             </Route>
           </Routes>
         </Router>
       </AuthProvider>
-    </ThemeProvider><AuthProvider>
-        <Router>
-          <Routes>
-            <Route path="/register" element={<Registration />} />
+    </ThemeProvider>
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route path="/register" element={<Registration />} />
+          <Route
+            path="/login"
+            element={!isLoggedIn ? <Login /> : <Navigate to="/" replace />}
+          />
+          <Route element={<MainLayout />}>
+            <Route index element={<DestinationCitiesCard />} />
+            <Route path="/detail/:city" element={<DetailComponent />} />
             <Route
-              path="/login"
-              element={!isLoggedIn ? <Login /> : <Navigate to="/" replace />} />
-            <Route element={<MainLayout />}>
-              <Route index element={<DestinationCitiesCard />} />
-              <Route path="/detail/:city" element={<DetailComponent />} />
-              <Route
-                path="/chatroom"
-                element={<ProtectedRoute>
+              path="/chatroom"
+              element={
+                <ProtectedRoute>
                   <Chatroom />
-                </ProtectedRoute>} />
-            </Route>
-          </Routes>
-          <Toaster />
-        </Router>
-      </AuthProvider></>
+                </ProtectedRoute>
+              }
+            />
+          </Route>
+        </Routes>
+        <Toaster />
+      </Router>
+    </AuthProvider>
   );
 }
 
