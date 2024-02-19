@@ -24,9 +24,7 @@ import {
   orderBy, // Added for orderBy functionality
   Timestamp,
   addDoc,
-  where,
   limit,
-  getDocs,
 } from "firebase/firestore";
 import { useParams } from "react-router";
 
@@ -38,28 +36,7 @@ interface Message {
   timestamp: Timestamp | null;
   city: string;
 }
-async function cityChat(city: string) {
-  const db = getFirestore(app);
-  const cityChatRef = collection(db, "allFlights");
 
-  const queryChat = query(cityChatRef, where("city", "==", city));
-  const querySnapshot = await getDocs(queryChat);
-  if (querySnapshot.empty) {
-    console.log("object does not exist");
-    return [];
-  }
-
-  let chatArray: FlightDetails[] = [];
-
-  for (const chatDoc of querySnapshot.docs) {
-    const cityChatCollectionRef = collection(chatDoc.ref, "flightDetails");
-    const chatSnapshot = await getDocs(cityChatCollectionRef);
-
-    const details = chatSnapshot.docs.map((doc) => doc.data() as FlightDetails);
-    chatArray = chatArray.concat(details);
-    return chatArray;
-  }
-}
 
 export function Chatroom() {
   const { currentUser } = useAuth();
@@ -72,9 +49,18 @@ export function Chatroom() {
   const db = getFirestore(app);
 
   React.useEffect(() => {
-    // Query setup for messages collection, ordered by timestamp
-    const q = query(collection(db, "messages"), orderBy("timestamp"));
+    // Ensure city is not undefined or null
+    if (!city) {
+      console.error("City is undefined or null");
+      return;
+    }
 
+    // Query setup for messages collection, ordered by timestamp and filtered by city
+    const messagesRef = collection(db, "messages");
+
+    // Query setup for messages collection, ordered by timestamp and filtered by city
+    const q = query(messagesRef,  orderBy("timestamp"));
+    
     // Real-time listener for Firestore messages collection
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const fetchedMessages = snapshot.docs.map((doc) => ({
@@ -88,7 +74,7 @@ export function Chatroom() {
     return () => {
       unsubscribe();
     };
-  }, [db]); // Dependency array includes db to re-run effect if db changes
+  }, [db, city]); 
 
   const sendMessageToFirestore = async (
     messageText: string,
@@ -132,7 +118,9 @@ export function Chatroom() {
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            {messages.map((message) => (
+            {messages
+            .filter((message) => message.city === city)
+            .map((message) => (
               <div
                 key={message.id}
                 className={cn(
