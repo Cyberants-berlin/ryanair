@@ -9,6 +9,7 @@ import { Chatroom } from "./components/Chatroom";
 import { AuthProvider } from "./components/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { useAuthStatus } from "./components/AuthCardLogin"; 
+import { Toaster } from "../components/ui/toaster";
 
 const MainLayout: React.FC = () => (
   <>
@@ -22,7 +23,7 @@ function App() {
   console.log("isLoggedIn:", isLoggedIn, "checkingStatus:", checkingStatus);
 
   if (checkingStatus) {
-    return <div>Loading...</div>; // Or any loading component
+    return <div>Loading...</div>; 
   }
 
   return (
@@ -37,9 +38,17 @@ function App() {
           <Route element={<MainLayout />}>
             <Route index element={<DestinationCitiesCard />} />
             <Route path="/detail/:city" element={<DetailComponent />} />
-            <Route path="/chatroom" element={<ProtectedRoute><Chatroom /></ProtectedRoute>} />
+            <Route
+              path="/chatroom"
+              element={
+                <ProtectedRoute>
+                  <Chatroom />
+                </ProtectedRoute>
+              }
+            />
           </Route>
         </Routes>
+        <Toaster />
       </Router>
     </AuthProvider>
   );
