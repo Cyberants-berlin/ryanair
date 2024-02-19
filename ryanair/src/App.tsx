@@ -9,7 +9,7 @@ import { Chatroom } from "./components/Chatroom";
 import { AuthProvider } from "./components/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { useAuthStatus } from "./components/AuthCardLogin"; 
-import { Toaster } from "../components/ui/toaster";
+import { Toaster } from "./components/ui/toaster";
 
 const MainLayout: React.FC = () => (
   <>
