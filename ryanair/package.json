@@ -22,7 +22,7 @@
         "class-variance-authority": "^0.7.0",
         "clsx": "^2.1.0",
         "cmdk": "^0.2.1",
-        "firebase": "^10.8.0",
+        "firebase": "^10.6.0",
         "lucide-react": "^0.323.0",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
