@@ -17,6 +17,7 @@ import {
   limit,
 } from "firebase/firestore";
 import { Button } from "./ui/button";
+import { Chatroom } from "./Chatroom";
 
 interface FlightDetails {
   departure: FlightSegment;
@@ -600,8 +601,11 @@ export default function DetailComponent() {
       <div className="grid  gap-4  md:grid-cols-2  lg:grid-cols-7">
         <Card className="col-span-4"></Card>
       </div>
-
-      <div></div>
+      <div>
+        <Card className="grid  gap-4  md:grid-cols-2  lg:grid-cols-7">
+          <Chatroom />
+        </Card>
+      </div>
     </>
   );
 }
