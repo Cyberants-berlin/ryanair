@@ -5,9 +5,14 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../ui
 import { useTheme } from '../Theme';
 
 
+interface WeatherData {
+  time: string;
+  temperature: number;
+}
+
 export function CardsMetric() {
   const { theme } = useTheme();
-    const [weatherData, setWeatherData] = useState([]);
+  const [weatherData, setWeatherData] = useState<WeatherData[]>([]);
   
   useEffect(() => {
     const fetchData = async () => {
@@ -62,7 +67,7 @@ export function CardsMetric() {
               }}
             >
               <Tooltip
-                formatter={(value, name, props) => [
+                formatter={(value, _name, props) => [
                   `${value}°C`, 
                   `Date: ${props.payload.time.toLocaleString()}`
                 ]}
