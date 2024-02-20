@@ -133,7 +133,7 @@ export default function Navbar() {
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
-          <NavigationMenuItem>
+          {/* <NavigationMenuItem>
             {" "}
             <Link to="/chatroom">
               {" "}
@@ -141,7 +141,7 @@ export default function Navbar() {
                 Chatroom
               </NavigationMenuLink>
             </Link>
-          </NavigationMenuItem>
+          </NavigationMenuItem> */}
           <NavigationMenuItem>
             <ModeToggle />
           </NavigationMenuItem>

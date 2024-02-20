@@ -51,12 +51,28 @@ function App() {
             <Route element={<MainLayout />}>
               <Route index element={<DestinationCitiesCard />} />
               <Route path="/detail/:city" element={<DetailComponent />} />
-              <Route path="/chatroom/:city" element={<Chatroom />} />"
+              <Route
+                path="/chatroom/:city"
+                element={
+                  isLoggedIn ? (
+                    <Chatroom />
+                  ) : (
+                    <Navigate to="/login" replace />
+                  )
+                }
+              />
               <Route
                 path="/chatroom"
-                element={<ProtectedRoute>
-                  <Chatroom />
-                </ProtectedRoute>} />
+                element={
+                  isLoggedIn ? (
+                    <ProtectedRoute>
+                      <Chatroom />
+                    </ProtectedRoute>
+                  ) : (
+                    <Navigate to="/login" replace />
+                  )
+                }
+              />
             </Route>
           </Routes>
           <Toaster />
