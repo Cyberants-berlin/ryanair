@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import SkeletonCard from "./SkeletonCard"; 
+import SkeletonCard from "./SkeletonCard";
 import ErrorBoundary from './ErrorBoundary';
 import "../main.css";
 
@@ -19,6 +19,7 @@ import { Button } from "./ui/button";
 import app from "./firebaseConfig";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { Link } from "react-router-dom";
+import { Avatar, AvatarImage } from "./ui/avatar";
 
 interface ArrivalAirport {
   code: string;
@@ -101,41 +102,53 @@ const DestinationCitiesCard: React.FC = () => {
       <div className="grid  grid-cols-4  gap-10  px-3">
         {isLoading
           ? Array(4)
-              .fill(null)
-              .map((_, index) => <SkeletonCard key={index} />)
+            .fill(null)
+            .map((_, index) => <SkeletonCard key={index} />)
           : cities.map((city, index) => (
-              <Card key={index} className="flex  flex-col  justify-between">
-                <CardHeader className="flex-row  gap-4  items-center">
-                  <div>
-                    <CardTitle>{city.city.name}</CardTitle>
-                    <CardDescription>{city.country.name}</CardDescription>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <img
-                    src={`https://source.unsplash.com/random/800x600?${city.city.name}`}
-                    alt={city.city.name}
-                  />
-                  <p>
-                    A beautiful city in {city.region.name}. In the{"  "}
-                    {city.timeZone} Timezone.
-                  </p>
-                </CardContent>
-                <CardFooter className="flex  justify-between">
-                  {/*  <Link  to={`/${city.city.name}`}>
+
+            <Card key={index} className="flex  flex-col  justify-between">
+              <CardHeader className="flex-row  gap-4  items-center">
+              <Avatar>
+                <AvatarImage src={`https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/${city.country.code}.svg`} alt="@shadcn" />
+              </Avatar>
+                <div>
+                  <CardTitle>
+                  {city.city.name}
+                   
+
+                      
+                      </CardTitle>
+                  <CardDescription>{city.country.name}</CardDescription>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <img
+                
+                src={`/cityImages/${city.city.name.toLowerCase()}/${city.city.name.toLowerCase()}_1.jpg`}
+                alt={city.city.name}
+                />
+                <p>
+                  A beautiful city in {city.region.name}. In the{"  "}
+                  {city.timeZone} Timezone.
+                </p>
+              </CardContent>
+              <CardFooter className="flex  justify-between">
+                {/*  <Link  to={`/${city.city.name}`}>
                                 {city.city.name}
                             </Link>  */}
-                  <Button asChild>
-                    <Link to={`/detail/${city.city.name.toLocaleLowerCase()}`}>
-                      Visit {city.city.name}
-                    </Link>
-                  </Button>
+                <Button asChild>
+                  <Link to={`/detail/${city.city.name.toLocaleLowerCase()}`}>
+                    Visit {city.city.name}
+                  </Link>
+                </Button>
 
-                  {city.country.schengen && (
-                    <Badge variant="secondary">🇪🇺</Badge>
+                {city.country.schengen && (
+                  <Badge variant="secondary">🇪🇺</Badge>
                 )}
-                <Link to="/chatroom">
-                  <svg width= "20" height="20"
+                <Link to={`/chatroom/${city.city.name.toLowerCase()}`}>
+                  <svg
+                    width="20"
+                    height="20"
                     viewBox="0 0 24 24"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -182,10 +195,13 @@ const DestinationCitiesCard: React.FC = () => {
                       ></path>{" "}
                     </g>
                   </svg>
-                  </Link>
-                </CardFooter>
-              </Card>
-            ))}
+                </Link>
+              </CardFooter>
+            </Card>
+
+
+
+          ))}
       </div>
     </ErrorBoundary>
   );
