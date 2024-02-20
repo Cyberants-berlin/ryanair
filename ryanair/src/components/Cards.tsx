@@ -121,9 +121,6 @@ const DestinationCitiesCard: React.FC = () => {
                   </p>
                 </CardContent>
                 <CardFooter className="flex  justify-between">
-                  {/*  <Link  to={`/${city.city.name}`}>
-                                {city.city.name}
-                            </Link>  */}
                   <Button asChild>
                     <Link to={`/detail/${city.city.name.toLocaleLowerCase()}`}>
                       Visit {city.city.name}
