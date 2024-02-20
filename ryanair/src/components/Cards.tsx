@@ -19,6 +19,7 @@ import { Button } from "./ui/button";
 import app from "./firebaseConfig";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { Link } from "react-router-dom";
+import { Avatar, AvatarImage } from "./ui/avatar";
 
 interface ArrivalAirport {
   code: string;
@@ -104,15 +105,16 @@ const DestinationCitiesCard: React.FC = () => {
             .fill(null)
             .map((_, index) => <SkeletonCard key={index} />)
           : cities.map((city, index) => (
+
             <Card key={index} className="flex  flex-col  justify-between">
               <CardHeader className="flex-row  gap-4  items-center">
+              <Avatar>
+                <AvatarImage src={`https://raw.githubusercontent.com/HatScripts/circle-flags/gh-pages/flags/${city.country.code}.svg`} alt="@shadcn" />
+              </Avatar>
                 <div>
                   <CardTitle>
                   {city.city.name}
-                    <img
-                      src= {`https://flagcdn.com/${city.country.code}.svg`}
-                      width="30"
-                      alt="Ukraine"/>
+                   
 
                       
                       </CardTitle>
@@ -196,6 +198,9 @@ const DestinationCitiesCard: React.FC = () => {
                 </Link>
               </CardFooter>
             </Card>
+
+
+
           ))}
       </div>
     </ErrorBoundary>
