@@ -16,7 +16,7 @@ import {
 import { useAuth } from "../components/AuthContext";
 import { ModeToggle } from "./ModeToggle";
 import { useToast } from "../components/ui/use-toast";
-
+import "./LogoutButton.css";
 export default function Navbar() {
   const { currentUser, logout } = useAuth();
   const { toast } = useToast();
@@ -148,7 +148,7 @@ export default function Navbar() {
 
           <NavigationMenuItem>
             {currentUser && (
-              <button onClick={handleLogout} className="logout-button-style">
+              <button onClick={handleLogout} className="logout-button-right">
                 Logout
               </button>
             )}
