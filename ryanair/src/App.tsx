@@ -12,6 +12,7 @@ import { useAuthStatus } from "./components/AuthCardLogin"; // Adjust the path a
 import { ThemeProvider } from "./components/Theme";
 import { useToast } from "./components/ui/use-toast";
 import { Toaster } from "./components/ui/toaster";
+import "./main.css";
 const MainLayout: React.FC = () => (
   <>
     <Navbar />
