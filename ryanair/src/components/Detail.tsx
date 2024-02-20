@@ -77,7 +77,11 @@ async function getFlightDetailsByCity(city: string): Promise<FlightDetails[]> {
   return flightDetailsArray;
 }
 
-export const FlightCard = ({ flightDetail }: { flightDetail: FlightDetails }) => (
+export const FlightCard = ({
+  flightDetail,
+}: {
+  flightDetail: FlightDetails;
+}) => (
   <div>
     <Card className="grid  gap-4  md:grid-cols-2  lg:grid-cols-4">
       <CardHeader className="flex  flex-row  items-center  justify-between  space-y-0  pb-2">
@@ -172,18 +176,10 @@ export default function DetailComponent() {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <g id="SVGRepo_bgCarrier" stroke-width="0" />
-
-              <g
-                id="SVGRepo_tracerCarrier"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-
               <g id="SVGRepo_iconCarrier">
                 <path
                   d="M19 7.11111C17.775 5.21864 15.8556 4 13.6979 4C9.99875 4 7 7.58172 7 12C7 16.4183 9.99875 20 13.6979 20C15.8556 20 17.775 18.7814 19 16.8889M5 10H14M5 14H14"
-                  stroke="#000000"
+                  stroke="green"
                   stroke-width="2"
                   stroke-linecap="round"
                   stroke-linejoin="round"
