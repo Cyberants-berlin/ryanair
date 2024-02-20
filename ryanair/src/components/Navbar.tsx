@@ -17,7 +17,9 @@ import {
 } from "../components/ui/navigation-menu";
 import { useAuth } from "../components/AuthContext";
 import { ModeToggle } from "./ModeToggle";
-import { useToast } from "../components/ui/use-toast"; 
+import { useToast } from "../components/ui/use-toast";
+import "./LogoutButton.css";
+
 
 
 
@@ -164,7 +166,7 @@ const handleLogout = async () => {
 
           <NavigationMenuItem>
             {currentUser && (
-              <button onClick={handleLogout} className="logout-button-style">
+              <button onClick={handleLogout} className="logout-button-right">
                 Logout
               </button>
             )}
