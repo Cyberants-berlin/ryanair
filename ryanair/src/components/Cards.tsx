@@ -133,7 +133,8 @@ const DestinationCitiesCard: React.FC = () => {
 
                   {city.country.schengen && (
                     <Badge variant="secondary">🇪🇺</Badge>
-                  )}
+                )}
+                <Link to="/chatroom">
                   <svg width= "20" height="20"
                     viewBox="0 0 24 24"
                     fill="none"
@@ -181,6 +182,7 @@ const DestinationCitiesCard: React.FC = () => {
                       ></path>{" "}
                     </g>
                   </svg>
+                  </Link>
                 </CardFooter>
               </Card>
             ))}
