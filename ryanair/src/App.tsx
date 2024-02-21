@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+
 import { BrowserRouter as Router, Routes, Route, Outlet, Navigate } from "react-router-dom";
 import DestinationCitiesCard from "./components/Cards";
 import Navbar from "./components/Navbar";
@@ -8,9 +8,8 @@ import { Login } from "./components/Login";
 import { Chatroom } from "./components/Chatroom";
 import { AuthProvider } from "./components/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
-import { useAuthStatus } from "./components/AuthCardLogin"; // Adjust the path as necessary
+import { useAuthStatus } from "./components/AuthCardLogin"; 
 import { ThemeProvider } from "./components/Theme";
-import { useToast } from "./components/ui/use-toast";
 import { Toaster } from "./components/ui/toaster";
 import "./main.css";
 import DashboardPage from "./components/Dashboard";
@@ -25,18 +24,7 @@ const MainLayout: React.FC = () => (
 
 function App() {
   const { isLoggedIn, checkingStatus } = useAuthStatus();
-  const { toast } = useToast();
-  console.log("isLoggedIn:", isLoggedIn, "checkingStatus:", checkingStatus);
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      toast({
-        title: "Logged in",
-        description: "You've successfully logged in."
-        // status: "success",
-      });
-    }
-  }, [isLoggedIn, toast]);
 
   if (checkingStatus) {
     return <div>Loading...</div>;

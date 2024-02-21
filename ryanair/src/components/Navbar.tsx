@@ -16,6 +16,8 @@ import { useAuth } from "../components/AuthContext";
 import { ModeToggle } from "./ModeToggle";
 import { useToast } from "../components/ui/use-toast";
 import "./LogoutButton.css";
+
+
 export default function Navbar() {
   const { currentUser, logout } = useAuth();
   const { toast } = useToast();
@@ -36,6 +38,17 @@ export default function Navbar() {
       });
     }
   };
+
+
+    React.useEffect(() => {
+      if (currentUser) {
+        toast({
+          title: `Welcome back, ${currentUser.displayName}!`,
+          description: "You're logged in.",
+         
+        });
+      }
+    }, [currentUser, toast]);
 
   const components: { title: string; href: string; description: string }[] = [
     {
@@ -156,11 +169,7 @@ export default function Navbar() {
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
-      <div className="text-sm font-bold text white bg-blue-600 p-2 rounded">
-        {currentUser
-          ? `Welcome back, ${currentUser.displayName}!`
-          : "Not logged in"}
-      </div>
+      
     </nav>
   );
 }
