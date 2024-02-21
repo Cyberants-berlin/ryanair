@@ -101,7 +101,7 @@ export function Chatroom() {
 
   const [input, setInput] = React.useState("");
 
-  // Function to handle form submission
+
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     // Implement the logic to send the message to Firestore
