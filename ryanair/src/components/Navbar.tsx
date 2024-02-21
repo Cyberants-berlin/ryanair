@@ -156,7 +156,7 @@ export default function Navbar() {
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
-      <div className="text-sm font-bold text white bg-blue-600 p-2 rounded">
+      <div className="text-sm font-bold text white bg-blue-800 p-2 rounded">
         {currentUser
           ? `Welcome back, ${currentUser.displayName}!`
           : "Not logged in"}
