@@ -144,9 +144,12 @@ export default function Navbar() {
           <NavigationMenuItem>
             <ModeToggle />
           </NavigationMenuItem>
-          <NavigationMenuItem className="flex justify-end">
+          <NavigationMenuItem>
             {currentUser && (
-              <button onClick={handleLogout} className="">
+              <button
+                onClick={handleLogout}
+                className=" font-medium  text-sm px-2 text-center"
+              >
                 Logout
               </button>
             )}
