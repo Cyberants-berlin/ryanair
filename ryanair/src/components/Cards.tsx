@@ -98,13 +98,16 @@ const DestinationCitiesCard: React.FC = () => {
 
   return (
     <ErrorBoundary>
-      <div className="grid  grid-cols-4  gap-10  px-3">
+      <div className="grid  grid-cols-4  gap-10  px-3 min-[320px]:text-center max-[600px]:grid-cols-1">
         {isLoading
           ? Array(4)
               .fill(null)
               .map((_, index) => <SkeletonCard key={index} />)
           : cities.map((city, index) => (
-              <Card key={index} className="flex  flex-col  justify-between">
+              <Card
+                key={index}
+                className="flex  flex-col  justify-between text-center "
+              >
                 <CardHeader className="flex-row  gap-4  items-center">
                   <Avatar>
                     <AvatarImage
