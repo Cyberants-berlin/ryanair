@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import SkeletonCard from "./SkeletonCard";
 import ErrorBoundary from "./ErrorBoundary";
 import "../main.css";
+import "../Header.css";
+import Header from "../components/Header";
 
 import {
   Card,
@@ -63,6 +65,11 @@ const DestinationCitiesCard: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+     <div className="App">
+       <Header />
+       {/* Weitere Komponenten und Inhalt hier einfügen */}
+     </div>;
+
   useEffect(() => {
     const fetchData = async () => {
       const db = getFirestore(app);
@@ -84,6 +91,7 @@ const DestinationCitiesCard: React.FC = () => {
 
   if (isLoading) {
     return (
+      
       <div className="grid  grid-cols-4  gap-10  px-10">
         {Array.from({ length: 4 }, (_, index) => (
           <SkeletonCard key={index} />
@@ -97,6 +105,8 @@ const DestinationCitiesCard: React.FC = () => {
   }
 
   return (
+    <>
+ <Header />
     <ErrorBoundary>
       <div className="grid  grid-cols-4  gap-10  px-3 min-[320px]:text-center max-[600px]:grid-cols-1">
         {isLoading
@@ -197,6 +207,7 @@ const DestinationCitiesCard: React.FC = () => {
             ))}
       </div>
     </ErrorBoundary>
+</>
   );
 };
 

@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useAuth } from "./AuthContext";
 
-// UI Components from your project
+// UI Components 
 import { Button } from "./ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "./ui/card";
 import { Input } from "./ui/input";
@@ -12,7 +12,6 @@ import { Input } from "./ui/input";
 import { Send } from "lucide-react";
 import { cn } from "../lib/utils";
 
-// Routing
 
 // Firebase imports
 import app from "./firebaseConfig";
@@ -21,11 +20,14 @@ import {
   collection,
   query,
   onSnapshot,
-  orderBy, // Added for orderBy functionality
+  orderBy, 
   Timestamp,
   addDoc,
 } from "firebase/firestore";
 import { useParams } from "react-router";
+
+import ScrollArea from "../components/ui/scroll-area";
+
 
 // Message interface
 interface Message {
@@ -48,7 +50,6 @@ export function Chatroom() {
   const db = getFirestore(app);
 
   React.useEffect(() => {
-    // Ensure city is not undefined or null
     if (!city) {
       console.error("City is undefined or null");
       return;
@@ -58,8 +59,8 @@ export function Chatroom() {
     const messagesRef = collection(db, "messages");
 
     // Query setup for messages collection, ordered by timestamp and filtered by city
-    const q = query(messagesRef,  orderBy("timestamp"));
-    
+    const q = query(messagesRef, orderBy("timestamp"));
+
     // Real-time listener for Firestore messages collection
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const fetchedMessages = snapshot.docs.map((doc) => ({
@@ -73,7 +74,7 @@ export function Chatroom() {
     return () => {
       unsubscribe();
     };
-  }, [db, city]); 
+  }, [db, city]);
 
   const sendMessageToFirestore = async (
     messageText: string,
@@ -91,7 +92,7 @@ export function Chatroom() {
         content: messageText,
         userId: userId,
         timestamp: Timestamp.now(),
-        city:city
+        city: city,
       });
     } catch (error) {
       console.error("Error sending message to Firestore:", error);
@@ -100,40 +101,58 @@ export function Chatroom() {
 
   const [input, setInput] = React.useState("");
 
-  // Function to handle form submission
+
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    // Implement the logic to send the message to Firestore
-    // ...
+    // send the message to Firestore
     sendMessageToFirestore(input, currentUser?.uid);
     setInput(""); // Reset input after sending
   };
 
+  //scrolling
+
+const endOfMessagesRef = React.useRef<HTMLDivElement>(null);
+
+
+ React.useEffect(() => {
+   if (endOfMessagesRef.current) {
+     endOfMessagesRef.current.scrollIntoView({ behavior: "smooth" });
+   }
+ }, [messages]);
+
+
+  {
+    /* ...rendering messages... */
+  }
+  <div ref={endOfMessagesRef} />;
+
   return (
     <>
       <Card>
-        <CardHeader className="flex flex-row items-center">
-          {/* ... CardHeader content */}
-        </CardHeader>
+        <CardHeader className="flex flex-row items-center"></CardHeader>
         <CardContent>
-          <div className="space-y-4">
-            {messages
-            .filter((message) => message.city === city)
-            .map((message) => (
-              <div
-                key={message.id}
-                className={cn(
-                  "flex w-max max-w-[75%] flex-col gap-2 rounded-lg px-3 py-2 text-sm",
-                  message.userId === currentUser?.uid
-                    ? "ml-auto bg-primary text-primary-foreground"
-                    : "bg-muted"
-                )}
-              >
-                {message.content}
-              </div>
-            ))}
-          </div>
+          <ScrollArea className="h-[300px] w-full overflow-y-auto">
+            <div className="space-y-4">
+              {messages
+                .filter((message) => message.city === city)
+                .map((message) => (
+                  <div
+                    key={message.id}
+                    className={cn(
+                      "flex w-max max-w-[75%] flex-col gap-2 rounded-lg px-3 py-2 text-sm",
+                      message.userId === currentUser?.uid
+                        ? "ml-auto bg-primary text-primary-foreground"
+                        : "bg-muted"
+                    )}
+                  >
+                    {message.content}
+                  </div>
+                ))}
+            </div>
+            <div ref={endOfMessagesRef} />{" "}
+          </ScrollArea>
         </CardContent>
+
         <CardFooter>
           <form
             onSubmit={handleSubmit}
