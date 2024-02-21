@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useAuth } from "./AuthContext";
 
-// UI Components from your project
+// UI Components 
 import { Button } from "./ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "./ui/card";
 import { Input } from "./ui/input";
@@ -12,7 +12,6 @@ import { Input } from "./ui/input";
 import { Send } from "lucide-react";
 import { cn } from "../lib/utils";
 
-// Routing
 
 // Firebase imports
 import app from "./firebaseConfig";
@@ -21,7 +20,7 @@ import {
   collection,
   query,
   onSnapshot,
-  orderBy, // Added for orderBy functionality
+  orderBy, 
   Timestamp,
   addDoc,
 } from "firebase/firestore";
@@ -51,7 +50,6 @@ export function Chatroom() {
   const db = getFirestore(app);
 
   React.useEffect(() => {
-    // Ensure city is not undefined or null
     if (!city) {
       console.error("City is undefined or null");
       return;
@@ -107,7 +105,6 @@ export function Chatroom() {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     // Implement the logic to send the message to Firestore
-    // ...
     sendMessageToFirestore(input, currentUser?.uid);
     setInput(""); // Reset input after sending
   };
@@ -116,7 +113,6 @@ export function Chatroom() {
     <>
       <Card>
         <CardHeader className="flex flex-row items-center">
-          {/* ... CardHeader content */}
         </CardHeader>
         <CardContent>
           <ScrollArea className="h-[300px] w-full overflow-y-auto">
