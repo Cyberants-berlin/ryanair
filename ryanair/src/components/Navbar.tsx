@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import { Link } from "react-router-dom";
-import "./login.css";
 import { cn } from "../lib/utils";
 import {
   NavigationMenu,
@@ -80,7 +79,7 @@ export default function Navbar() {
     <nav>
       <NavigationMenu>
         <NavigationMenuList>
-          <Link to="/" className="login">
+          <Link to="/" className="bg-blue-800">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0,0,256,256"
@@ -145,10 +144,12 @@ export default function Navbar() {
           <NavigationMenuItem>
             <ModeToggle />
           </NavigationMenuItem>
-
           <NavigationMenuItem>
             {currentUser && (
-              <button onClick={handleLogout} className="logout-button-right">
+              <button
+                onClick={handleLogout}
+                className=" font-medium  text-sm px-2 text-center"
+              >
                 Logout
               </button>
             )}
