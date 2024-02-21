@@ -59,8 +59,8 @@ export function Chatroom() {
     const messagesRef = collection(db, "messages");
 
     // Query setup for messages collection, ordered by timestamp and filtered by city
-    const q = query(messagesRef,  orderBy("timestamp"));
-    
+    const q = query(messagesRef, orderBy("timestamp"));
+
     // Real-time listener for Firestore messages collection
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const fetchedMessages = snapshot.docs.map((doc) => ({
@@ -74,7 +74,7 @@ export function Chatroom() {
     return () => {
       unsubscribe();
     };
-  }, [db, city]); 
+  }, [db, city]);
 
   const sendMessageToFirestore = async (
     messageText: string,
@@ -92,7 +92,7 @@ export function Chatroom() {
         content: messageText,
         userId: userId,
         timestamp: Timestamp.now(),
-        city:city
+        city: city,
       });
     } catch (error) {
       console.error("Error sending message to Firestore:", error);
@@ -109,11 +109,27 @@ export function Chatroom() {
     setInput(""); // Reset input after sending
   };
 
+  //scrolling
+
+const endOfMessagesRef = React.useRef<HTMLDivElement>(null);
+
+
+ React.useEffect(() => {
+   if (endOfMessagesRef.current) {
+     endOfMessagesRef.current.scrollIntoView({ behavior: "smooth" });
+   }
+ }, [messages]);
+
+
+  {
+    /* ...rendering messages... */
+  }
+  <div ref={endOfMessagesRef} />;
+
   return (
     <>
       <Card>
-        <CardHeader className="flex flex-row items-center">
-        </CardHeader>
+        <CardHeader className="flex flex-row items-center"></CardHeader>
         <CardContent>
           <ScrollArea className="h-[300px] w-full overflow-y-auto">
             <div className="space-y-4">
@@ -133,6 +149,7 @@ export function Chatroom() {
                   </div>
                 ))}
             </div>
+            <div ref={endOfMessagesRef} />{" "}
           </ScrollArea>
         </CardContent>
 
