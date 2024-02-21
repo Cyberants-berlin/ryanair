@@ -1,7 +1,3 @@
-.logout-button-right { 
-  padding: 10px 15px; 
-  border: none; 
-  border-radius: 5px; 
-  cursor: pointer; 
-  margin-left: auto; 
+.logout-button-right {
+  margin-left: auto;
 }

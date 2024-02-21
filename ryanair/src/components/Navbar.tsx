@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import { Link } from "react-router-dom";
-import "./login.css";
 import { cn } from "../lib/utils";
 import {
   NavigationMenu,
@@ -17,6 +16,8 @@ import { useAuth } from "../components/AuthContext";
 import { ModeToggle } from "./ModeToggle";
 import { useToast } from "../components/ui/use-toast";
 import "./LogoutButton.css";
+
+
 export default function Navbar() {
   const { currentUser, logout } = useAuth();
   const { toast } = useToast();
@@ -37,6 +38,17 @@ export default function Navbar() {
       });
     }
   };
+
+
+    React.useEffect(() => {
+      if (currentUser) {
+        toast({
+          title: `Welcome back, ${currentUser.displayName}!`,
+          description: "You're logged in.",
+         
+        });
+      }
+    }, [currentUser, toast]);
 
   const components: { title: string; href: string; description: string }[] = [
     {
@@ -80,7 +92,7 @@ export default function Navbar() {
     <nav>
       <NavigationMenu>
         <NavigationMenuList>
-          <Link to="/" className="login">
+          <Link to="/" className="bg-blue-800">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0,0,256,256"
@@ -145,21 +157,19 @@ export default function Navbar() {
           <NavigationMenuItem>
             <ModeToggle />
           </NavigationMenuItem>
-
           <NavigationMenuItem>
             {currentUser && (
-              <button onClick={handleLogout} className="logout-button-right">
+              <button
+                onClick={handleLogout}
+                className=" font-medium  text-sm px-2 text-center"
+              >
                 Logout
               </button>
             )}
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
-      <div className="text-sm font-bold text white bg-blue-600 p-2 rounded">
-        {currentUser
-          ? `Welcome back, ${currentUser.displayName}!`
-          : "Not logged in"}
-      </div>
+      
     </nav>
   );
 }
