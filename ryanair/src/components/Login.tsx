@@ -3,29 +3,28 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { cn } from "../lib/utils";
 import { buttonVariants } from "./ui/button";
-import "./login.css";
 
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../src/firebaseConfig"; 
+import { auth } from "../../src/firebaseConfig";
 import AuthCardLogin from "./AuthCardLogin";
 
 export function Login() {
   const navigate = useNavigate();
   const [email] = useState("");
   const [password] = useState("");
-   const [error, setError] = useState("");
+  const [error, setError] = useState("");
 
- const handleLogin = async (e: React.FormEvent) => {
-   e.preventDefault();
-   try {
-     await signInWithEmailAndPassword(auth, email, password);
-     navigate("/chatroom");
-     setError(""); 
-   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-   } catch (error: any) {
-     setError(error.message); 
-   }
- };
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      navigate("/chatroom");
+      setError("");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      setError(error.message);
+    }
+  };
 
   return (
     <div className="container relative hidden h-[700px] flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
@@ -47,7 +46,7 @@ export function Login() {
           }}
         ></div>
         <div className="relative z-20 flex items-center text-lg font-medium">
-          <Link to="/" className="login">
+          <Link to="/" className="bg-blue-800">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0,0,256,256"
@@ -115,5 +114,5 @@ export function Login() {
       )}
     </div>
   );
-  console.log(handleLogin)
+  console.log(handleLogin);
 }
