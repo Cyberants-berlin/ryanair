@@ -104,7 +104,7 @@ export function Chatroom() {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    // Implement the logic to send the message to Firestore
+    // send the message to Firestore
     sendMessageToFirestore(input, currentUser?.uid);
     setInput(""); // Reset input after sending
   };
