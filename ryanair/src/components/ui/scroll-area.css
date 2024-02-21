@@ -1,0 +1,17 @@
+
+.custom-scroll-area {
+  
+}
+
+.custom-scroll-area::-webkit-scrollbar {
+  width: 10px;
+}
+
+.custom-scroll-area::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+.custom-scroll-area::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

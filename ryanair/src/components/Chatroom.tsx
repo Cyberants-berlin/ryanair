@@ -27,6 +27,9 @@ import {
 } from "firebase/firestore";
 import { useParams } from "react-router";
 
+import ScrollArea from "../components/ui/scroll-area";
+
+
 // Message interface
 interface Message {
   id: string;
@@ -116,24 +119,27 @@ export function Chatroom() {
           {/* ... CardHeader content */}
         </CardHeader>
         <CardContent>
-          <div className="space-y-4">
-            {messages
-            .filter((message) => message.city === city)
-            .map((message) => (
-              <div
-                key={message.id}
-                className={cn(
-                  "flex w-max max-w-[75%] flex-col gap-2 rounded-lg px-3 py-2 text-sm",
-                  message.userId === currentUser?.uid
-                    ? "ml-auto bg-primary text-primary-foreground"
-                    : "bg-muted"
-                )}
-              >
-                {message.content}
-              </div>
-            ))}
-          </div>
+          <ScrollArea className="h-[300px] w-full overflow-y-auto">
+            <div className="space-y-4">
+              {messages
+                .filter((message) => message.city === city)
+                .map((message) => (
+                  <div
+                    key={message.id}
+                    className={cn(
+                      "flex w-max max-w-[75%] flex-col gap-2 rounded-lg px-3 py-2 text-sm",
+                      message.userId === currentUser?.uid
+                        ? "ml-auto bg-primary text-primary-foreground"
+                        : "bg-muted"
+                    )}
+                  >
+                    {message.content}
+                  </div>
+                ))}
+            </div>
+          </ScrollArea>
         </CardContent>
+
         <CardFooter>
           <form
             onSubmit={handleSubmit}
