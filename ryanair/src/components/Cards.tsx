@@ -133,10 +133,11 @@ const DestinationCitiesCard: React.FC = () => {
                     </CardHeader>
                     <CardContent>
                       <img
-                        className="object-cover h-48 w-96"
+                        className="object-cover h-48 w-96 rounded-lg"
                         src={`/cityImages/${city.city.name.toLowerCase()}/${city.city.name.toLowerCase()}_1.jpg`}
                         alt={city.city.name}
                       />
+
                       <p>
                         A beautiful city in {city.region.name}. In the{"  "}
                         {city.timeZone} Timezone.
