@@ -132,7 +132,7 @@ const DestinationCitiesCard: React.FC = () => {
                       </div>
                     </CardHeader>
                     <CardContent>
-                      <img
+                    <img
                         className="object-cover h-48 w-96 rounded-lg"
                         src={`/cityImages/${city.city.name.toLowerCase()}/${city.city.name.toLowerCase()}_1.jpg`}
                         alt={city.city.name}
