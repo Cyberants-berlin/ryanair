@@ -126,7 +126,7 @@ const DestinationCitiesCard: React.FC = () => {
                           alt="@shadcn"
                         />
                       </Avatar>
-                      <div>
+                      <div className="flex flex-col justify-center items-start">
                         <CardTitle>{city.city.name}</CardTitle>
                         <CardDescription>{city.country.name}</CardDescription>
                       </div>
