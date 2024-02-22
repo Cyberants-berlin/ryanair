@@ -14,7 +14,12 @@ import { cn } from "../lib/utils";
 
 
 // Firebase imports
+
+//THIS IS THE FIREBASE CONFIGURATION, INCLUDES API KEY
 import app from "./firebaseConfig";
+
+
+//IMPORTED FROM FIREBASE FIRESTORE LIBRARY, USED TO INTERACT WITH FIRESTORE DATABASE
 import {
   getFirestore,
   collection,
@@ -29,7 +34,7 @@ import { useParams } from "react-router";
 import ScrollArea from "../components/ui/scroll-area";
 
 
-// Message interface
+// THIS PART CREATES A TEMPLATE, EACH MESSAGE HAS ID OF USER, CONTENT, WHEN IT WAS SENT, THE CITY IT BELONGS TO
 interface Message {
   id: string;
   content: string;
@@ -40,27 +45,31 @@ interface Message {
 
 
 export function Chatroom() {
+  // THIS LINE GETS THE CURRENT LOGGEDIN-USER, CITY PARAMETER FROM THE URL USING CUSTOM HOOKS
   const { currentUser } = useAuth();
   const { city } = useParams();
 
-  // State for messages
+  // THIS CREATES A STATE VARIABLE messages , ITS AN EMPTY ARRAY FOR STORING MESSAGES
   const [messages, setMessages] = React.useState<Message[]>([]);
 
-  // Firestore database reference
+  // SETS UP A REFERENCE TO THE FIRESTORE DATABASE
   const db = getFirestore(app);
 
+  // THIS HOOK RUNS WHEN THE COMPONENT MOUNTS (AUFSTEIGT), AND WHEN DB OR CITY CHANGES
+  //RESPONSIBLE FOR FETCHING MESSAGES FROM FIRESTORE
   React.useEffect(() => {
     if (!city) {
       console.error("City is undefined or null");
       return;
     }
 
-    // Query setup for messages collection, ordered by timestamp and filtered by city
+    // THESE LINES SET UP A QUERY FOR THE FIRESTORE DATABASE TO GET MESSAGES, ORDERED BY THEIR TIMESTAMP
     const messagesRef = collection(db, "messages");
-
     // Query setup for messages collection, ordered by timestamp and filtered by city
     const q = query(messagesRef, orderBy("timestamp"));
 
+    // SETS UP A REAL_TIME_LISTENER FOR THE MESSAGES COLLECTION. WHEN MESSAGES CHANGE,
+    // IT UPDATES THE messages STATE
     // Real-time listener for Firestore messages collection
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const fetchedMessages = snapshot.docs.map((doc) => ({
@@ -76,6 +85,7 @@ export function Chatroom() {
     };
   }, [db, city]);
 
+  // THIS FUNCTION SENDS A MESSAGE TO FIRESTORE. IT TAKES THE MESSAGE TEXT AND THE USER ID AS ARGUMENTS
   const sendMessageToFirestore = async (
     messageText: string,
     userId: string | undefined
@@ -99,9 +109,11 @@ export function Chatroom() {
     }
   };
 
+  // A STATE TO KEEP TRACK OF THE USERS INPUT IN THE MESSAGE BOX
   const [input, setInput] = React.useState("");
 
-
+  // THIS FUNCTION IS CALLED WHEN A USER SUBMITS A MESSAGE. IT SENDS THE MESSAGE TO FIRESTORE AND
+  //RESETS THE INPUT FIELD
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     // send the message to Firestore
@@ -110,17 +122,17 @@ export function Chatroom() {
   };
 
   //scrolling
+  // SETS UP A USEEFFECT TO SCROLL AUTOMATICALLY TO THE LATEST MESSAGE
+  const endOfMessagesRef = React.useRef<HTMLDivElement>(null);
 
-const endOfMessagesRef = React.useRef<HTMLDivElement>(null);
+  React.useEffect(() => {
+    if (endOfMessagesRef.current) {
+      endOfMessagesRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
 
-
- React.useEffect(() => {
-   if (endOfMessagesRef.current) {
-     endOfMessagesRef.current.scrollIntoView({ behavior: "smooth" });
-   }
- }, [messages]);
-
-
+  //This part of the code is responsible for rendering the messages on the screen. 
+  // The div with endOfMessagesRef helps in scrolling to the end of the messages.
   {
     /* ...rendering messages... */
   }
