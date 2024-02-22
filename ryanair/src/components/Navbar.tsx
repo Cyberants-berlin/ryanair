@@ -17,6 +17,12 @@ import { ModeToggle } from "./ModeToggle";
 import { useToast } from "../components/ui/use-toast";
 import "./LogoutButton.css";
 
+// import {
+//   MainNav,
+//   TeamSwitcher,
+//   UserNav,
+//   Search,
+// } from "Pfad_zu_den_Komponenten";
 
 export default function Navbar() {
   const { currentUser, logout } = useAuth();
