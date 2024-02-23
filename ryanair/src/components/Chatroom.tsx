@@ -13,7 +13,7 @@ import { Send } from "lucide-react";
 import { cn } from "../lib/utils";
 
 
-// Firebase imports
+
 
 //THIS IS THE FIREBASE CONFIGURATION, INCLUDES API KEY
 import app from "./firebaseConfig";
