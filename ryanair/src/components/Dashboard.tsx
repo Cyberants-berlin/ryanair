@@ -14,9 +14,10 @@ import {
   TabsTrigger,
 } from "./ui/tabs"
 import { CardsMetric } from "./details/overview"
-import { RecentSales } from "./details/recent-sales"
 import { Search } from "./details/search"
 import { UserNav } from "./details/user-nav"
+import FlightCard from "./details/flightCard"
+import { FlightTable } from "./FlightTable"
 
 
 
@@ -46,8 +47,8 @@ export default function DashboardPage() {
           <Tabs defaultValue="overview" className="space-y-4">
             <TabsList>
               <TabsTrigger value="overview">Overview</TabsTrigger>
-              <TabsTrigger value="analytics" disabled>
-                Analytics
+              <TabsTrigger value="flights" >
+                All Flights
               </TabsTrigger>
               <TabsTrigger value="reports" disabled>
                 Reports
@@ -171,16 +172,19 @@ export default function DashboardPage() {
                 </Card>
                 <Card className="col-span-3">
                   <CardHeader>
-                    <CardTitle>Recent Sales</CardTitle>
+                    <CardTitle>Cheapest Flight</CardTitle>
                     <CardDescription>
                       You made 265 sales this month.
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <RecentSales />
+                   <FlightCard />
                   </CardContent>
                 </Card>
               </div>
+            </TabsContent>
+            <TabsContent value="flights">
+              <FlightTable />
             </TabsContent>
           </Tabs>
         </div>
