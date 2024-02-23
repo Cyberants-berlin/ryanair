@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import SkeletonCard from "./SkeletonCard";
 import ErrorBoundary from "./ErrorBoundary";
 import "../main.css";
-import "./Header.css";
 import Header from "../components/Header";
 
 import {
