@@ -1,18 +1,18 @@
 import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableCell,
-    TableHead,
-    TableRow,
-  } from "./ui/table";
-  
-  const flights = new Array(10).fill({
-    flight: "FR 1234",
-    departure: "DUB",
-    arrival: "STN",
-    price: "€19.99"
-  });
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableRow,
+} from '../../ui/table';
+
+const flights = new Array(10).fill({
+  flight: "FR 1234",
+  departure: "DUB",
+  arrival: "STN",
+  price: "€19.99"
+});
   
   export function FlightTable() {
     return (
