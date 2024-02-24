@@ -1,156 +1,130 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+// React and related hooks
 import * as React from "react";
-import { Check, Plus, Send } from "lucide-react";
-import { Link } from "react-router-dom";
-import { cn } from "../lib/utils";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { useAuth } from "./AuthContext";
+
+// UI Components from your project
 import { Button } from "./ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "./ui/card";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "./ui/command";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "./ui/dialog";
 import { Input } from "./ui/input";
+
+// Icons and utils
+import { Send } from "lucide-react";
+import { cn } from "../lib/utils";
+
+// Routing
+
+// Firebase imports
+import app from "./firebaseConfig";
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "./ui/tooltip";
+  getFirestore,
+  collection,
+  query,
+  onSnapshot,
+  orderBy, // Added for orderBy functionality
+  Timestamp,
+  addDoc,
+} from "firebase/firestore";
+import { useParams } from "react-router";
 
-const users = [
-  {
-    name: "Olivia Martin",
-    email: "m@example.com",
-    avatar: "/avatars/01.png",
-  },
-  {
-    name: "Isabella Nguyen",
-    email: "isabella.nguyen@email.com",
-    avatar: "/avatars/03.png",
-  },
-  {
-    name: "Emma Wilson",
-    email: "emma@example.com",
-    avatar: "/avatars/05.png",
-  },
-  {
-    name: "Jackson Lee",
-    email: "lee@example.com",
-    avatar: "/avatars/02.png",
-  },
-  {
-    name: "William Kim",
-    email: "will@email.com",
-    avatar: "/avatars/04.png",
-  },
-] as const;
+// Message interface
+interface Message {
+  id: string;
+  content: string;
+  userId: string;
+  timestamp: Timestamp | null;
+  city: string;
+}
 
-type User = (typeof users)[number];
 
 export function Chatroom() {
-  const [open, setOpen] = React.useState(false);
-  const [selectedUsers, setSelectedUsers] = React.useState<User[]>([]);
+  const { currentUser } = useAuth();
+  const { city } = useParams();
 
-  const [messages, setMessages] = React.useState([
-    {
-      role: "agent",
-      content: "Hi, how can I help you today?",
-    },
-    {
-      role: "user",
-      content: "Hey, I'm having trouble with my account.",
-    },
-    {
-      role: "agent",
-      content: "What seems to be the problem?",
-    },
-    {
-      role: "user",
-      content: "I can't log in.",
-    },
-  ]);
+  // State for messages
+  const [messages, setMessages] = React.useState<Message[]>([]);
+
+  // Firestore database reference
+  const db = getFirestore(app);
+
+  React.useEffect(() => {
+    // Ensure city is not undefined or null
+    if (!city) {
+      console.error("City is undefined or null");
+      return;
+    }
+
+    // Query setup for messages collection, ordered by timestamp and filtered by city
+    const messagesRef = collection(db, "messages");
+
+    // Query setup for messages collection, ordered by timestamp and filtered by city
+    const q = query(messagesRef,  orderBy("timestamp"));
+    
+    // Real-time listener for Firestore messages collection
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const fetchedMessages = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      })) as Message[];
+      setMessages(fetchedMessages);
+    });
+
+    // Cleanup subscription on unmount
+    return () => {
+      unsubscribe();
+    };
+  }, [db, city]); 
+
+  const sendMessageToFirestore = async (
+    messageText: string,
+    userId: string | undefined
+  ) => {
+    if (!userId) {
+      console.error("User ID is undefined. Cannot send message.");
+      return;
+    }
+
+    try {
+      const messagesRef = collection(db, "messages");
+
+      addDoc(messagesRef, {
+        content: messageText,
+        userId: userId,
+        timestamp: Timestamp.now(),
+        city:city
+      });
+    } catch (error) {
+      console.error("Error sending message to Firestore:", error);
+    }
+  };
+
   const [input, setInput] = React.useState("");
-  const inputLength = input.trim().length;
+
+  // Function to handle form submission
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    // Implement the logic to send the message to Firestore
+    // ...
+    sendMessageToFirestore(input, currentUser?.uid);
+    setInput(""); // Reset input after sending
+  };
 
   return (
     <>
       <Card>
         <CardHeader className="flex flex-row items-center">
-          <div className="flex items-center space-x-4">
-            <Avatar>
-              <AvatarImage src="/avatars/01.png" alt="Image" />
-              <AvatarFallback>OM</AvatarFallback>
-            </Avatar>
-            <div>
-              <p className="text-sm font-medium leading-none">Sofia Davis</p>
-              <p className="text-sm text-muted-foreground">m@example.com</p>
-            </div>
-          </div>
-          <TooltipProvider delayDuration={0}>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  size="icon"
-                  variant="outline"
-                  className="ml-auto rounded-full"
-                  onClick={() => setOpen(true)}
-                >
-                  <Plus className="h-4 w-4" />
-                  <span className="sr-only">New message</span>
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent sideOffset={10}>New message</TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-          <Link to="/" className="login ml-7">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0,0,256,256"
-              width="50px"
-              height="50px"
-            >
-              <g
-                fill="#ffec00"
-                fill-rule="nonzero"
-                stroke="none"
-                stroke-width="1"
-                stroke-linecap="butt"
-                stroke-linejoin="miter"
-                stroke-miterlimit="10"
-                stroke-dasharray=""
-                stroke-dashoffset="0"
-                font-family="none"
-                font-weight="none"
-                font-size="none"
-                text-anchor="none"
-              >
-                <g transform="scale(5.12,5.12)">
-                  <path d="M41.75,5.339c-0.299,-0.34  -0.793,-0.438  -1.196,-0.233c-0.039,0.019  -3.966,1.943  -10.695,2.904c-3.964,0.567  -6.979,1.442  -8.896,2.119c-0.193,-2.306  -2.109,-4.129  -4.463,-4.129c-2.481,0  -4.5,2.019  -4.5,4.5c0,1.697  0.948,3.19  2.375,3.956c-0.801,1.2  -1.824,3.272  -1.754,5.96c0.093,3.526  2.014,7.001  5.71,10.327c9.401,8.461  9.668,13.227  9.669,13.257c0,0.553  0.447,1  1,1c0.553,0  1,-0.447  1,-1c0,-3.146  -2.938,-11.018  -3.063,-11.352c-0.051,-0.133  -0.129,-0.255  -0.229,-0.355l-3.714,-3.714c-0.135,-4.289  -2.32,-6.5  -3.138,-7.181c-0.139,-0.501  -0.382,-1.739  0.171,-2.931c0.351,-0.759  0.978,-1.392  1.864,-1.895l-0.87,4.225c-0.111,0.541  0.237,1.07  0.777,1.182c0.068,0.014  0.137,0.021  0.203,0.021c0.465,0  0.881,-0.325  0.979,-0.798l0.901,-4.376c0.461,0.271  1.011,0.554  1.633,0.805l-1.602,7.113c-0.121,0.539  0.217,1.074  0.756,1.195c0.074,0.017  0.147,0.024  0.221,0.024c0.457,0  0.87,-0.315  0.975,-0.78l1.571,-6.975c0.635,0.125  1.31,0.187  2.013,0.164l-2.425,11.419c-0.114,0.54  0.23,1.071  0.771,1.187c0.068,0.015  0.139,0.022  0.207,0.022c0.462,0  0.877,-0.322  0.978,-0.792l2.586,-12.177c0.878,-0.264  1.711,-0.691  2.505,-1.248l-4.048,19.009c-0.114,0.54  0.23,1.071  0.771,1.187c0.07,0.015  0.14,0.021  0.209,0.021c0.462,0  0.877,-0.321  0.978,-0.792l4.672,-21.942c0.408,-0.527  0.806,-1.086  1.181,-1.712l4,-6c0.25,-0.376  0.217,-0.874  -0.083,-1.215zM36.143,11.485c-1.702,2.838  -3.71,4.459  -5.968,4.818c-1.105,0.177  -2.165,0.032  -3.098,-0.246c-0.056,-0.024  -0.105,-0.061  -0.167,-0.075c-0.023,-0.005  -0.044,0.002  -0.067,-0.001c-1.864,-0.613  -3.166,-1.718  -3.185,-1.735c-0.268,-0.232  -0.64,-0.31  -0.975,-0.195c-2.208,0.735  -3.713,1.938  -4.472,3.574c-1.082,2.333  -0.18,4.648  -0.141,4.745c0.073,0.183  0.205,0.345  0.367,0.456c0.106,0.073  2.563,1.82  2.563,6.174c0,0.266  0.105,0.52  0.293,0.707l3.846,3.846c0.217,0.586  0.505,1.393  0.814,2.31c-1.484,-1.901  -3.513,-4.111  -6.284,-6.605c-3.26,-2.934  -4.958,-5.915  -5.047,-8.861c-0.104,-3.422  2.066,-5.669  2.085,-5.688c0.391,-0.391  0.391,-1.023  0,-1.414c-0.117,-0.117  -0.258,-0.187  -0.405,-0.234c-0.079,-0.038  -0.156,-0.082  -0.247,-0.098c-1.191,-0.216  -2.055,-1.251  -2.055,-2.463c0,-1.379  1.121,-2.5  2.5,-2.5c1.379,0  2.5,1.121  2.5,2.5c0,0.144  -0.027,0.282  -0.051,0.421c-0.228,0.102  -0.369,0.17  -0.396,0.184c-0.493,0.247  -0.693,0.847  -0.447,1.341c0.246,0.493  0.844,0.695  1.341,0.448c0.039,-0.019  3.966,-1.943  10.695,-2.904c3.553,-0.508  6.345,-1.265  8.266,-1.902z"></path>
-                </g>
-              </g>
-            </svg>
-          </Link>
+          {/* ... CardHeader content */}
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            {messages.map((message, index) => (
+            {messages
+            .filter((message) => message.city === city)
+            .map((message) => (
               <div
-                key={index}
+                key={message.id}
                 className={cn(
                   "flex w-max max-w-[75%] flex-col gap-2 rounded-lg px-3 py-2 text-sm",
-                  message.role === "user"
+                  message.userId === currentUser?.uid
                     ? "ml-auto bg-primary text-primary-foreground"
                     : "bg-muted"
                 )}
@@ -162,18 +136,7 @@ export function Chatroom() {
         </CardContent>
         <CardFooter>
           <form
-            onSubmit={(event) => {
-              event.preventDefault();
-              if (inputLength === 0) return;
-              setMessages([
-                ...messages,
-                {
-                  role: "user",
-                  content: input,
-                },
-              ]);
-              setInput("");
-            }}
+            onSubmit={handleSubmit}
             className="flex w-full items-center space-x-2"
           >
             <Input
@@ -182,98 +145,19 @@ export function Chatroom() {
               className="flex-1"
               autoComplete="off"
               value={input}
-              onChange={(event) => setInput(event.target.value)}
+              onChange={(e) => setInput(e.target.value)}
             />
-            <Button type="submit" size="icon" disabled={inputLength === 0}>
+            <Button
+              type="submit"
+              size="icon"
+              disabled={input.trim().length === 0}
+            >
               <Send className="h-4 w-4" />
               <span className="sr-only">Send</span>
             </Button>
           </form>
         </CardFooter>
       </Card>
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="gap-0 p-0 outline-none">
-          <DialogHeader className="px-4 pb-4 pt-5">
-            <DialogTitle>New message</DialogTitle>
-            <DialogDescription>
-              Invite a user to this thread. This will create a new group
-              message.
-            </DialogDescription>
-          </DialogHeader>
-          <Command className="overflow-hidden rounded-t-none border-t">
-            <CommandInput placeholder="Search user..." />
-            <CommandList>
-              <CommandEmpty>No users found.</CommandEmpty>
-              <CommandGroup className="p-2">
-                {users.map((user) => (
-                  <CommandItem
-                    key={user.email}
-                    className="flex items-center px-2"
-                    onSelect={() => {
-                      if (selectedUsers.includes(user)) {
-                        return setSelectedUsers(
-                          selectedUsers.filter(
-                            (selectedUser) => selectedUser !== user
-                          )
-                        );
-                      }
-
-                      return setSelectedUsers(
-                        [...users].filter((u) =>
-                          [...selectedUsers, user].includes(u)
-                        )
-                      );
-                    }}
-                  >
-                    <Avatar>
-                      <AvatarImage src={user.avatar} alt="Image" />
-                      <AvatarFallback>{user.name[0]}</AvatarFallback>
-                    </Avatar>
-                    <div className="ml-2">
-                      <p className="text-sm font-medium leading-none">
-                        {user.name}
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        {user.email}
-                      </p>
-                    </div>
-                    {selectedUsers.includes(user) ? (
-                      <Check className="ml-auto flex h-5 w-5 text-primary" />
-                    ) : null}
-                  </CommandItem>
-                ))}
-              </CommandGroup>
-            </CommandList>
-          </Command>
-          <DialogFooter className="flex items-center border-t p-4 sm:justify-between">
-            {selectedUsers.length > 0 ? (
-              <div className="flex -space-x-2 overflow-hidden">
-                {selectedUsers.map((user) => (
-                  <Avatar
-                    key={user.email}
-                    className="inline-block border-2 border-background"
-                  >
-                    <AvatarImage src={user.avatar} />
-                    <AvatarFallback>{user.name[0]}</AvatarFallback>
-                  </Avatar>
-                ))}
-              </div>
-            ) : (
-              <p className="text-sm text-muted-foreground">
-                Select users to add to this thread.
-              </p>
-            )}
-            <Button
-              disabled={selectedUsers.length < 2}
-              onClick={() => {
-                setOpen(false);
-              }}
-            >
-              Continue
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </>
   );
 }
