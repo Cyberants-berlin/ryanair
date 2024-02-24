@@ -12,31 +12,30 @@ const flights = new Array(10).fill({
   arrival: "STN",
   price: "€19.99"
 });
-  
-  export function FlightTable() {
-    return (
-      <Table>
 
-        <TableHead>
-          <TableRow>
-            <TableHead>Flight</TableHead>
-            <TableHead>Departure</TableHead>
-            <TableHead>Arrival</TableHead>
-            <TableHead>Price</TableHead>
+export function FlightTable() {
+  return (
+    <Table>
+
+      <TableHead>
+        <TableRow>
+          <TableHead>Flight</TableHead>
+          <TableHead>Departure</TableHead>
+          <TableHead>Arrival</TableHead>
+          <TableHead>Price</TableHead>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {flights.map((flight, index) => (
+          <TableRow key={index}>
+            <TableCell>{flight.flight}</TableCell>
+            <TableCell>{flight.departure}</TableCell>
+            <TableCell>{flight.arrival}</TableCell>
+            <TableCell>{flight.price}</TableCell>
           </TableRow>
-        </TableHead>
-        <TableBody>
-          {flights.map((flight, index) => (
-            <TableRow key={index}>
-              <TableCell>{flight.flight}</TableCell>
-              <TableCell>{flight.departure}</TableCell>
-              <TableCell>{flight.arrival}</TableCell>
-              <TableCell>{flight.price}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-        {/* If you need a TableFooter, it can be added here */}
-      </Table>
-    );
-  }
-  
+        ))}
+      </TableBody>
+      {/* If you need a TableFooter, it can be added here */}
+    </Table>
+  );
+}
