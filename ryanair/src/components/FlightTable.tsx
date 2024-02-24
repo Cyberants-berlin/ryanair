@@ -1,11 +1,10 @@
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableRow,
-} from '../../ui/table';
+} from './ui/table';
 
 const flights = new Array(10).fill({
   flight: "FR 1234",
