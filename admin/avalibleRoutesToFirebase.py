@@ -2,7 +2,7 @@ import  firebase_admin
 from  firebase_admin  import  credentials,  firestore
 import  requests
 
-cred  =  credentials.Certificate('ryanair/admin/ryanair-4cd15-firebase-adminsdk-kdyqz-8d89a1c3c7.json')
+cred = credentials.Certificate('/home/rene/Downloads/ryanair-4cd15-firebase-adminsdk-kdyqz-85041d7186.json')
 firebase_admin.initialize_app(cred)
 
 db  =  firestore.client()
@@ -53,9 +53,9 @@ def  save_data_to_firestore(routes):
                         'tags':  route.get('tags',  [])
                 }
 
-                #  Create  or  update  the  document  in  Firestore
-                doc_ref  =  db.collection('routes').document(arrival_airport['code'])
-                doc_ref.set(document_data)
+        # Create or update the document in Firestore
+        doc_ref = db.collection('routes1').document(arrival_airport['code'])
+        doc_ref.set(document_data)
 
 
 save_data_to_firestore(data)
