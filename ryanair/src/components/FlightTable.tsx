@@ -85,15 +85,16 @@ export function FlightTable() {
   // log the flight details
   console.log(flightDetails);
   // create cards for every flight
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const flightCards = flightDetails.map((flightDetail) => {
     return <FlightCard flightDetail={flightDetail} />;
   });
 
   function kjnhbgvfd(dateString: string) {
-    let myDate: Date = new Date(dateString);
-    let hours: string = myDate.getHours().toString();
-    let minutes: string = myDate.getMinutes().toString();
-    let time: string = `${hours}:${minutes.padStart(2, '0')}`;
+    const myDate: Date = new Date(dateString);
+    const hours: string = myDate.getHours().toString();
+    const minutes: string = myDate.getMinutes().toString();
+    const time: string = `${hours}:${minutes.padStart(2, '0')}`;
 
     return time;
   }
