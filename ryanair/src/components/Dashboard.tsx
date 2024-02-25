@@ -14,34 +14,27 @@ import {
   TabsTrigger,
 } from "./ui/tabs"
 import { CardsMetric } from "./details/overview"
-import { Search } from "./details/search"
-import { UserNav } from "./details/user-nav"
 import FlightCard from "./details/flightCard"
 import { FlightTable } from "./FlightTable"
+import { Link, useParams } from "react-router-dom"
+import { Chatroom } from "./Chatroom"
 
 
 
 export default function DashboardPage() {
+  const { city } = useParams();
   return (
     <>
-      
       <div className="hidden flex-col md:flex">
         <div className="border-b">
-          <div className="flex h-16 items-center px-4">
-            
-           
-            <div className="ml-auto flex items-center space-x-4">
-              <Search />
-              <UserNav />
-            </div>
-          </div>
         </div>
         <div className="flex-1 space-y-4 p-8 pt-6">
           <div className="flex items-center justify-between space-y-2">
             <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
             <div className="flex items-center space-x-2">
-              
-              <Button>Download</Button>
+              <Link to={`https://google.com/maps/place/${city}`}>
+                <Button>Google Maps</Button>
+              </Link>
             </div>
           </div>
           <Tabs defaultValue="overview" className="space-y-4">
@@ -50,8 +43,8 @@ export default function DashboardPage() {
               <TabsTrigger value="flights" >
                 All Flights
               </TabsTrigger>
-              <TabsTrigger value="reports" disabled>
-                Reports
+              <TabsTrigger value="chat" >
+                Chat
               </TabsTrigger>
               <TabsTrigger value="notifications" disabled>
                 Notifications
@@ -178,13 +171,18 @@ export default function DashboardPage() {
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                   <FlightCard />
+                    <FlightCard />
                   </CardContent>
                 </Card>
               </div>
             </TabsContent>
             <TabsContent value="flights">
               <FlightTable />
+            </TabsContent>
+            <TabsContent value="chat">
+              <div>
+         <Chatroom />
+              </div>
             </TabsContent>
           </Tabs>
         </div>

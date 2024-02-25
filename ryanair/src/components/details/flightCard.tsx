@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 // Import components from your UI library with types
 import {
@@ -10,111 +10,139 @@ import {
 } from "../ui/card"
 import { Separator } from "../ui/seperator";
 import { Button } from "../ui/button";
+import { useParams } from "react-router-dom";
+import { getFirestore, collection, query, where, limit, getDocs } from "firebase/firestore";
+import app from "../firebaseConfig";
 
+interface FlightDetails {
+  departure: FlightSegment;
+  return: FlightSegment;
+  cityCode: string;
+  price: number;
+}
+interface FlightSegment {
+  day: string; // Format: "YYYY-MM-DD"
+  arrivalDate: string; // Format: "YYYY-MM-DDTHH:mm:ss"
+  departureDate: string; // Format: "YYYY-MM-DDTHH:mm:ss"
+  price: PriceDetails;
+  soldOut: boolean;
+  unavailable: boolean;
+}
+interface PriceDetails {
+  value: number;
+  valueMainUnit: string;
+  valueFractionalUnit: string;
+  currencyCode: string; // ISO 4217 currency codes
+  currencySymbol: string;
+}
 
-const computeDuration = (departureDate: string, arrivalDate: string) => {
-    const departure = new Date(departureDate);
-    const arrival = new Date(arrivalDate);
-    const diff = arrival.getTime() - departure.getTime();
-    const hours = Math.floor(diff / (1000 * 60 * 60));
-    const minutes = Math.floor((diff / (1000 * 60)) % 60);
-    return `${hours}h ${minutes}m`;
-  };
-  
-
-
-
-
-
-
-const FlightCard: React.FC = () => {
-  // Hardcoded flight data
-
-
-
-  const departure = {
-    day: "2024-02-23",
-    arrivalDate: "2024-02-23T09:45:00",
-    departureDate: "2024-02-23T08:05:00",
-    price: {
-      value: 58.99,
-      valueMainUnit: 58,
-      valueFractionalUnit: 99,
-      currencyCode: "EUR",
-      currencySymbol: "€",
-    },
-    soldOut: false,
-    unavailable: false,
-    airport: "DUB",
-  };
-
-  const returnFlight = {
-    day: "2024-02-25",
-    arrivalDate: "2024-02-25T13:00:00",
-    departureDate: "2024-02-25T11:15:00",
-    price: {
-      value: 79.99,
-      valueMainUnit: 79,
-      valueFractionalUnit: 99,
-      currencyCode: "EUR",
-      currencySymbol: "€",
-    },
-    soldOut: false,
-    unavailable: false,
-    airport: "DUB", // Add this property
-  };
-
-  const price = {
-    currencySymbol: '$',
-    valueMainUnit: 138.98
-};
-
-return (
-//   ganze card 
-<div>
-    {/* Hinflug und Heimflug */}
-    <div>
-        {/* Hinflug */}
-        <div>
-            <Card>
-                <CardHeader>
-                    <CardTitle>Dublin (DUB) - London (LHR)</CardTitle>
-                    <CardDescription>One way</CardDescription>
-                </CardHeader>
-                <CardContent>
-
-                </CardContent>
-            </Card>
-        </div>
-        {/* Heimflug */}
-        <div>
-            <Card>
-                <CardHeader>
-                    <CardTitle>London (LHR) - Dublin (DUB)</CardTitle>
-                    <CardDescription>One way</CardDescription>
-                </CardHeader>
-                <CardContent>
-
-                </CardContent>
-            </Card>
-        </div>
-        {/* Price  */}
-        <div>
-            <Separator orientation="vertical" />
-            <Card>
-                <CardHeader>
-                    <CardTitle>Total</CardTitle>
-                    <CardDescription>{price.currencySymbol} {price.valueMainUnit}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <Button>Book now</Button>
-                </CardContent>
-            </Card>
-        </div>
-    </div>
-
-</div>
+async function getFlightDetails(city: string): Promise<FlightDetails[]> {
+  const db = getFirestore(app);
+  const flightsCollectionRef = collection(db, "allFlights");
+  const queryConstraint = query(
+    flightsCollectionRef,
+    where("arrivalAirport.seoName", "==", city),
+    limit(1) // Limit the results to one
   );
-};
+  const querySnapshot = await getDocs(queryConstraint);
+  if (querySnapshot.empty) {
+    console.log("No matching documents.");
+    return [];
+  }
+  let flightDetailsArray: FlightDetails[] = [];
 
+
+  // Ab hier anders in der Dashboard.tsx
+  for (const flightDoc of querySnapshot.docs) {
+    const flightDetailsCollectionRef = collection(
+      flightDoc.ref,
+      "flightDetails"
+    );
+    const q = query(flightDetailsCollectionRef);
+    const snapshot = await getDocs(q);
+    // In der Dashboard.tsx gibt es hier eine Schleife, die über die flightDetailsCollectionRef iteriert limit auf 1 setzt und dann die flightDetailsArray mit den details.concat(details) füllt 
+
+
+    const flightDetailsSnapshot = await getDocs(flightDetailsCollectionRef);
+    // Assuming each flightDoc only contains a single flightDetails document, or you want to aggregate them all
+    const details = flightDetailsSnapshot.docs.map(
+      (doc) => doc.data() as FlightDetails
+    );
+    flightDetailsArray = flightDetailsArray.concat(details);
+    // Assuming each flightDoc only contains a single flightDetails document, or you want to aggregate them all
+  }
+
+  return flightDetailsArray;
+}
+export function FlightCard() {
+  const { city } = useParams();
+  const [flightDetails, setFlightDetails] = useState<FlightDetails[]>([]);
+
+  useEffect(() => {
+    if (city) {
+      getFlightDetails(city)
+        .then((data) => {
+          setFlightDetails(data);
+        })
+        .catch((error) => {
+          console.error("Failed to fetch flight details:", error);
+        });
+    }
+  }, [city]);
+  
+  // find the cheapest flight and save it in a variable
+  const cheapestFlight = flightDetails.reduce((prev, current) => {
+    return prev.price < current.price ? prev : current;
+  }, flightDetails[0]);
+
+  console.log('cheapestFlight', cheapestFlight)
+
+  if (flightDetails.length === 0) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <div>
+      <Card>
+        <CardHeader>
+          <CardTitle>
+            {`Departure: ${cheapestFlight.departure.day}`}
+          </CardTitle>
+          <CardDescription>
+            {`From: ${cheapestFlight.departure.departureDate}`}
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          {/* You can add more details here */}
+        </CardContent>
+      </Card>
+      <Separator />
+      <Card>
+        <CardHeader>
+          <CardTitle>
+            {`Return: ${cheapestFlight.return.day}`}
+          </CardTitle>
+          <CardDescription>
+            {`To: ${cheapestFlight.return.arrivalDate}`}
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          {/* You can add more details here */}
+        </CardContent>
+      </Card>
+      <Separator />
+      <Card>
+        <CardHeader>
+          <CardTitle>Total</CardTitle>
+          <CardDescription>
+            {`${cheapestFlight.price} ${cheapestFlight.departure.price.currencySymbol}`}
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Button>Book now</Button>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
 export default FlightCard;

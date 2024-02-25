@@ -8,7 +8,7 @@ import { Login } from "./components/Login";
 import { Chatroom } from "./components/Chatroom";
 import { AuthProvider } from "./components/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
-import { useAuthStatus } from "./components/AuthCardLogin"; 
+import { useAuthStatus } from "./components/AuthCardLogin";
 import { ThemeProvider } from "./components/Theme";
 import { Toaster } from "./components/ui/toaster";
 import "./main.css";
@@ -43,7 +43,6 @@ function App() {
               />
               <Route element={<MainLayout />}>
                 <Route index element={<DestinationCitiesCard />} />
-                <Route path="/detail/:city" element={<DetailComponent />} />
                 <Route path="/:city" element={<DashboardPage />} />
                 <Route
                   path="/chatroom/:city"
