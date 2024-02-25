@@ -11,6 +11,11 @@ import {
 import { FlightCard } from './Detail';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+
+
+// TODO Neues Interface für die Flugdaten
+
+
 interface FlightDetails {
   departure: FlightSegment;
   return: FlightSegment;
@@ -46,14 +51,14 @@ async function getFlightDetails(city: string): Promise<FlightDetails[]> {
     console.log("No matching documents.");
     return [];
   }
-  let flightDetailsArray: FlightDetails[] = [];
+  let flightDetailsArray: FlightDetails[] = []; // TODO Type anpassen
 
 
   // Ab hier anders in der Dashboard.tsx
   for (const flightDoc of querySnapshot.docs) {
     const flightDetailsCollectionRef = collection(
       flightDoc.ref,
-      "flightDetails"
+      "flightDetails" // TODO Name aendern 
     );
 
     const flightDetailsSnapshot = await getDocs(flightDetailsCollectionRef);
@@ -68,7 +73,7 @@ async function getFlightDetails(city: string): Promise<FlightDetails[]> {
 }
 export function FlightTable() {
   const { city } = useParams();
-  const [flightDetails, setFlightDetails] = useState<FlightDetails[]>([]);
+  const [flightDetails, setFlightDetails] = useState<FlightDetails[]>([]); // TODO Type anpassen
 
   useEffect(() => {
     if (city) {
