@@ -139,29 +139,35 @@ export function FlightTable() {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {flightDetails.sort((a, b) => a.price - b.price).map((flight, index) => (
-          <TableRow key={index}>
-            <TableCell>BER</TableCell>
-            <TableCell>{kjnhbgvfd(flight.departure.departureDate)}</TableCell>
-            <TableCell>{flight.cityCode}</TableCell>
-            <TableCell>{kjnhbgvfd(flight.departure.arrivalDate)}</TableCell>
-            <TableCell>{jhgbfcvd(flight.departure.day)}</TableCell>
-            <TableCell>{computeDuration(flight.departure.departureDate, flight.departure.arrivalDate)}</TableCell>
-            <TableCell>{flight.departure.price.value}
-              {flight.return.price.currencySymbol}</TableCell>
+        {flightDetails
+          .filter(flight =>
+            new Date(flight.departure.departureDate) > new Date() &&
+            new Date(flight.return.departureDate) > new Date()
+          )
+          .sort((a, b) => a.price - b.price)
+          .map((flight, index) => (
+            <TableRow key={index}>
+              <TableCell>BER</TableCell>
+              <TableCell>{kjnhbgvfd(flight.departure.departureDate)}</TableCell>
+              <TableCell>{flight.cityCode}</TableCell>
+              <TableCell>{kjnhbgvfd(flight.departure.arrivalDate)}</TableCell>
+              <TableCell>{jhgbfcvd(flight.departure.day)}</TableCell>
+              <TableCell>{computeDuration(flight.departure.departureDate, flight.departure.arrivalDate)}</TableCell>
+              <TableCell>{flight.departure.price.value}
+                {flight.return.price.currencySymbol}</TableCell>
 
-            <TableCell >{flight.cityCode}</TableCell>
-            <TableCell>{kjnhbgvfd(flight.return.departureDate)}</TableCell>
-            <TableCell>BER</TableCell>
-            <TableCell>{kjnhbgvfd(flight.return.arrivalDate)}</TableCell>
-            <TableCell>{jhgbfcvd(flight.return.departureDate)}</TableCell>
-            <TableCell>{computeDuration(flight.return.departureDate, flight.return.arrivalDate)}</TableCell>
-            <TableCell>
-              {flight.return.price.value}
-              {flight.return.price.currencySymbol}</TableCell>
-            <TableCell>{flight.price}{flight.return.price.currencySymbol}</TableCell>
-          </TableRow>
-        ))}
+              <TableCell >{flight.cityCode}</TableCell>
+              <TableCell>{kjnhbgvfd(flight.return.departureDate)}</TableCell>
+              <TableCell>BER</TableCell>
+              <TableCell>{kjnhbgvfd(flight.return.arrivalDate)}</TableCell>
+              <TableCell>{jhgbfcvd(flight.return.departureDate)}</TableCell>
+              <TableCell>{computeDuration(flight.return.departureDate, flight.return.arrivalDate)}</TableCell>
+              <TableCell>
+                {flight.return.price.value}
+                {flight.return.price.currencySymbol}</TableCell>
+              <TableCell>{flight.price}{flight.return.price.currencySymbol}</TableCell>
+            </TableRow>
+          ))}
       </TableBody>
     </Table>
   );
