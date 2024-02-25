@@ -47,8 +47,8 @@ async function getFlightDetails(city: string): Promise<FlightDetails[]> {
     return [];
   }
   let flightDetailsArray: FlightDetails[] = [];
-  
-  
+
+
   // Ab hier anders in der Dashboard.tsx
   for (const flightDoc of querySnapshot.docs) {
     const flightDetailsCollectionRef = collection(
@@ -56,10 +56,6 @@ async function getFlightDetails(city: string): Promise<FlightDetails[]> {
       "flightDetails"
     );
 
-
-    // In der Dashboard.tsx gibt es hier eine Schleife, die über die flightDetailsCollectionRef iteriert limit auf 1 setzt und dann die flightDetailsArray mit den details.concat(details) füllt 
-
-    
     const flightDetailsSnapshot = await getDocs(flightDetailsCollectionRef);
     // Assuming each flightDoc only contains a single flightDetails document, or you want to aggregate them all
     const details = flightDetailsSnapshot.docs.map(
@@ -143,7 +139,7 @@ export function FlightTable() {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {flightDetails.map((flight, index) => (
+        {flightDetails.sort((a, b) => a.price - b.price).map((flight, index) => (
           <TableRow key={index}>
             <TableCell>BER</TableCell>
             <TableCell>{kjnhbgvfd(flight.departure.departureDate)}</TableCell>
