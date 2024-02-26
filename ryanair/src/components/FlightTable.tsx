@@ -39,7 +39,7 @@ async function getFlightDetails(city: string): Promise<FlightDetails[]> {
   const queryConstraint = query(
     flightsCollectionRef,
     where("arrivalAirport.seoName", "==", city),
-    limit(1) // Limit the results to one
+    limit(1)
   );
   const querySnapshot = await getDocs(queryConstraint);
   if (querySnapshot.empty) {
