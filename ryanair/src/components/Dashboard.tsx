@@ -167,7 +167,7 @@ export default function DashboardPage() {
                   <CardHeader>
                     <CardTitle>Cheapest Flight</CardTitle>
                     <CardDescription>
-                      You made 265 sales this month.
+                      This is the cheapest flight.
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
