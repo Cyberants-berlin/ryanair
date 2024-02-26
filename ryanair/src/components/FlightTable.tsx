@@ -18,9 +18,9 @@ interface FlightDetails {
   price: number;
 }
 interface FlightSegment {
-  day: string; // Format: "YYYY-MM-DD"
-  arrivalDate: string; // Format: "YYYY-MM-DDTHH:mm:ss"
-  departureDate: string; // Format: "YYYY-MM-DDTHH:mm:ss"
+  day: string; // "YYYY-MM-DD"
+  arrivalDate: string; // "YYYY-MM-DDTHH:mm:ss"
+  departureDate: string; //"YYYY-MM-DDTHH:mm:ss"
   price: PriceDetails;
   soldOut: boolean;
   unavailable: boolean;
