@@ -10,7 +10,7 @@ import {
 } from "../ui/card";
 import { Separator } from "../ui/seperator";
 import { Button } from "../ui/button";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   getFirestore,
   collection,
@@ -137,7 +137,9 @@ export function FlightCard() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Button>Book now</Button>
+          <Button>
+            <Link to={"https://www.ryanair.com/de/de"}>Book Now</Link>
+          </Button>
         </CardContent>
       </Card>
     </div>
