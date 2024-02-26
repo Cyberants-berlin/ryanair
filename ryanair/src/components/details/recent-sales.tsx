@@ -1,8 +1,17 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { FlightCard } from "./FlightCard";
+
 
 export function RecentSales() {
+  
+  const flightCards = flightDetails.map((flightDetail) => {
+    return <FlightCard flightDetail={flightDetail} />;
+  });
+
   return (
     <div className="space-y-8">
+  <FlightCard flightDetail={undefined}/>
       <div className="flex items-center">
         <Avatar className="h-9 w-9">
           <AvatarImage src="/avatars/01.png" alt="Avatar" />
