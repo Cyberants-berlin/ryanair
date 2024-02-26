@@ -52,7 +52,6 @@ async function getFlightDetails(city: string): Promise<FlightInfo[]> {
   }
   let flightDetailsArray: FlightInfo[] = [];
 
-  // Ab hier anders in der Dashboard.tsx
   for (const flightDoc of querySnapshot.docs) {
     const flightDetailsCollectionRef = collection(flightDoc.ref, "flightsInfo");
 

@@ -14,24 +14,28 @@ import { Toaster } from "./components/ui/toaster";
 import "./main.css";
 import DashboardPage from "./components/Dashboard";
 
-
+// Def. eine funktionale Komponente ML in React
 const MainLayout: React.FC = () => (
   <>
+    {/* // rendert eine Navigationsleiste 
+    // und e. Platzhalter für untergeordnete Routen */}
     <Navbar />
     <Outlet />
   </>
 );
 
 function App() {
+  // Nutzt Hook um Anmeldestatus & Status der Überprüfung zu kriegen
   const { isLoggedIn, checkingStatus } = useAuthStatus();
 
-
+  // wird status noch geprüft?..
   if (checkingStatus) {
     return <div>Loading...</div>;
   }
 
   return (
     <>
+      {/* // Setzt Design-Thema f. App */}
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <AuthProvider>
           <Router>
