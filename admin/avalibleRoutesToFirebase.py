@@ -1,3 +1,4 @@
+#lädt Flugroutendaten von Ryanair's API und speichert sie in einer Firestore-Datenbank
 import  firebase_admin
 from  firebase_admin  import  credentials,  firestore
 import  requests
