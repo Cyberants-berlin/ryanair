@@ -109,25 +109,30 @@ export function FlightTable() {
     );
     return formattedDate;
   }
+ 
+  function getHoursBetweenDates(date1: Date, date2: Date) {
+    const diff = Math.abs(date2.getTime() - date1.getTime());
+    return diff / (1000 * 60 * 60);
+  }
 
 
   return (
     <Table>
       <TableHeader>
         <TableRow>
+          {/* Header rearranged as per the requested order */}
           <TableHead>Departure Airport</TableHead>
-          <TableHead>Departure Time</TableHead>
           <TableHead>Arrival Airport</TableHead>
+          
           <TableHead>Departure Date</TableHead>
-          <TableHead>Price</TableHead>
-
-          <TableHead>Return Airport</TableHead>
+          <TableHead>Departure Time</TableHead>
+          <TableHead>Outbound Price</TableHead>
+  
+          <TableHead>Return Date</TableHead>
           <TableHead>Return Time</TableHead>
-          <TableHead>Arrival Airport</TableHead>
-          <TableHead>Date</TableHead>
-          <TableHead>Price</TableHead>
-
-          <TableHead>Total Price</TableHead>
+          <TableHead>Return Price</TableHead>
+  <TableHead>Total Hours between takeoffs </TableHead>
+          <TableHead>Total Price</TableHead> {/* Total Price column */}
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -140,23 +145,36 @@ export function FlightTable() {
           .sort((a, b) => a.totalPrice - b.totalPrice)
           .map((flight, index) => (
             <TableRow key={index}>
+              {/* Displaying Departure Airport (origin of outbound flight) */}
               <TableCell>{flight.outbound.origin}</TableCell>
-
-              <TableCell>{kjnhbgvfd(flight.outbound.departureTime)}</TableCell>
+  
+              {/* Displaying Arrival Airport (destination of outbound flight) */}
               <TableCell>{flight.outbound.destination}</TableCell>
+  
+              {/* Departure Date and Time for Outbound Flight */}
               <TableCell>{ jhgbfcvd(flight.outbound.departureTime)}</TableCell>
-              <TableCell>{flight.outbound.price} €</TableCell>
-
-
-              <TableCell>{flight.inbound.origin}</TableCell>
+              <TableCell>{kjnhbgvfd(flight.outbound.departureTime)}</TableCell>
+  
+              {/* Outbound Flight Price */}
+              <TableCell>{flight.outbound.price.toFixed(2)} €</TableCell>
+  
+              {/* Return Date and Time for Inbound Flight */}
+              <TableCell>{jhgbfcvd(flight.inbound.departureTime)}</TableCell>
               <TableCell>{kjnhbgvfd(flight.inbound.departureTime)}</TableCell>
-              <TableCell>{flight.inbound.destination}</TableCell>
-              <TableCell>{jhgbfcvd(flight.inbound.departureTime) }</TableCell>
-              <TableCell>{flight.inbound.price} €</TableCell>
-              <TableCell>{flight.totalPrice} €</TableCell>
+  
+              {/* Inbound Flight (Return) Price */}
+              <TableCell>{flight.inbound.price.toFixed(2)} €</TableCell>
+  
+              {/* Total Hours between takeoffs */}
+              <TableCell>{getHoursBetweenDates(new Date(flight.outbound.departureTime), new Date(flight.inbound.departureTime)).toFixed(1)} h</TableCell>
+
+              {/* Total Price, formatted in bold */}
+              <TableCell style={{ fontWeight: 'bold' }}>
+                {flight.totalPrice.toFixed(2)} €
+              </TableCell>
             </TableRow>
           ))}
       </TableBody>
     </Table>
   );
-}
+          }
