@@ -124,7 +124,7 @@ export function FlightTable() {
           <TableHead>Arrival Airport</TableHead>
           <TableHead>Arrival Time</TableHead>
           <TableHead >Departure Date</TableHead>
-          <TableHead >Dauer</TableHead>
+          <TableHead >Duration</TableHead>
           <TableHead >Price</TableHead>
 
 
@@ -133,7 +133,7 @@ export function FlightTable() {
           <TableHead>Arrival Airport</TableHead>
           <TableHead>Arrival Time</TableHead>
           <TableHead >Date</TableHead>
-          <TableHead >Dauer</TableHead>
+          <TableHead >Duration</TableHead>
           <TableHead>Price</TableHead>
 
           <TableHead>Total Price</TableHead>
