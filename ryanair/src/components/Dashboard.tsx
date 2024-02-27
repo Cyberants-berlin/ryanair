@@ -1,33 +1,24 @@
-
-import { Button } from "./ui/button"
+import { Button } from "./ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "./ui/card"
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "./ui/tabs"
-import { CardsMetric } from "./details/overview"
-import FlightCard from "./details/flightCard"
-import { FlightTable } from "./FlightTable"
-import { Link, useParams } from "react-router-dom"
-import { Chatroom } from "./Chatroom"
-
-
+} from "./ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
+import { CardsMetric } from "./details/overview";
+import FlightCard from "./details/flightCard";
+import { FlightTable } from "./FlightTable";
+import { Link, useParams } from "react-router-dom";
+import { Chatroom } from "./Chatroom";
 
 export default function DashboardPage() {
   const { city } = useParams();
   return (
     <>
       <div className="hidden flex-col md:flex">
-        <div className="border-b">
-        </div>
+        <div className="border-b"></div>
         <div className="flex-1 space-y-4 p-8 pt-6">
           <div className="flex items-center justify-between space-y-2">
             <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
@@ -40,12 +31,8 @@ export default function DashboardPage() {
           <Tabs defaultValue="overview" className="space-y-4">
             <TabsList>
               <TabsTrigger value="overview">Overview</TabsTrigger>
-              <TabsTrigger value="flights" >
-                All Flights
-              </TabsTrigger>
-              <TabsTrigger value="chat" >
-                Chat
-              </TabsTrigger>
+              <TabsTrigger value="flights">All Flights</TabsTrigger>
+              <TabsTrigger value="chat">Chat</TabsTrigger>
               <TabsTrigger value="notifications" disabled>
                 Notifications
               </TabsTrigger>
@@ -55,7 +42,7 @@ export default function DashboardPage() {
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">
-                      Total Revenue
+                      Population
                     </CardTitle>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -71,16 +58,14 @@ export default function DashboardPage() {
                     </svg>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">$45,231.89</div>
-                    <p className="text-xs text-muted-foreground">
-                      +20.1% from last month
-                    </p>
+                    <div className="text-2xl font-bold">80.546</div>
+                    <p className="text-xs text-muted-foreground"></p>
                   </CardContent>
                 </Card>
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">
-                      Subscriptions
+                      Restaurant Prices
                     </CardTitle>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -98,15 +83,15 @@ export default function DashboardPage() {
                     </svg>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">+2350</div>
-                    <p className="text-xs text-muted-foreground">
-                      +180.1% from last month
-                    </p>
+                    <div className="text-2xl font-bold">10$ per Meal</div>
+                    <p className="text-xs text-muted-foreground"></p>
                   </CardContent>
                 </Card>
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Sales</CardTitle>
+                    <CardTitle className="text-sm font-medium">
+                      Cheapest Hotel
+                    </CardTitle>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
@@ -122,9 +107,9 @@ export default function DashboardPage() {
                     </svg>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">+12,234</div>
+                    <div className="text-2xl font-bold">17$ </div>
                     <p className="text-xs text-muted-foreground">
-                      +19% from last month
+                      per person/Night
                     </p>
                   </CardContent>
                 </Card>
@@ -147,10 +132,8 @@ export default function DashboardPage() {
                     </svg>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">+573</div>
-                    <p className="text-xs text-muted-foreground">
-                      +201 since last hour
-                    </p>
+                    <div className="text-2xl font-bold"></div>
+                    <p className="text-xs text-muted-foreground"></p>
                   </CardContent>
                 </Card>
               </div>
@@ -181,12 +164,12 @@ export default function DashboardPage() {
             </TabsContent>
             <TabsContent value="chat">
               <div>
-         <Chatroom />
+                <Chatroom />
               </div>
             </TabsContent>
           </Tabs>
         </div>
       </div>
     </>
-  )
+  );
 }
