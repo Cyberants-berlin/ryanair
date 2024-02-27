@@ -60,20 +60,24 @@ interface Coordinates {
 }
 
 const DestinationCitiesCard: React.FC = () => {
+  // State-Array, das die Liste der Zielstädte speichert
   const [cities, setCities] = useState<ArrivalAirport[]>([]);
+  //angibt, ob die Daten noch geladen werden
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-     <div className="App">
-       <Header />
-       {/* Weitere Komponenten und Inhalt hier einfügen */}
-     </div>;
-
+  <div className="App">
+    <Header />
+    {/* Weitere Komponenten und Inhalt hier einfügen */}
+  </div>;
+  //abrufen von daten aus firestore
   useEffect(() => {
     const fetchData = async () => {
       const db = getFirestore(app);
       try {
+        // Ruft Daten aus der Firestore-Kollektion allFlights ab
         const querySnapshot = await getDocs(collection(db, "allFlights"));
+        //Verarbeitet die abgerufenen Dokumente, um ein Array von ArrivalAirport zu erstellen
         const citiesData: ArrivalAirport[] = querySnapshot.docs.map(
           (doc) => doc.data().arrivalAirport as ArrivalAirport
         );
@@ -88,9 +92,9 @@ const DestinationCitiesCard: React.FC = () => {
     fetchData();
   }, []);
 
+  //Wenn isLoading true ist zeigt die Komponente skelleton an
   if (isLoading) {
     return (
-      
       <div className="grid  grid-cols-4  gap-10  px-10">
         {Array.from({ length: 4 }, (_, index) => (
           <SkeletonCard key={index} />
@@ -131,7 +135,7 @@ const DestinationCitiesCard: React.FC = () => {
                       </div>
                     </CardHeader>
                     <CardContent>
-                    <img
+                      <img
                         className="object-cover h-48 w-96 rounded-lg"
                         src={`/cityImages/${city.city.name.toLowerCase()}/${city.city.name.toLowerCase()}_1.jpg`}
                         alt={city.city.name}
@@ -144,9 +148,7 @@ const DestinationCitiesCard: React.FC = () => {
                     </CardContent>
                     <CardFooter className="flex  justify-between">
                       <Button asChild>
-                        <Link
-                          to={`/${city.seoName}`}
-                        >
+                        <Link to={`/${city.seoName}`}>
                           Visit {city.city.name}
                         </Link>
                       </Button>

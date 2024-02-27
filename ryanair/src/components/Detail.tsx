@@ -43,10 +43,11 @@ interface PriceDetails {
   currencySymbol: string;
 }
 
+//Ruft Fluginfos aus firestore basierend auf dem Stadtnamen
 async function getFlightDetailsByCity(city: string): Promise<FlightDetails[]> {
   const db = getFirestore(app);
   const flightsCollectionRef = collection(db, "allFlights");
-
+  //Flüge zu finden, die an einem bestimmten Flughafen ankommen
   const queryConstraint = query(
     flightsCollectionRef,
     where("arrivalAirport.seoName", "==", city),
@@ -58,7 +59,7 @@ async function getFlightDetailsByCity(city: string): Promise<FlightDetails[]> {
     console.log("No matching documents.");
     return [];
   }
-
+  //speichert hier im arry ergebnisse
   let flightDetailsArray: FlightDetails[] = [];
 
   for (const flightDoc of querySnapshot.docs) {
@@ -81,6 +82,7 @@ async function getFlightDetailsByCity(city: string): Promise<FlightDetails[]> {
 export const FlightCard = ({
   flightDetail,
 }: {
+  //zeigt Details eines Fluges in einer Karte
   flightDetail: FlightDetails;
 }) => (
   <div>
@@ -126,11 +128,11 @@ export const FlightCard = ({
     </Card>
   </div>
 );
-
+// Komponente die Flugdetails basierend auf der übergebenen Stadt abruft
 export default function DetailComponent() {
   const { city } = useParams();
   const [flightDetails, setFlightDetails] = useState<FlightDetails[]>([]);
-
+  // Flugdetails beim Laden der Komponente oder bei Änderungen der Stadt abzurufen
   useEffect(() => {
     if (city) {
       getFlightDetailsByCity(city)
