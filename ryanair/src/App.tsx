@@ -1,5 +1,10 @@
-
-import { BrowserRouter as Router, Routes, Route, Outlet, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Outlet,
+  Navigate,
+} from "react-router-dom";
 import DestinationCitiesCard from "./components/Cards";
 import Navbar from "./components/Navbar";
 import DetailComponent from "./components/Detail";
@@ -40,20 +45,26 @@ function App() {
         <AuthProvider>
           <Router>
             <Routes>
+              {/* def route f. registration */}
               <Route path="/register" element={<Registration />} />
+              {/* Def. Route f. d. Login-Seite und leitet angemeldete Benutzer zur Hauptseite um. */}
               <Route
                 path="/login"
                 element={!isLoggedIn ? <Login /> : <Navigate to="/" replace />}
               />
+              {/* Nutz MainLayout f.d. folgenden untergeordneten Routen. */}
               <Route element={<MainLayout />}>
+                {/* def. Startseite */}
                 <Route index element={<DestinationCitiesCard />} />
                 <Route path="/:city" element={<DashboardPage />} />
+                {/* def. Route f. Chat nur für angemeldete Benutzer */}
                 <Route
                   path="/chatroom/:city"
                   element={
                     isLoggedIn ? <Chatroom /> : <Navigate to="/login" replace />
                   }
                 />
+                {/* ähnlich wie davor, f. allgemeine Chats */}
                 <Route
                   path="/chatroom"
                   element={
