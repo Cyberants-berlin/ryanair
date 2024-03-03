@@ -55,8 +55,10 @@ async function getFlightDetails(city: string): Promise<FlightInfo[]> {
   // jedes gefundene Flugdokument werden zusä Details aus Unter-Kollektion "flightsInfo" geholt und im array gespeich.
   let flightDetailsArray: FlightInfo[] = [];
 
+
   for (const flightDoc of querySnapshot.docs) {
     const flightDetailsCollectionRef = collection(flightDoc.ref, "flightsInfo");
+
 
     const flightDetailsSnapshot = await getDocs(flightDetailsCollectionRef);
     // Assuming each flightDoc only contains a single flightDetails document, or you want to aggregate them all
@@ -76,6 +78,7 @@ export function FlightTable() {
   const { city } = useParams();
   const [flightDetails, setFlightDetails] = useState<FlightInfo[]>([]);
   //wenn sich stadtwert ändert rufe getflightdetails
+
   useEffect(() => {
     if (city) {
       getFlightDetails(city)
