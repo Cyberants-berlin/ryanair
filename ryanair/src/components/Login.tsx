@@ -14,9 +14,11 @@ export function Login() {
   const [password] = useState("");
   const [error, setError] = useState("");
 
+  //Def. asynchrone Funktion die aufgerufen wird wenn das Login-Formular abgeschickt wird
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      //Versucht Benutzer mit E-Mail und Passwort anzumelden navigiert bei Erfolg zur Chatroom-Seite und setzt die Fehlermeldung zurück
       await signInWithEmailAndPassword(auth, email, password);
       navigate("/chatroom");
       setError("");
@@ -28,7 +30,6 @@ export function Login() {
 
   return (
     <div className="container relative hidden h-screen overflow-hidden flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
-
       <Link
         to="/register"
         className={cn(

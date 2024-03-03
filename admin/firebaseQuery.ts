@@ -1,11 +1,13 @@
+// stellt e. Verbindung zu Firebase her und zeigt Fluginfos für eine bestimmte Stadt aus einer Firestore-Datenbank an.
+
+
 import { getFirestore, collection, getDocs, query, where, limit } from "firebase/firestore";
-//  Import  the  functions  you  need  from  the  SDKs  you  need
+
 import  {  initializeApp  }  from  "firebase/app";
 //  TODO:  Add  SDKs  for  Firebase  products  that  you  want  to  use
 //  https://firebase.google.com/docs/web/setup#available-libraries
 
-//  Your  web  app's  Firebase  configuration
-//  For  Firebase  JS  SDK  v7.20.0  and  later,  measurementId  is  optional
+
 const  firebaseConfig  =  {
     apiKey:  "AIzaSyCFm7uYs6DMHFWi3en4_m2Jiio5194eS7w",
     authDomain:  "ryanair-4cd15.firebaseapp.com",
@@ -17,7 +19,6 @@ const  firebaseConfig  =  {
     measurementId:  "G-KPYQGYGSZS"
 };
 
-//  Initialize  Firebase  and  return  db  =  firebase.firestore();
 
 const  app  =  initializeApp(firebaseConfig);
 
@@ -30,9 +31,9 @@ interface FlightDetails {
   }
   
   interface FlightSegment {
-    day: string; // Format: "YYYY-MM-DD"
-    arrivalDate: string; // Format: "YYYY-MM-DDTHH:mm:ss"
-    departureDate: string; // Format: "YYYY-MM-DDTHH:mm:ss"
+    day: string; 
+    arrivalDate: string; 
+    departureDate: string; 
     price: PriceDetails;
     soldOut: boolean;
     unavailable: boolean;
@@ -42,7 +43,7 @@ interface FlightDetails {
     value: number;
     valueMainUnit: string;
     valueFractionalUnit: string;
-    currencyCode: string; // ISO 4217 currency codes
+    currencyCode: string; 
     currencySymbol: string;
   }
   
@@ -67,7 +68,7 @@ async function getFlightDetailsByCity(city: string): Promise<FlightDetails[]> {
       const flightDetailsCollectionRef = collection(flightDoc.ref, 'flightDetails');
       const flightDetailsSnapshot = await getDocs(flightDetailsCollectionRef);
   
-      // Assuming each flightDoc only contains a single flightDetails document, or you want to aggregate them all
+  
       const details = flightDetailsSnapshot.docs.map(doc => doc.data() as FlightDetails);
       flightDetailsArray = flightDetailsArray.concat(details);
     }

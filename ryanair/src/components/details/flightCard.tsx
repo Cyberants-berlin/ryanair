@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 // Import components from your UI library with types
 import {
@@ -7,11 +7,18 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "../ui/card"
+} from "../ui/card";
 import { Separator } from "../ui/seperator";
 import { Button } from "../ui/button";
-import { useParams } from "react-router-dom";
-import { getFirestore, collection, query, where, limit, getDocs } from "firebase/firestore";
+import { Link, useParams } from "react-router-dom";
+import {
+  getFirestore,
+  collection,
+  query,
+  where,
+  limit,
+  getDocs,
+} from "firebase/firestore";
 import app from "../firebaseConfig";
 
 interface FlightDetails {
@@ -51,17 +58,14 @@ async function getFlightDetails(city: string): Promise<FlightDetails[]> {
   }
   let flightDetailsArray: FlightDetails[] = [];
 
-
   // Ab hier anders in der Dashboard.tsx
   for (const flightDoc of querySnapshot.docs) {
     const flightDetailsCollectionRef = collection(
       flightDoc.ref,
       "flightDetails"
     );
-    const q = query(flightDetailsCollectionRef);
-    const snapshot = await getDocs(q);
-    // In der Dashboard.tsx gibt es hier eine Schleife, die über die flightDetailsCollectionRef iteriert limit auf 1 setzt und dann die flightDetailsArray mit den details.concat(details) füllt 
-
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // In der Dashboard.tsx gibt es hier eine Schleife, die über die flightDetailsCollectionRef iteriert limit auf 1 setzt und dann die flightDetailsArray mit den details.concat(details) füllt
 
     const flightDetailsSnapshot = await getDocs(flightDetailsCollectionRef);
     // Assuming each flightDoc only contains a single flightDetails document, or you want to aggregate them all
@@ -89,13 +93,13 @@ export function FlightCard() {
         });
     }
   }, [city]);
-  
+
   // find the cheapest flight and save it in a variable
   const cheapestFlight = flightDetails.reduce((prev, current) => {
     return prev.price < current.price ? prev : current;
   }, flightDetails[0]);
 
-  console.log('cheapestFlight', cheapestFlight)
+  console.log("cheapestFlight", cheapestFlight);
 
   if (flightDetails.length === 0) {
     return <div>Loading...</div>;
@@ -105,30 +109,22 @@ export function FlightCard() {
     <div>
       <Card>
         <CardHeader>
-          <CardTitle>
-            {`Departure: ${cheapestFlight.departure.day}`}
-          </CardTitle>
+          <CardTitle>{`Departure: ${cheapestFlight.departure.day}`}</CardTitle>
           <CardDescription>
             {`From: ${cheapestFlight.departure.departureDate}`}
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          {/* You can add more details here */}
-        </CardContent>
+        <CardContent>{/* You can add more details here */}</CardContent>
       </Card>
       <Separator />
       <Card>
         <CardHeader>
-          <CardTitle>
-            {`Return: ${cheapestFlight.return.day}`}
-          </CardTitle>
+          <CardTitle>{`Return: ${cheapestFlight.return.day}`}</CardTitle>
           <CardDescription>
             {`To: ${cheapestFlight.return.arrivalDate}`}
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          {/* You can add more details here */}
-        </CardContent>
+        <CardContent>{/* You can add more details here */}</CardContent>
       </Card>
       <Separator />
       <Card>
@@ -139,7 +135,9 @@ export function FlightCard() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Button>Book now</Button>
+          <Button>
+            <Link to={"https://www.ryanair.com/de/de"}>Book Now</Link>
+          </Button>
         </CardContent>
       </Card>
     </div>
