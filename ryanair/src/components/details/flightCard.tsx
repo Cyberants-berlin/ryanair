@@ -64,9 +64,7 @@ async function getFlightDetails(city: string): Promise<FlightDetails[]> {
       flightDoc.ref,
       "flightDetails"
     );
-    const q = query(flightDetailsCollectionRef);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const snapshot = await getDocs(q);
     // In der Dashboard.tsx gibt es hier eine Schleife, die über die flightDetailsCollectionRef iteriert limit auf 1 setzt und dann die flightDetailsArray mit den details.concat(details) füllt
 
     const flightDetailsSnapshot = await getDocs(flightDetailsCollectionRef);

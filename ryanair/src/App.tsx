@@ -7,7 +7,6 @@ import {
 } from "react-router-dom";
 import DestinationCitiesCard from "./components/Cards";
 import Navbar from "./components/Navbar";
-import DetailComponent from "./components/Detail";
 import Registration from "./components/Registration";
 import { Login } from "./components/Login";
 import { Chatroom } from "./components/Chatroom";
